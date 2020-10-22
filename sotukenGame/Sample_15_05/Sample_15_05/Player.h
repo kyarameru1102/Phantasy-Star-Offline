@@ -13,5 +13,7 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~Player();
+
+	SkinModelRender m_model;
 };
 
