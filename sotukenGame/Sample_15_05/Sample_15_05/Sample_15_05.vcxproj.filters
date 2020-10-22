@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\system">
+      <UniqueIdentifier>{a9bb9230-eaa9-4c07-a610-f43e5384bb9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{9951587d-a3ac-4f46-a624-b8ce2382f9ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Scean">
+      <UniqueIdentifier>{a308203f-6cc3-4148-8446-af86caa8f6f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Scean\Game">
+      <UniqueIdentifier>{4945210b-b12e-4708-aaa2-8ee7e6a15271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Scean\Title">
+      <UniqueIdentifier>{f3e370df-e15c-497a-9b5e-5bcfc993a6fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{cc7395d8-c038-48b6-8449-ccd23e842334}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\math">
+      <UniqueIdentifier>{537105af-f4ca-42d1-ab2d-d112e5b73c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\tkFile">
+      <UniqueIdentifier>{22cebcfb-0109-475e-8c80-6691262acbc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\HID">
+      <UniqueIdentifier>{9f01cb00-6a78-4c93-86b4-c6d2bd22048e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\util">
+      <UniqueIdentifier>{98b354db-18d0-4d48-b00a-aa9556acbce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{faa8b8e9-01b9-49c1-8c86-08b3237070ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Charactor">
+      <UniqueIdentifier>{30078d8d-5a56-43fe-b1b2-6ed1821edc6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\SkinModel">
+      <UniqueIdentifier>{b36bacf4-c82d-45d3-bde5-37cba66b18d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Physics">
+      <UniqueIdentifier>{5c69334a-2a63-4321-bff6-fb7c3e5915fb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="system\system.cpp">
+      <Filter>ソース ファイル\system</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\GraphicsEngine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\IndexBuffer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\StructuredBuffer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\ConstantBuffer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\DescriptorHeap.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Texture.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Shader.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\math\Vector.cpp">
+      <Filter>Engine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\math\Matrix.cpp">
+      <Filter>Engine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Sprite.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\PipelineState.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\RootSignature.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp">
+      <Filter>Engine\tkFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\tkFile\TkaFile.cpp">
+      <Filter>Engine\tkFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp">
+      <Filter>Engine\tkFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Camera.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Skeleton.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\MeshParts.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Material.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\HID\GamePad.cpp">
+      <Filter>Engine\HID</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\RenderTarget.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\tkEngine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル\Game\Scean\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>ソース ファイル\Game\Scean\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinModelRender.cpp">
+      <Filter>Engine\SkinModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Model.cpp">
+      <Filter>Engine\SkinModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Physics.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\RigidBody.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\MeshCollider.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\CapsuleCollider.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\RenderContext.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\RenderContext_inline.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\VertexBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\IndexBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\StructuredBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\ConstantBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\DescriptorHeap.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Texture.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Shader.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\math\Vector.h">
+      <Filter>Engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\MiniEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\math\Math.h">
+      <Filter>Engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\math\Matrix.h">
+      <Filter>Engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Sprite.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\PipelineState.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\RootSignature.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\tkFile\TkmFile.h">
+      <Filter>Engine\tkFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h">
+      <Filter>Engine\tkFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\tkFile\TkaFile.h">
+      <Filter>Engine\tkFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Camera.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Skeleton.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\MeshParts.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Material.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\HID\GamePad.h">
+      <Filter>Engine\HID</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\RenderTarget.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\tkEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\util\Stopwatch.h">
+      <Filter>Engine\util</Filter>
+    </ClInclude>
+    <ClInclude Include="system\system.h">
+      <Filter>ソース ファイル\system</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="TrianglePolygon.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ソース ファイル\Game\Scean\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>ソース ファイル\Game\Scean\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinModelRender.h">
+      <Filter>Engine\SkinModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Model.h">
+      <Filter>Engine\SkinModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Physics\Physics.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CollisionAttr.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\ICollider.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\RigidBody.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\MeshCollider.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CapsuleCollider.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
