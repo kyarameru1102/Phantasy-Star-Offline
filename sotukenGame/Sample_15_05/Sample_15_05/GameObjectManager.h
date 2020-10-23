@@ -88,7 +88,7 @@ public:
 	/// <param name="gameObject">
 	/// ゲームオブジェクト。
 	/// </param>
-	void DeleteGameObject(GameObject*& gameObject)
+	void DeleteGameObject(IGameObject*& gameObject)
 	{
 		if (gameObject != nullptr)
 		{
@@ -133,8 +133,8 @@ public:
 		}
 	}
 private:
-	std::vector<GameObject*>			 m_gameObjectList;
-	typedef std::list<GameObject*>		GameObjectList;
+	std::vector<IGameObject*>			 m_gameObjectList;
+	typedef std::list<IGameObject*>		GameObjectList;
 	std::vector<GameObjectList>			m_gameObjectListArray;		//ゲームオブジェクトの優先度付きリスト
 	std::vector<GameObjectList>			m_deleteObjectListArray;	//削除用のリスト。
 	unsigned char						m_priorityMax = 255;		//優先度の最大数。
@@ -158,7 +158,7 @@ static inline T* NewGO(int priority, const char* objectName = nullptr)
 /// <param name="go">
 /// ゲームオブジェクト。
 /// </param>
-static inline void DeleteGO(GameObject* go)
+static inline void DeleteGO(IGameObject* go)
 {
 	gameObjectManager().DeleteGameObject(go);
 }
@@ -190,7 +190,7 @@ static inline void QueryGOs(const char* objectName, std::function<bool(T* go)> f
 /// <param name="objectName">NewGOのときにオブジェクトにつけた名前。</param>
 static inline void DeleteGOs(const char* objectName)
 {
-	QueryGOs<GameObject>(objectName, [](auto go) {
+	QueryGOs<IGameObject>(objectName, [](auto go) {
 		DeleteGO(go);
 		return true;
 	});

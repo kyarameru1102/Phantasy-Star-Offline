@@ -2,7 +2,7 @@
 /// <summary>
 /// プレイヤークラス。
 /// </summary>
-class Player
+class Player : public IGameObject
 {
 public:
 	/// <summary>

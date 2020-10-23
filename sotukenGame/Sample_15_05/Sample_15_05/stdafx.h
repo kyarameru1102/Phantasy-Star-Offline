@@ -7,4 +7,5 @@
 #include "MiniEngine.h"
 #include "GameObjectManager.h"
 #include "SkinModelRender.h"
+#include "SpriteRender.h"
 

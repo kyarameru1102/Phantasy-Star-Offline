@@ -6,7 +6,7 @@
 /// </summary>
 /// モデルを表示しやすくするクラス。
 /// GameObjectを継承しているからNewGOでインスタンスを作成する必要があるよおおおお。
-class SkinModelRender : public GameObject
+class SkinModelRender : public IGameObject
 {
 public:
 	/// <summary>

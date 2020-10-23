@@ -2,7 +2,7 @@
 /// <summary>
 /// タイトルシーン。
 /// </summary>
-class Title : public GameObject
+class Title : public IGameObject
 {
 public:
 	/// <summary>

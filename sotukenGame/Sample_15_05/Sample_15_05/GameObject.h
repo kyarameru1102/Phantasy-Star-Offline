@@ -5,17 +5,17 @@ class GameObjectManager;
 /// ゲームオブジェクト。
 /// </summary>
 /// NewGOしたいものはこれを継承してもろて。
-class GameObject
+class IGameObject
 {
 public:
 	/// <summary>
 	/// コンストラクタ。
 	/// </summary>
-	GameObject();
+	IGameObject();
 	/// <summary>
 	/// デストラクタ。
 	/// </summary>
-	virtual ~GameObject() {};
+	virtual ~IGameObject() {};
 	/// <summary>
 	/// Updateの直前に呼ばれる開始処理。
 	/// </summary>

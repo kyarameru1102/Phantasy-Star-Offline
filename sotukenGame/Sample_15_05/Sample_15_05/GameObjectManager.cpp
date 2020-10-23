@@ -33,7 +33,7 @@ void GameObjectManager::Update()
 	Render();
 
 	for (auto& deleteList : m_deleteObjectListArray) {
-		for (GameObject* go : deleteList) {
+		for (IGameObject* go : deleteList) {
 			if (go->GetIsDead() == true)
 			{
 				unsigned char prio = go->GetPriority();

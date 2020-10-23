@@ -47,6 +47,9 @@
     <Filter Include="Engine\Physics">
       <UniqueIdentifier>{5c69334a-2a63-4321-bff6-fb7c3e5915fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Sprite">
+      <UniqueIdentifier>{4097e2f8-5a0f-46ae-ad9f-21b5fbdb908e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,9 +90,6 @@
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\math\Matrix.cpp">
       <Filter>Engine\math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MiniEngine\Sprite.cpp">
-      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\PipelineState.cpp">
       <Filter>Engine</Filter>
@@ -163,6 +163,12 @@
     <ClCompile Include="Physics\CapsuleCollider.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Sprite.cpp">
+      <Filter>Engine\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRender.cpp">
+      <Filter>Engine\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
@@ -206,9 +212,6 @@
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\math\Matrix.h">
       <Filter>Engine\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\MiniEngine\Sprite.h">
-      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\PipelineState.h">
       <Filter>Engine</Filter>
@@ -282,7 +285,6 @@
     <ClInclude Include="..\..\MiniEngine\Model.h">
       <Filter>Engine\SkinModel</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h" />
     <ClInclude Include="Physics\Physics.h">
       <Filter>Engine\Physics</Filter>
     </ClInclude>
@@ -300,6 +302,15 @@
     </ClInclude>
     <ClInclude Include="Physics\CapsuleCollider.h">
       <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Sprite.h">
+      <Filter>Engine\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRender.h">
+      <Filter>Engine\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
