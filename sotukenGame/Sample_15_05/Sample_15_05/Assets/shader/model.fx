@@ -100,7 +100,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 		lig += light.pointsLights[i].color * t * affect;
 	}*/ 
 	//環境光を加算。
-	lig += 0.3f;
+	lig += 1.0f;
 	albedo.xyz *= lig;
 	return albedo;
 }

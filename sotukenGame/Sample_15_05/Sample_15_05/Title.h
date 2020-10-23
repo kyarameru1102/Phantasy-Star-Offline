@@ -24,5 +24,10 @@ public:
 private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
 	SkinModelRender* m_bgSkinModelRender = nullptr;
+	SpriteRender* m_spriteRender = nullptr;
+	Vector3	m_spritePosition = Vector3::Zero;
+	Quaternion m_rot = Quaternion::Identity;
+	float addRot = 0.0f;
+	bool m_ok = false;
 };
 
