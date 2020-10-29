@@ -20,13 +20,13 @@ bool Title::Start()
 	m_bgSkinModelRender->Init("Assets/modelData/bg.tkm");
 	//spriteテスト。
 	m_spriteRender = NewGO<SpriteRender>(0, "Sprite");
-	m_spriteRender->Init("Assets/image/sample_01.dds", 100.0f, 100.0f);
+	m_spriteRender->Init("Assets/image/Title.DDS", 1280.0f, 1000.0f);
 	return true;
 }
 
 void Title::Update()
 {
-	if (m_ok) {
+	/*if (m_ok) {
 		m_spritePosition.x += 1.0f;
 	}
 	else {
@@ -40,6 +40,6 @@ void Title::Update()
 	}
 	addRot += 1.0f;
 	m_rot.SetRotationDegZ(addRot);
-	m_spriteRender->SetRotation(m_rot);
+	m_spriteRender->SetRotation(m_rot);*/
 	m_spriteRender->SetPosition(m_spritePosition);
 }
