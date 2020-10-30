@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Title.h"
+#include "Game.h"
 
 Title::Title()
 {
@@ -8,6 +9,9 @@ Title::Title()
 
 Title::~Title()
 {
+	DeleteGO(m_ladySkinModelRender);
+	DeleteGO(m_bgSkinModelRender);
+	DeleteGO(m_spriteRender);
 }
 
 bool Title::Start()
@@ -26,20 +30,9 @@ bool Title::Start()
 
 void Title::Update()
 {
-	/*if (m_ok) {
-		m_spritePosition.x += 1.0f;
+	if (g_pad[0]->IsTrigger(enButtonA)) {
+		NewGO<Game>(0, "Game");
+		//DeleteGO(this);
 	}
-	else {
-		m_spritePosition.x -= 1.0f;
-	}
-	if (m_spritePosition.x >= 600.0f) {
-		m_ok = false;
-	}
-	if (m_spritePosition.x <= -600.0f) {
-		m_ok = true;
-	}
-	addRot += 1.0f;
-	m_rot.SetRotationDegZ(addRot);
-	m_spriteRender->SetRotation(m_rot);*/
 	m_spriteRender->SetPosition(m_spritePosition);
 }

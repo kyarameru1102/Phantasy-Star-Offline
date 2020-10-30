@@ -2,7 +2,7 @@
 /// <summary>
 /// ゲームシーン。
 /// </summary>
-class Game
+class Game : public IGameObject
 {
 public:
 	/// <summary>
@@ -13,5 +13,14 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~Game();
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
+	bool Start() override;
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
+	void Update() override;
 };
 

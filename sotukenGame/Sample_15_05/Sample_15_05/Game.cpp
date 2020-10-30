@@ -10,3 +10,12 @@ Game::Game()
 Game::~Game()
 {
 }
+
+bool Game::Start()
+{
+    return true;
+}
+
+void Game::Update()
+{
+}
