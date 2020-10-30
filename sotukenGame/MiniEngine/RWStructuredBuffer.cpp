@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "StructuredBuffer.h"
-
+#include "VertexBuffer.h"
 
 RWStructuredBuffer::~RWStructuredBuffer()
 {
@@ -51,7 +51,48 @@ void RWStructuredBuffer::Init(int sizeOfElement, int numElement, void* initData)
 	}
 	m_isInited = true;
 }
+void RWStructuredBuffer::Init(const VertexBuffer& vb, bool isUpdateByCPU )
+{
+	m_sizeOfElement = vb.GetStrideInBytes();
+	m_numElement = vb.GetSizeInBytes() / m_sizeOfElement;
+	if (isUpdateByCPU) {
+		//未対応。
+		std::abort();
+	}
+	else {
+		
+		for (auto& gpuBuffer : m_buffersOnGPU) {
+			gpuBuffer = vb.GetID3DResourceAddress();
+			gpuBuffer->AddRef();
+		}
+		//CPUからは変更できないのでマップしない。
+		for (auto& cpuBuffer : m_buffersOnCPU) {
+			cpuBuffer = nullptr;
+		}
+	}
+	m_isInited = true;
+}
+void RWStructuredBuffer::Init(const IndexBuffer& ib, bool isUpdateByCPU)
+{
+	m_sizeOfElement = ib.GetStrideInBytes();
+	m_numElement = ib.GetSizeInBytes() / m_sizeOfElement;
+	if (isUpdateByCPU) {
+		//未対応。
+		std::abort();
+	}
+	else {
 
+		for (auto& gpuBuffer : m_buffersOnGPU) {
+			gpuBuffer = ib.GetID3DResourceAddress();
+			gpuBuffer->AddRef();
+		}
+		//CPUからは変更できないのでマップしない。
+		for (auto& cpuBuffer : m_buffersOnCPU) {
+			cpuBuffer = nullptr;
+		}
+	}
+	m_isInited = true;
+}
 ID3D12Resource* RWStructuredBuffer::GetD3DResoruce()
 {
 	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();

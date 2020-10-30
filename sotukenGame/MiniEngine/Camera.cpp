@@ -44,6 +44,8 @@ void Camera::Update()
 	Vector3 toPos;
 	toPos.Subtract(m_position, m_target);
 	m_targetToPositionLen = toPos.Length();
+
+	m_isDirty = false;
 }
 void Camera::CalcScreenPositionFromWorldPosition(Vector2& screenPos, const Vector3& worldPos) const
 {
@@ -62,4 +64,5 @@ void Camera::RotateOriginTarget(const Quaternion& qRot)
 	Vector3 toPos = cameraPos - cameraTarget;
 	qRot.Apply(toPos);
 	m_position = m_target + toPos;
+	m_isDirty = true;
 }

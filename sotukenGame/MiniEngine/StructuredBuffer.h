@@ -1,6 +1,7 @@
 #pragma once
 
 
+
 /// <summary>
 /// 構造化バッファ
 /// </summary>
@@ -17,6 +18,7 @@ public:
 	/// <param name="numElement">エレメントの数。</param>
 	/// <param name="initData">初期データ。</param>
 	void Init(int sizeOfElement, int numElement, void* initData);
+	
 	/// <summary>
 	/// SRVに登録。
 	/// </summary>

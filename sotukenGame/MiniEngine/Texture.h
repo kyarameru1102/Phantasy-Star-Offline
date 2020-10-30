@@ -17,6 +17,7 @@ public:
 	/// </summary>
 	/// <param name="filePath">ロードするテクスチャのファイルパス。</param>
 	explicit Texture(const wchar_t* filePath);
+	
 	/// <summary>
 	/// DDSファイルからテクスチャを初期化する。
 	/// </summary>

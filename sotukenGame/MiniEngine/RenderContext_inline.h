@@ -57,7 +57,7 @@ inline void RenderContext::SetRenderTargets(UINT numRT, RenderTarget* renderTarg
 	//d
 	D3D12_CPU_DESCRIPTOR_HANDLE rtDSHandleTbl[32];
 	int rtNo = 0;
-	for( int rtNo = 0; rtNo < numRT; rtNo++){
+	for( UINT rtNo = 0; rtNo < numRT; rtNo++){
 		rtDSHandleTbl[rtNo] = renderTargets[rtNo]->GetRTVCpuDescriptorHandle();
 	}
 	D3D12_CPU_DESCRIPTOR_HANDLE dsDS = renderTargets[0]->GetDSVCpuDescriptorHandle();
@@ -70,4 +70,8 @@ inline void RenderContext::ClearRenderTargetViews(int numRt, RenderTarget* rende
 	for (int i = 0; i < numRt; i++) {
 		ClearRenderTargetView(renderTargets[i]->GetRTVCpuDescriptorHandle(), renderTargets[i]->GetRTVClearColor());
 	}
+}
+inline void RenderContext::SetPipelineState(raytracing::PSO& pso)
+{
+	m_commandList->SetPipelineState1(pso.Get());
 }

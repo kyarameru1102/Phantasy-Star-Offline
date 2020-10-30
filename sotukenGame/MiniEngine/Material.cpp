@@ -10,14 +10,48 @@ enum {
 	
 void Material::InitTexture(const TkmFile::SMaterial& tkmMat)
 {
+	const auto& nullTextureMaps = g_graphicsEngine->GetNullTextureMaps();
 	if (tkmMat.albedoMap != nullptr) {
 		m_albedoMap.InitFromMemory(tkmMat.albedoMap.get(), tkmMat.albedoMapSize);
+	}
+	else {
+		m_albedoMap.InitFromMemory(
+			nullTextureMaps.GetAlbedoMap().get(), 
+			nullTextureMaps.GetAlbedoMapSize());
 	}
 	if (tkmMat.normalMap != nullptr) {
 		m_normalMap.InitFromMemory(tkmMat.normalMap.get(), tkmMat.normalMapSize);
 	}
+	else {
+		m_normalMap.InitFromMemory(
+			nullTextureMaps.GetNormalMap().get(), 
+			nullTextureMaps.GetNormalMapSize());
+	}
 	if (tkmMat.specularMap != nullptr) {
 		m_specularMap.InitFromMemory(tkmMat.specularMap.get(), tkmMat.specularMapSize);
+	}
+	else {
+		m_specularMap.InitFromMemory(
+			nullTextureMaps.GetSpecularMap().get(),
+			nullTextureMaps.GetSpecularMapSize());
+	}
+
+	if (tkmMat.reflectionMap != nullptr) {
+		m_reflectionMap.InitFromMemory(tkmMat.reflectionMap.get(), tkmMat.reflectionMapSize);
+	}
+	else {
+		m_reflectionMap.InitFromMemory(
+			nullTextureMaps.GetReflectionMap().get(),
+			nullTextureMaps.GetReflectionMapSize());
+	}
+
+	if (tkmMat.refractionMap != nullptr) {
+		m_refractionMap.InitFromMemory(tkmMat.refractionMap.get(), tkmMat.refractionMapSize);
+	}
+	else {
+		m_refractionMap.InitFromMemory(
+			nullTextureMaps.GetRefractionMap().get(),
+			nullTextureMaps.GetRefractionMapSize());
 	}
 }
 void Material::InitFromTkmMaterila(
@@ -42,12 +76,12 @@ void Material::InitFromTkmMaterila(
 		D3D12_TEXTURE_ADDRESS_MODE_WRAP,
 		D3D12_TEXTURE_ADDRESS_MODE_WRAP);
 
-	//シェーダーを初期化。
-	InitShaders(fxFilePath, vsEntryPointFunc, psEntryPointFunc);
-
-	//パイプラインステートを初期化。
-	InitPipelineState();
-
+	if (wcslen(fxFilePath) > 0) {
+		//シェーダーを初期化。
+		InitShaders(fxFilePath, vsEntryPointFunc, psEntryPointFunc);
+		//パイプラインステートを初期化。
+		InitPipelineState();
+	}
 }
 void Material::InitPipelineState()
 {
@@ -78,10 +112,14 @@ void Material::InitPipelineState()
 	psoDesc.SampleMask = UINT_MAX;
 	psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	psoDesc.NumRenderTargets = 3;
-	psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//後々32ビットフォーマットに変更する良い。
-	psoDesc.RTVFormats[1] = DXGI_FORMAT_R32G32B32A32_FLOAT;	//ほげほげ	
-	psoDesc.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT; //ほげほげ
-	
+	psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
+#ifdef SAMPE_16_02
+	psoDesc.RTVFormats[1] = DXGI_FORMAT_R16G16B16A16_FLOAT;	//法線出力用。	
+	psoDesc.RTVFormats[2] = DXGI_FORMAT_R32_FLOAT;						//Z値。
+#else
+	psoDesc.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;			//法線出力用。	
+	psoDesc.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT;	//Z値。
+#endif
 	psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	psoDesc.SampleDesc.Count = 1;
 

@@ -27,6 +27,7 @@ void TkEngine::BeginFrame()
 		pad.BeginFrame();
 		pad.Update();
 	}
+	
 }
 void TkEngine::EndFrame()
 {

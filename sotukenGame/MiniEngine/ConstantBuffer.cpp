@@ -66,3 +66,8 @@ void ConstantBuffer::CopyToVRAM(void* data)
 	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
 	memcpy(m_constBufferCPU[backBufferIndex], data, m_size);
 }
+D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::GetGPUVirtualAddress()
+{
+	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
+	return m_constantBuffer[backBufferIndex]->GetGPUVirtualAddress();
+}

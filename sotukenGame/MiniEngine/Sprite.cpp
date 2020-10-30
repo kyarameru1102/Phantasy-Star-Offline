@@ -54,7 +54,7 @@
 		m_vs.LoadVS(fxFilePath, initData.m_vsEntryPointFunc);
 		m_ps.LoadPS(fxFilePath, initData.m_psEntryPoinFunc);
 	}
-	void Sprite::InitDescriptorHeap()
+	void Sprite::InitDescriptorHeap(const SpriteInitData& initData)
 	{
 		if (m_textureExternal[0] != nullptr) {
 			//外部のテクスチャが指定されている。
@@ -66,6 +66,13 @@
 			for (int texNo = 0; texNo < m_numTexture; texNo++) {
 				m_descriptorHeap.RegistShaderResource(texNo, m_textures[texNo]);
 			}
+		}
+		if (initData.m_expandShaderResoruceView != nullptr) {
+			//拡張シェーダーリソースビュー。
+			m_descriptorHeap.RegistShaderResource(
+				EXPAND_SRV_REG__START_NO,
+				*initData.m_expandShaderResoruceView
+			);
 		}
 		m_descriptorHeap.RegistConstantBuffer(0, m_constantBufferGPU);
 		if (m_userExpandConstantBufferCPU != nullptr) {
@@ -99,7 +106,7 @@
 			}
 
 		};
-		short indices[] = { 0,1,2,3 };
+		unsigned short indices[] = { 0,1,2,3 };
 
 		m_vertexBuffer.Init(sizeof(vertices), sizeof(vertices[0]));
 		m_vertexBuffer.Copy(vertices);
@@ -175,7 +182,7 @@
 		//パイプラインステートの初期化。
 		InitPipelineState();
 		//ディスクリプタヒープを初期化。
-		InitDescriptorHeap();
+		InitDescriptorHeap(initData);
 	}
 	void Sprite::Update(const Vector3& pos, const Quaternion& rot, const Vector3& scale, const Vector2& pivot)
 	{
@@ -213,6 +220,11 @@
 		m_constantBufferCPU.mulColor.y = 1.0f;
 		m_constantBufferCPU.mulColor.z = 1.0f;
 		m_constantBufferCPU.mulColor.w = 1.0f;
+		m_constantBufferCPU.screenParam.x = g_camera3D->GetNear();
+		m_constantBufferCPU.screenParam.y = g_camera3D->GetFar();
+		m_constantBufferCPU.screenParam.z = FRAME_BUFFER_W;
+		m_constantBufferCPU.screenParam.w = FRAME_BUFFER_H;
+
 		//定数バッファを更新。
 		m_constantBufferGPU.CopyToVRAM(&m_constantBufferCPU);
 		if (m_userExpandConstantBufferCPU != nullptr) {

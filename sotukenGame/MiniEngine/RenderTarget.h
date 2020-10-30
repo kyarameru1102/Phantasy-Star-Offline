@@ -92,7 +92,7 @@ private:
 	/// <param name="ge">グラフィックエンジン</param>
 	/// <param name="d3dDevice">D3Dデバイス</param>
 	/// <returns></returns>
-	bool CreateDescriptorHeap(GraphicsEngine& ge, ID3D12Device*& d3dDevice);
+	bool CreateDescriptorHeap(GraphicsEngine& ge, ID3D12Device5*& d3dDevice);
 	/// <summary>
 	/// レンダリングターゲットとなるテクスチャを作成。
 	/// </summary>
@@ -106,7 +106,7 @@ private:
 	/// <returns>trueが返ってきたら成功。</returns>
 	bool CreateRenderTargetTexture(
 		GraphicsEngine& ge,
-		ID3D12Device*& d3dDevice,
+		ID3D12Device5*& d3dDevice,
 		int w, 
 		int h,
 		int mipLevel,
@@ -125,7 +125,7 @@ private:
 	/// <returns>trueが返ってきたら成功</returns>
 	bool CreateDepthStencilTexture(
 		GraphicsEngine& ge,
-		ID3D12Device*& d3dDevice,
+		ID3D12Device5*& d3dDevice,
 		int w,
 		int h,
 		DXGI_FORMAT format);
@@ -134,7 +134,7 @@ private:
 	/// </summary>
 	/// <param name="d3dDevice">D3Dデバイス</param>
 	/// <returns>trueが返ってｋチアら成功。</returns>
-	void CreateDescriptor(ID3D12Device*& d3dDevice);
+	void CreateDescriptor(ID3D12Device5*& d3dDevice);
 private:
 	Texture m_renderTargetTexture;
 	ID3D12Resource* m_renderTargetTextureDx12;	//レンダリングターゲットとなるテクスチャ。

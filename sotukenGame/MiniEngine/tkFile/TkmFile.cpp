@@ -161,7 +161,7 @@ void BuildTangentAndBiNormalImp(TkmFile::SMesh& mesh, const IndexBuffer& indexBu
 			{ vert_2.pos.z, vert_2.uv.x, vert_2.uv.y}
 		};
 
-		// 平面パラメータからUV軸座標算出
+		// 平面パラメータからUV軸座標算出する。
 		Vector3 tangent, binormal;
 		for (int i = 0; i < 3; ++i) {
 			auto V1 = cp1[i] - cp0[i];
@@ -169,8 +169,6 @@ void BuildTangentAndBiNormalImp(TkmFile::SMesh& mesh, const IndexBuffer& indexBu
 			auto ABC = Cross(V1, V2);
 	
 			if (ABC.x == 0.0f) {
-				// やばいす！
-				// ポリゴンかUV上のポリゴンが縮退してます！
 				tangent.v[i] = 0.0f;
 				binormal.v[i] = 0.0f;
 			}
@@ -234,6 +232,10 @@ void TkmFile::BuildMaterial(SMaterial& tkmMat, FILE* fp, const char* filePath)
 	tkmMat.normalMapFileName = LoadTextureFileName(fp);
 	//スペキュラマップのファイル名をロード。
 	tkmMat.specularMapFileName = LoadTextureFileName(fp);
+	//リフレクションマップのファイル名をロード。
+	tkmMat.reflectionMapFileName = LoadTextureFileName(fp);
+	//屈折マップのファイル名をロード。
+	tkmMat.refractionMapFileName = LoadTextureFileName(fp);
 
 	std::string texFilePath = filePath;
 	auto loadTexture = [&](
@@ -269,7 +271,8 @@ void TkmFile::BuildMaterial(SMaterial& tkmMat, FILE* fp, const char* filePath)
 				fclose(texFileFp);
 			}
 			else {
-				MessageBoxA(nullptr, "テクスチャのロードに失敗しました。%s", "エラー", MB_OK);
+				MessageBoxA(nullptr, "テクスチャのロードに失敗しました。", "エラー", MB_OK);
+				std::abort();
 			}
 		}
 	};
@@ -277,7 +280,8 @@ void TkmFile::BuildMaterial(SMaterial& tkmMat, FILE* fp, const char* filePath)
 	loadTexture( tkmMat.albedoMapFileName, tkmMat.albedoMap, tkmMat.albedoMapSize );
 	loadTexture( tkmMat.normalMapFileName, tkmMat.normalMap, tkmMat.normalMapSize );
 	loadTexture( tkmMat.specularMapFileName, tkmMat.specularMap, tkmMat.specularMapSize );
-	
+	loadTexture( tkmMat.reflectionMapFileName, tkmMat.reflectionMap, tkmMat.reflectionMapSize );
+	loadTexture( tkmMat.refractionMapFileName, tkmMat.refractionMap, tkmMat.refractionMapSize) ;
 }
 void TkmFile::BuildTangentAndBiNormal()
 {

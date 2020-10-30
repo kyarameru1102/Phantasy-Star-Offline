@@ -6,13 +6,12 @@
 #include <dxgi1_2.h>
 #include <dxgi1_3.h>
 #include <dxgi1_4.h>
-
 #include "DirectXTK/Inc/DDSTextureLoader.h"
 #include "DirectXTK/Inc/ResourceUploadBatch.h"
-
 #include "RenderContext.h"
-
+#include "rayTracing/RaytracingEngine.h"
 #include "Camera.h"
+#include "NullTextureMaps.h"
 
 /// <summary>
 /// DirectX12に依存するグラフィックスエンジン
@@ -52,7 +51,7 @@ public:
 	/// D3Dデバイスを取得。
 	/// </summary>
 	/// <returns></returns>
-	ID3D12Device* GetD3DDevice()
+	ID3D12Device5* GetD3DDevice()
 	{
 		return m_d3dDevice;
 	}
@@ -80,6 +79,14 @@ public:
 	UINT GetCbrSrvDescriptorSize() const
 	{
 		return m_cbrSrvDescriptorSize;
+	}
+	/// <summary>
+	/// サンプラのディスクリプタヒープサイズを取得。
+	/// </summary>
+	/// <returns></returns>
+	UINT GetSapmerDescriptorSize() const
+	{
+		return m_samplerDescriptorSize;
 	}
 	/// <summary>
 	/// レンダリングコンテキストを取得。
@@ -117,6 +124,56 @@ public:
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCurrentFrameBuffuerRTV() const
 	{
 		return m_currentFrameBufferRTVHandle;
+	}
+	/// <summary>
+	/// 3DModelをレイトレワールドに登録。
+	/// </summary>
+	/// <param name="model"></param>
+	void RegistModelToRaytracingWorld(Model& model)
+	{
+		m_raytracingEngine.RegistGeometry(model);
+	}
+	/// <summary>
+	/// ここまで登録されたモデルを使ってレイトレワールドを構築。
+	/// </summary>
+	void BuildRaytracingWorld(RenderContext& rc)
+	{
+		m_raytracingEngine.CommitRegistGeometry(rc);
+	}
+	/// <summary>
+	/// レイトレーシングをディスパッチ。
+	/// </summary>
+	/// <param name="rc"></param>
+	void DispatchRaytracing(RenderContext& rc)
+	{
+		m_raytracingEngine.Dispatch(rc);
+	}
+	/// <summary>
+	/// フレームバッファにコピー。
+	/// </summary>
+	/// <param name="pDst"></param>
+	void CopyToFrameBuffer(RenderContext& rc, ID3D12Resource* pSrc)
+	{
+		D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+			m_renderTargets[m_frameIndex],
+			D3D12_RESOURCE_STATE_RENDER_TARGET,
+			D3D12_RESOURCE_STATE_COPY_DEST);
+		rc.ResourceBarrier(barrier);
+		rc.CopyResource(m_renderTargets[m_frameIndex], pSrc);
+
+		D3D12_RESOURCE_BARRIER barrier2 = CD3DX12_RESOURCE_BARRIER::Transition(
+			m_renderTargets[m_frameIndex],
+			D3D12_RESOURCE_STATE_COPY_DEST,
+			D3D12_RESOURCE_STATE_RENDER_TARGET);
+		rc.ResourceBarrier(barrier2);
+	}
+	/// <summary>
+	/// ヌルテクスチャマップを取得。
+	/// </summary>
+	/// <returns></returns>
+	const NullTextureMaps& GetNullTextureMaps() const
+	{
+		return m_nullTextureMaps;
 	}
 private:
 	/// <summary>
@@ -183,6 +240,7 @@ private:
 	/// 描画の完了待ち。
 	/// </summary>
 	void WaitDraw();
+	
 public:
 	enum { FRAME_BUFFER_COUNT = 2 };						//フレームバッファの数。
 private:
@@ -194,18 +252,19 @@ private:
 		Num_GPUVender,
 	};
 	
-	ID3D12Device* m_d3dDevice = nullptr;					//D3Dデバイス。
+	ID3D12Device5* m_d3dDevice = nullptr;					//D3Dデバイス。
 	ID3D12CommandQueue* m_commandQueue = nullptr;			//コマンドキュー。
 	IDXGISwapChain3* m_swapChain = nullptr;					//スワップチェイン。
 	ID3D12DescriptorHeap* m_rtvHeap = nullptr;				//レンダリングターゲットビューのディスクリプタヒープ。
 	ID3D12DescriptorHeap* m_dsvHeap = nullptr;				//深度ステンシルビューのディスクリプタヒープ。
 	ID3D12CommandAllocator* m_commandAllocator = nullptr;	//コマンドアロケータ。
-	ID3D12GraphicsCommandList* m_commandList = nullptr;		//コマンドリスト。
+	ID3D12GraphicsCommandList4* m_commandList = nullptr;		//コマンドリスト。
 	ID3D12PipelineState* m_pipelineState = nullptr;			//パイプラインステート。
 	int m_currentBackBufferIndex = 0;						//現在のバックバッファの番号。
 	UINT m_rtvDescriptorSize = 0;							//フレームバッファのディスクリプタのサイズ。
 	UINT m_dsvDescriptorSize = 0;							//深度ステンシルバッファのディスクリプタのサイズ。
 	UINT m_cbrSrvDescriptorSize = 0;						//CBR_SRVのディスクリプタのサイズ。
+	UINT m_samplerDescriptorSize = 0;					//サンプラのディスクリプタのサイズ。			
 	ID3D12Resource* m_renderTargets[FRAME_BUFFER_COUNT] = { nullptr };	//フレームバッファ用のレンダリングターゲット。
 	ID3D12Resource* m_depthStencilBuffer = nullptr;	//深度ステンシルバッファ。
 	D3D12_VIEWPORT m_viewport;			//ビューポート。
@@ -218,10 +277,12 @@ private:
 	HANDLE m_fenceEvent = nullptr;
 	ID3D12Fence* m_fence = nullptr;
 	UINT64 m_fenceValue = 0;
-	UINT m_frameBufferWidth = 0;		//フレームバッファの幅。
-	UINT m_frameBufferHeight = 0;		//フレームバッファの高さ。
-	Camera m_camera2D;					//2Dカメラ。
-	Camera m_camera3D;					//3Dカメラ。
+	UINT m_frameBufferWidth = 0;			//フレームバッファの幅。
+	UINT m_frameBufferHeight = 0;			//フレームバッファの高さ。
+	Camera m_camera2D;						//2Dカメラ。
+	Camera m_camera3D;						//3Dカメラ。
+	raytracing::Engine m_raytracingEngine;	//レイトレエンジン。
+	NullTextureMaps m_nullTextureMaps;		//ヌルテクスチャマップ。
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

@@ -50,6 +50,9 @@
     <Filter Include="Engine\Sprite">
       <UniqueIdentifier>{4097e2f8-5a0f-46ae-ad9f-21b5fbdb908e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\raytracing">
+      <UniqueIdentifier>{6ccd6f67-d4b0-43b4-9ef7-e8bd2c81127e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -168,6 +171,39 @@
     </ClCompile>
     <ClCompile Include="SpriteRender.cpp">
       <Filter>Engine\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\GPUBuffer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\NullTextureMaps.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\BLASBuffer.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\RaytracingDescriptorHeaps.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\RaytracingEngine.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\RaytracingInstance.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\RaytracingPSO.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\RaytracingShaderTable.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\RaytracingWorld.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\raytracing\TLASBuffer.cpp">
+      <Filter>Engine\raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\RWStructuredBuffer.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +347,42 @@
     </ClInclude>
     <ClInclude Include="SkinModelRender.h">
       <Filter>Engine\SkinModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\GPUBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\NullTextureMaps.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\BLASBuffer.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\Raytracing.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\RaytracingDescriptorHeaps.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\RaytracingEngine.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\RaytracingInstance.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\RaytracingPSO.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\RaytracingShaderTable.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\RaytracingWorld.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\raytracing\TLASBuffer.h">
+      <Filter>Engine\raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\RWStructuredBuffer.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

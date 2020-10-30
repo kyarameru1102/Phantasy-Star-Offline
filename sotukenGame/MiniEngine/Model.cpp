@@ -6,12 +6,13 @@ void Model::Init(const ModelInitData& initData)
 {
 	//内部のシェーダーをロードする処理が求めているのが
 	//wchar_t型の文字列なので、ここで変換しておく。
-	wchar_t wfxFilePath[256];
-	if (initData.m_fxFilePath == nullptr) {
-		MessageBoxA(nullptr, "fxファイルパスが指定されていません。", "エラー", MB_OK);
-		std::abort();
+	wchar_t wfxFilePath[256] = {L""};
+	if (initData.m_fxFilePath != nullptr) {
+		//MessageBoxA(nullptr, "fxファイルパスが指定されていません。", "エラー", MB_OK);
+		//std::abort();
+		mbstowcs(wfxFilePath, initData.m_fxFilePath, 256);
 	}
-	mbstowcs(wfxFilePath, initData.m_fxFilePath, 256);
+	
 
 	m_tkmFile.Load(initData.m_tkmFilePath);
 	m_meshParts.InitFromTkmFile(
@@ -20,7 +21,8 @@ void Model::Init(const ModelInitData& initData)
 		initData.m_vsEntryPointFunc,
 		initData.m_psEntryPointFunc,
 		initData.m_expandConstantBuffer,
-		initData.m_expandConstantBufferSize
+		initData.m_expandConstantBufferSize,
+		initData.m_expandShaderResoruceView
 	);
 
 	UpdateWorldMatrix(g_vec3Zero, g_quatIdentity, g_vec3One);

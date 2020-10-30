@@ -1,6 +1,6 @@
 #pragma once
 
-inline ID3D12DescriptorHeap* DescriptorHeap::Get()
+inline ID3D12DescriptorHeap* DescriptorHeap::Get()const
 {
 	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
 	return m_descriptorHeap[backBufferIndex];
@@ -19,4 +19,9 @@ inline D3D12_GPU_DESCRIPTOR_HANDLE DescriptorHeap::GetUavResourceGpuDescritorSta
 {
 	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
 	return m_uavGpuDescriptorStart[backBufferIndex];
+}
+inline D3D12_GPU_DESCRIPTOR_HANDLE DescriptorHeap::GetSamplerResourceGpuDescritorStartHandle() const
+{
+	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
+	return m_samplerGpuDescriptorStart[backBufferIndex];
 }

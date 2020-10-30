@@ -1,1 +1,0 @@
-texconv.exe -f B8G8R8A8_UNORM -dx10 *.png

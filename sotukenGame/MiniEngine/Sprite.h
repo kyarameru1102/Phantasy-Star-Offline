@@ -8,6 +8,10 @@ class Texture;
 
 //スプライトに設定できる最大テクスチャ数。
 const int MAX_TEXTURE = 16;	
+//拡張SRVが設定されるレジスタの開始番号。
+const int EXPAND_SRV_REG__START_NO = 10;
+
+class IShaderResource;
 
 template< class TExpandData > struct SpriteExpandDataInfo {
 	TExpandData* m_expandData = nullptr;
@@ -17,15 +21,16 @@ template< class TExpandData > struct SpriteExpandDataInfo {
 /// スプライトの初期化データ。
 /// </summary>
 struct SpriteInitData {
-	const char* m_ddsFilePath[MAX_TEXTURE]= {nullptr};	//DDSファイルのファイルパス。
-	Texture* m_textures[MAX_TEXTURE] = { nullptr };		//使用するテクスチャ。DDSファイルのパスが指定されている場合は、このパラメータは無視されます。
-	const char* m_vsEntryPointFunc = "VSMain";			//頂点シェーダーのエントリーポイント。
-	const char* m_psEntryPoinFunc = "PSMain";			//ピクセルシェーダーのエントリーポイント。
-	const char* m_fxFilePath = nullptr;					//.fxファイルのファイルパス。
-	UINT m_width = 0;									//スプライトの幅。
-	UINT m_height = 0;									//スプライトの高さ。
-	void* m_expandConstantBuffer = nullptr;				//ユーザー拡張の定数バッファ
-	int m_expandConstantBufferSize = 0;					//ユーザー拡張の定数バッファのサイズ。
+	const char* m_ddsFilePath[MAX_TEXTURE]= {nullptr};		//DDSファイルのファイルパス。
+	Texture* m_textures[MAX_TEXTURE] = { nullptr };			//使用するテクスチャ。DDSファイルのパスが指定されている場合は、このパラメータは無視されます。
+	const char* m_vsEntryPointFunc = "VSMain";				//頂点シェーダーのエントリーポイント。
+	const char* m_psEntryPoinFunc = "PSMain";				//ピクセルシェーダーのエントリーポイント。
+	const char* m_fxFilePath = nullptr;						//.fxファイルのファイルパス。
+	UINT m_width = 0;										//スプライトの幅。
+	UINT m_height = 0;										//スプライトの高さ。
+	void* m_expandConstantBuffer = nullptr;					//ユーザー拡張の定数バッファ
+	int m_expandConstantBufferSize = 0;						//ユーザー拡張の定数バッファのサイズ。
+	IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 };
 /// <summary>
 /// スプライトクラス。
@@ -73,7 +78,7 @@ private:
 	/// ディスクリプタヒープを初期化。
 	/// </summary>
 	/// <param name="initData"></param>
-	void InitDescriptorHeap();
+	void InitDescriptorHeap(const SpriteInitData& initData);
 	/// <summary>
 	/// 頂点バッファとインデックスバッファを初期化。
 	/// </summary>
@@ -102,6 +107,7 @@ private:
 	struct LocalConstantBuffer {
 		Matrix mvp;
 		Vector4 mulColor;
+		Vector4 screenParam;
 	};
 	LocalConstantBuffer m_constantBufferCPU;	//CPU側の定数バッファ。
 	ConstantBuffer		m_constantBufferGPU;	//GPU側の定数バッファ。

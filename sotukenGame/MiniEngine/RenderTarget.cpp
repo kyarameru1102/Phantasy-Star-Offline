@@ -40,7 +40,7 @@ bool RenderTarget::Create(
 	}
 	return true;
 }
-bool RenderTarget::CreateDescriptorHeap(GraphicsEngine& ge, ID3D12Device*& d3dDevice)
+bool RenderTarget::CreateDescriptorHeap(GraphicsEngine& ge, ID3D12Device5*& d3dDevice)
 {
 		
 	//RTV用のディスクリプタヒープを作成する。
@@ -72,7 +72,7 @@ bool RenderTarget::CreateDescriptorHeap(GraphicsEngine& ge, ID3D12Device*& d3dDe
 }
 bool RenderTarget::CreateRenderTargetTexture(
 	GraphicsEngine& ge,
-	ID3D12Device*& d3dDevice,
+	ID3D12Device5*& d3dDevice,
 	int w,
 	int h,
 	int mipLevel,
@@ -128,7 +128,7 @@ bool RenderTarget::CreateRenderTargetTexture(
 }
 bool RenderTarget::CreateDepthStencilTexture(
 	GraphicsEngine& ge,
-	ID3D12Device*& d3dDevice,
+	ID3D12Device5*& d3dDevice,
 	int w,
 	int h,
 	DXGI_FORMAT format)
@@ -165,7 +165,7 @@ bool RenderTarget::CreateDepthStencilTexture(
 	}
 	return true;
 }
-void RenderTarget::CreateDescriptor(ID3D12Device*& d3dDevice)
+void RenderTarget::CreateDescriptor(ID3D12Device5*& d3dDevice)
 {
 	//カラーテクスチャのディスクリプタを作成。
 	auto rtvHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();

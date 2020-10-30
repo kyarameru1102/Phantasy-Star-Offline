@@ -47,6 +47,22 @@ public:
 		return m_specularMap;
 	}
 	/// <summary>
+	/// 反射マップを取得。
+	/// </summary>
+	/// <returns></returns>
+	Texture& GetReflectionMap()
+	{
+		return m_reflectionMap;
+	}
+	/// <summary>
+	/// 屈折マップを取得。
+	/// </summary>
+	/// <returns></returns>
+	Texture& GetRefractionMap()
+	{
+		return m_refractionMap;
+	}
+	/// <summary>
 	/// 定数バッファを取得。
 	/// </summary>
 	/// <returns></returns>
@@ -82,9 +98,12 @@ private:
 		int hasNormalMap;	//法線マップを保持しているかどうかのフラグ。
 		int hasSpecMap;		//スペキュラマップを保持しているかどうかのフラグ。
 	};
-	Texture	m_albedoMap;	//アルベドマップ。
+	Texture	m_albedoMap;							//アルベドマップ。
 	Texture	m_normalMap;							//法線マップ。
 	Texture	m_specularMap;							//スペキュラマップ。
+	Texture m_reflectionMap;						//リフレクションマップ。
+	Texture m_refractionMap;						//屈折マップ。
+
 	ConstantBuffer m_constantBuffer;				//定数バッファ。
 	RootSignature m_rootSignature;					//ルートシグネチャ。
 	PipelineState m_nonSkinModelPipelineState;		//スキンなしモデル用のパイプラインステート。

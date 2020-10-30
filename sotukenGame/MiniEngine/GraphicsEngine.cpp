@@ -149,10 +149,14 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 
 	//CBR_SVRのディスクリプタのサイズを取得。
 	m_cbrSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
+	//Samplerのディスクリプタのサイズを取得。
+	m_samplerDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER);
 
 	//初期化が終わったのでDXGIを破棄。
 	dxgiFactory->Release();
+
+	//ヌルテクスチャを初期化
+	m_nullTextureMaps.Init();
 
 	//カメラを初期化する。
 	m_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
@@ -168,6 +172,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	g_camera3D = &m_camera3D;
 	//
 	g_graphicsEngine = this;
+
 	return true;
 }
 IDXGIFactory4* GraphicsEngine::CreateDXGIFactory()
@@ -192,7 +197,7 @@ IDXGIFactory4* GraphicsEngine::CreateDXGIFactory()
 
 bool GraphicsEngine::CreateD3DDevice( IDXGIFactory4* dxgiFactory )
 {
-	D3D_FEATURE_LEVEL fuatureLevel[] = {
+	D3D_FEATURE_LEVEL featureLevels[] = {
 		D3D_FEATURE_LEVEL_12_1,	//Direct3D 12.1の機能を使う。
 		D3D_FEATURE_LEVEL_12_0	//Direct3D 12.0の機能を使う。
 	};
@@ -237,11 +242,11 @@ bool GraphicsEngine::CreateD3DDevice( IDXGIFactory4* dxgiFactory )
 		//NVIDIAとAMDのGPUがなければビデオメモリが一番多いやつを使う。
 		useAdapter = adapterMaxVideoMemory;
 	}
-	for (auto fuatureLevel : fuatureLevel) {
+	for (auto featureLevel : featureLevels) {
 
 		auto hr = D3D12CreateDevice(
 			useAdapter,
-			fuatureLevel,
+			featureLevel,
 			IID_PPV_ARGS(&m_d3dDevice)
 		);
 		if (SUCCEEDED(hr)) {
@@ -455,10 +460,13 @@ void GraphicsEngine::EndRender()
 	//コマンドを実行。
 	ID3D12CommandList* ppCommandLists[] = { m_commandList };
 	m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
-
+#ifdef SAMPE_16_04
+	// Present the frame.
+	m_swapChain->Present(0, 0);
+#else
 	// Present the frame.
 	m_swapChain->Present(1, 0);
-
+#endif
 	//描画完了待ち。
 	WaitDraw();
 }

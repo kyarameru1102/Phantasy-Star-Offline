@@ -1,6 +1,7 @@
 #pragma once
 
 #pragma comment( lib, "xinput.lib")
+#pragma comment(lib, "dxcompiler.lib")
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +18,8 @@
 #include <DirectXMath.h>
 #include <Xinput.h>
 #include <array>
+#include <dxcapi.h>
+#include <atlbase.h>
 
 #include "d3dx12.h"
 #include "math/Math.h"
@@ -28,15 +31,19 @@
 #include "IndexBuffer.h"
 #include "IShaderResource.h"
 #include "IUnorderAccessResource.h"
+#include "GPUBuffer.h"
 #include "Texture.h"
 #include "RWStructuredBuffer.h"
+#include "StructuredBuffer.h"
 #include "Shader.h"
 #include "PipelineState.h"
 #include "ConstantBuffer.h"
 #include "RootSignature.h"
+#include "raytracing/Raytracing.h"
 #include "GraphicsEngine.h"
 #include "DescriptorHeap.h"
 #include "RenderTarget.h"
+
 
 #include "RenderContext_inline.h"
 #include "DescriptorHeap_inline.h"
@@ -47,3 +54,4 @@
 
 const UINT FRAME_BUFFER_W = 1280;				//フレームバッファの幅。
 const UINT FRAME_BUFFER_H = 720;				//フレームバッファの高さ。
+static const int MAX_BONE = 512;	//!<ボーンの最大数。

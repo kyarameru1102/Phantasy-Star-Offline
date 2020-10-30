@@ -4,6 +4,10 @@ class ConstantBuffer;
 class Texture;
 class DescriptorHeap;
 class RenderTarget;
+
+namespace raytracing{
+	class PSO;
+}
 /// <summary>
 /// レンダリングコンテキスト。
 /// </summary>
@@ -13,7 +17,7 @@ public:
 	/// 初期化。
 	/// </summary>
 	/// <param name="commandList">コマンドリスト。</param>
-	void Init(ID3D12GraphicsCommandList* commandList)
+	void Init(ID3D12GraphicsCommandList4* commandList)
 	{
 		m_commandList = commandList;
 	}
@@ -49,7 +53,7 @@ public:
 	/// コマンドリストを設定。
 	/// </summary>
 	/// <param name="commandList">コマンドリスト。</param>
-	void SetCommandList(ID3D12GraphicsCommandList* commandList)
+	void SetCommandList(ID3D12GraphicsCommandList4* commandList)
 	{
 		m_commandList = commandList;
 	}
@@ -81,6 +85,10 @@ public:
 	{
 		m_commandList->SetGraphicsRootSignature(rootSignature.Get());
 	}
+	void SetComputeRootSignature(ID3D12RootSignature* rootSignature)
+	{
+		m_commandList->SetComputeRootSignature(rootSignature);
+	}
 	void SetComputeRootSignature(RootSignature& rootSignature)
 	{
 		m_commandList->SetComputeRootSignature(rootSignature.Get());
@@ -97,10 +105,34 @@ public:
 		m_commandList->SetPipelineState(pipelineState.Get());
 	}
 	/// <summary>
+	/// レイトレ用のパイプラインステートオブジェクトを設定。
+	/// </summary>
+	/// <param name="pso"></param>
+	void SetPipelineState(raytracing::PSO& pso);
+
+	/// <summary>
 	/// ディスクリプタヒープを設定。
 	/// </summary>
+	void SetDescriptorHeap(ID3D12DescriptorHeap* descHeap)
+	{
+		m_descriptorHeaps[0] = descHeap;
+		m_commandList->SetDescriptorHeaps(1, m_descriptorHeaps);
+	}
+	
 	void SetDescriptorHeap(DescriptorHeap& descHeap);
 	void SetComputeDescriptorHeap(DescriptorHeap& descHeap);
+	/// <summary>
+	/// 複数のディスクリプタヒープを登録。
+	/// </summary>
+	/// <param name="numDescriptorHeap">ディスクリプタヒープの数。</param>
+	/// <param name="descHeaps">ディスクリプタヒープの配列</param>
+	void SetDescriptorHeaps(int numDescriptorHeap, const DescriptorHeap* descHeaps[])
+	{
+		for (int i = 0; i < numDescriptorHeap; i++) {
+			m_descriptorHeaps[i] = descHeaps[i]->Get();
+		}
+		m_commandList->SetDescriptorHeaps(numDescriptorHeap, m_descriptorHeaps);
+	}
 	/// <summary>
 	/// 定数バッファを設定。
 	/// </summary>
@@ -267,6 +299,30 @@ public:
 	{
 		m_commandList->Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ);
 	}
+	/// <summary>
+	/// GPUでレイトレーシングアクセラレーション構造のビルドを行います。
+	/// </summary>
+	void BuildRaytracingAccelerationStructure(D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC desc)
+	{
+		m_commandList->BuildRaytracingAccelerationStructure(&desc, 0, nullptr);
+	}
+	/// <summary>
+	/// レイをディスパッチ
+	/// </summary>
+	/// <param name="rayDesc"></param>
+	void DispatchRays(D3D12_DISPATCH_RAYS_DESC& rayDesc)
+	{
+		m_commandList->DispatchRays(&rayDesc);
+	}
+	/// <summary>
+	/// リソースをコピー。
+	/// </summary>
+	/// <param name="pDst">コピー先のリソース</param>
+	/// <param name="pSrc">コピー元のリソース</param>
+	void CopyResource(ID3D12Resource* pDst, ID3D12Resource* pSrc)
+	{
+		m_commandList->CopyResource(pDst, pSrc);
+	}
 private:
 
 	/// <summary>
@@ -302,7 +358,7 @@ private:
 	enum { MAX_CONSTANT_BUFFER = 8 };	//定数バッファの最大数。足りなくなったら増やしてね。
 	enum { MAX_SHADER_RESOURCE = 16 };	//シェーダーリソースの最大数。足りなくなったら増やしてね。
 
-	ID3D12GraphicsCommandList* m_commandList;	//コマンドリスト。
+	ID3D12GraphicsCommandList4* m_commandList;	//コマンドリスト。
 	ID3D12DescriptorHeap* m_descriptorHeaps[MAX_DESCRIPTOR_HEAP];			//ディスクリプタヒープの配列。
 	ConstantBuffer* m_constantBuffers[MAX_CONSTANT_BUFFER] = { nullptr };	//定数バッファの配列。
 	Texture* m_shaderResources[MAX_SHADER_RESOURCE] = { nullptr };			//シェーダーリソースの配列。

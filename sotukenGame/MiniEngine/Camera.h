@@ -26,11 +26,50 @@ public:
 	/// <param name="qRot">回転させるクォータニオン</param>
 	void RotateOriginTarget( const Quaternion& qRot);
 	/// <summary>
+	/// カメラを動かす。
+	/// </summary>
+	/// <param name="move">動かす量</param>
+	void Move(const Vector3& move)
+	{
+		m_position += move;
+		m_target += move;
+		m_isDirty = true;
+	}
+	/// <summary>
+	/// カメラの前方方向に移動。
+	/// </summary>
+	/// <param name="moveForward"></param>
+	void MoveForward(float moveForward)
+	{
+		Move(m_forward * moveForward);
+	}
+	/// <summary>
+	/// カメラの右方向に移動。
+	/// </summary>
+	/// <param name="moveRight"></param>
+	void MoveRight(float moveRight)
+	{
+		Move(m_right * moveRight);
+	}
+	/// <summary>
+	/// カメラの上方向に移動。
+	/// </summary>
+	/// <param name="moveUp"></param>
+	void MoveUp(float moveUp)
+	{
+		Move(m_up * moveUp);
+	}
+	/// <summary>
 	/// カメラの座標を設定する。
 	/// </summary>
 	void SetPosition( const Vector3& pos ) 
 	{
 		m_position = pos;
+		m_isDirty = true;
+	}
+	void SetPosition(float x, float y, float z)
+	{
+		SetPosition({ x, y, z });
 	}
 	/// <summary>
 	/// カメラの座標を取得。
@@ -42,9 +81,14 @@ public:
 	/// <summary>
 	/// 注視点を設定。
 	/// </summary>
+	void SetTarget(float x, float y, float z)
+	{
+		SetTarget({x, y, z});
+	}
 	void SetTarget( const Vector3& target )
 	{
 		m_target = target;
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// 注視点を取得。
@@ -71,36 +115,56 @@ public:
 	/// <summary>
 	/// ビュー行列の逆行列を取得。
 	/// </summary>
-	const Matrix& GetViewMatrixInv() const
+	const Matrix& GetViewMatrixInv() 
 	{
+		if (m_isDirty) {
+			//更新する必要がある。
+			Update();
+		}
 		return m_viewMatrixInv;
 	}
 	/// <summary>
 	/// ビュー行列を取得。
 	/// </summary>
-	const Matrix& GetViewMatrix() const
+	const Matrix& GetViewMatrix() 
 	{
+		if (m_isDirty) {
+			//更新する必要がある。
+			Update();
+		}
 		return m_viewMatrix;
 	}
 	/// <summary>
 	/// プロジェクション行列を取得。
 	/// </summary>
-	const Matrix& GetProjectionMatrix() const
+	const Matrix& GetProjectionMatrix() 
 	{
+		if (m_isDirty) {
+			//更新する必要がある。
+			Update();
+		}
 		return m_projectionMatrix;
 	}
 	/// <summary>
 	/// ビュー×プロジェクション行列を取得。
 	/// </summary>
-	const Matrix& GetViewProjectionMatrix() const
+	const Matrix& GetViewProjectionMatrix() 
 	{
+		if (m_isDirty) {
+			//更新する必要がある。
+			Update();
+		}
 		return m_viewProjectionMatrix;
 	}
 	/// <summary>
 	/// カメラの回転行列を取得。
 	/// </summary>
-	const Matrix& GetCameraRotation() const
+	const Matrix& GetCameraRotation() 
 	{
+		if (m_isDirty) {
+			//更新する必要がある。
+			Update();
+		}
 		return m_cameraRotation;
 	}
 	/// <summary>
@@ -109,6 +173,7 @@ public:
 	void SetFar( float fFar )
 	{
 		m_far = fFar;
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// 近平面までの距離を設定。
@@ -116,6 +181,7 @@ public:
 	void SetNear( float fNear )
 	{
 		m_near = fNear;
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// 遠平面までの距離を取得。
@@ -140,6 +206,7 @@ public:
 	void SetWidth(float w)
 	{
 		m_width = w;
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// 平行投影の高さを設定。
@@ -150,6 +217,7 @@ public:
 	void SetHeight(float h)
 	{
 		m_height = h;
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// 平行投影の幅を取得。
@@ -174,6 +242,7 @@ public:
 	void SetUpdateProjMatrixFunc(EnUpdateProjMatrixFunc func)
 	{
 		m_updateProjMatrixFunc = func;
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// 画角を設定。
@@ -185,6 +254,7 @@ public:
 	void SetViewAngle(float viewAngle)
 	{
 		m_viewAngle = viewAngle;
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// 画角を取得。
@@ -231,6 +301,7 @@ public:
 	void CopyTo(Camera& dst) 
 	{
 		memcpy(&dst, this, sizeof(dst));
+		m_isDirty = true;
 	}
 	/// <summary>
 	/// ワールド座標からスクリーン座標を計算する。
@@ -263,4 +334,5 @@ protected:
 	float		m_height = 720.0f;						//平行投影行列を作成するときに使用される高さ。
 	EnUpdateProjMatrixFunc m_updateProjMatrixFunc = enUpdateProjMatrixFunc_Perspective;	//プロジェクション行列の更新の仕方。
 	bool		m_isNeedUpdateProjectionMatrix = true;
+	bool		m_isDirty = false;						//ダーティフラグ。
 };

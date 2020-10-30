@@ -26,9 +26,37 @@ public:
 	/// 頂点バッファビューを取得。
 	/// </summary>
 	/// <returns>ビュー</returns>
-	D3D12_VERTEX_BUFFER_VIEW& GetView()
+	const D3D12_VERTEX_BUFFER_VIEW& GetView() const
 	{
 		return m_vertexBufferView;
+	}
+	/// <summary>
+	/// 頂点バッファのストライド(単位：バイト)を取得。
+	/// </summary>
+	/// <remarks>
+	/// ストライドというのは、１要素のサイズのこと。
+	/// ここでは、一つの頂点のサイズを取得することになる。
+	/// </remarks>
+	/// <returns></returns>
+	UINT GetStrideInBytes() const
+	{
+		return m_vertexBufferView.StrideInBytes;
+	}
+	/// <summary>
+	/// 頂点バッファのサイズ(単位：バイト)を取得。
+	/// </summary>
+	/// <returns></returns>
+	UINT GetSizeInBytes() const
+	{
+		return m_vertexBufferView.SizeInBytes;
+	}
+	/// <summary>
+	/// ID3D12Resourceのアドレスを取得します。
+	/// </summary>
+	/// <returns></returns>
+	ID3D12Resource* GetID3DResourceAddress() const
+	{
+		return m_vertexBuffer;
 	}
 private:
 	ID3D12Resource* m_vertexBuffer = nullptr;		//頂点バッファ。

@@ -4,6 +4,7 @@
 #include "MeshParts.h"
 #include "Skeleton.h"
 
+class IShaderResource;
 
 /// <summary>
 /// モデルの初期化データ
@@ -15,6 +16,7 @@ struct ModelInitData {
 	const char* m_fxFilePath = nullptr;			//.fxファイルのファイルパス。
 	void* m_expandConstantBuffer = nullptr;		//ユーザー拡張の定数バッファ。
 	int m_expandConstantBufferSize = 0;			//ユーザー拡張の定数バッファのサイズ。
+	IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
 };
 /// <summary>
 /// モデルクラス。
@@ -57,8 +59,20 @@ public:
 	{
 		return m_world;
 	}
-	
+	/// <summary>
+	/// メッシュに対して問い合わせを行う。
+	/// </summary>
+	/// <param name="queryFunc">問い合わせ関数</param>
+	void QueryMeshs(std::function<void(const SMesh& mesh)> queryFunc)
+	{
+		m_meshParts.QueryMeshs(queryFunc);
+	}
+	void QueryMeshAndDescriptorHeap(std::function<void(const SMesh& mesh, const DescriptorHeap& ds)> queryFunc)
+	{
+		m_meshParts.QueryMeshAndDescriptorHeap(queryFunc);
+	}
 private:
+
 	Matrix m_world;			//ワールド行列。
 	TkmFile m_tkmFile;		//tkmファイル。
 	Skeleton m_skeleton;	//スケルトン。
