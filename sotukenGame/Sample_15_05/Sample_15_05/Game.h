@@ -22,5 +22,7 @@ public:
 	/// XVŠÖ”B
 	/// </summary>
 	void Update() override;
+private:
+	SkinModelRender* m_ladySkinModelRender = nullptr;
 };
 

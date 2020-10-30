@@ -9,9 +9,9 @@ Title::Title()
 
 Title::~Title()
 {
-	DeleteGO(m_ladySkinModelRender);
-	DeleteGO(m_bgSkinModelRender);
-	DeleteGO(m_spriteRender);
+	//DeleteGO(m_ladySkinModelRender);
+	//DeleteGO(m_bgSkinModelRender);
+	//DeleteGO(m_spriteRender);
 }
 
 bool Title::Start()
@@ -32,7 +32,7 @@ void Title::Update()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		NewGO<Game>(0, "Game");
-		//DeleteGO(this);
+		DeleteGO(this);
 	}
 	m_spriteRender->SetPosition(m_spritePosition);
 }
