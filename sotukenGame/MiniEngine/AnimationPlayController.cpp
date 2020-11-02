@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "AnimationPlayController.h"
 #include "AnimationClip.h"
+
 #include "Skeleton.h"
 
 void AnimationPlayController::Init(Skeleton* skeleton, int footStepBoneNo)

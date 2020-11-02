@@ -41,17 +41,23 @@
     <Filter Include="ソース ファイル\Game\Charactor">
       <UniqueIdentifier>{30078d8d-5a56-43fe-b1b2-6ed1821edc6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\SkinModel">
-      <UniqueIdentifier>{b36bacf4-c82d-45d3-bde5-37cba66b18d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Physics">
       <UniqueIdentifier>{5c69334a-2a63-4321-bff6-fb7c3e5915fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Sprite">
-      <UniqueIdentifier>{4097e2f8-5a0f-46ae-ad9f-21b5fbdb908e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\raytracing">
       <UniqueIdentifier>{6ccd6f67-d4b0-43b4-9ef7-e8bd2c81127e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics">
+      <UniqueIdentifier>{4844c54d-e051-4b60-ab6c-5bef6c9bff77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\SkinModel">
+      <UniqueIdentifier>{b36bacf4-c82d-45d3-bde5-37cba66b18d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Sprite">
+      <UniqueIdentifier>{4097e2f8-5a0f-46ae-ad9f-21b5fbdb908e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Animation">
+      <UniqueIdentifier>{28e71927-4c9f-4f07-b609-b6a42605328c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -146,10 +152,10 @@
       <Filter>Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="SkinModelRender.cpp">
-      <Filter>Engine\SkinModel</Filter>
+      <Filter>Engine\Graphics\SkinModel</Filter>
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\Model.cpp">
-      <Filter>Engine\SkinModel</Filter>
+      <Filter>Engine\Graphics\SkinModel</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>ソース ファイル</Filter>
@@ -167,10 +173,10 @@
       <Filter>Engine\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\Sprite.cpp">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Graphics\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRender.cpp">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Graphics\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\GPUBuffer.cpp">
       <Filter>Engine</Filter>
@@ -204,6 +210,18 @@
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\RWStructuredBuffer.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\BoxCollider.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\Animation.cpp">
+      <Filter>Engine\Graphics\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\AnimationClip.cpp">
+      <Filter>Engine\Graphics\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MiniEngine\AnimationPlayController.cpp">
+      <Filter>Engine\Graphics\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,7 +334,7 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\Model.h">
-      <Filter>Engine\SkinModel</Filter>
+      <Filter>Engine\Graphics\SkinModel</Filter>
     </ClInclude>
     <ClInclude Include="Physics\Physics.h">
       <Filter>Engine\Physics</Filter>
@@ -340,13 +358,13 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\Sprite.h">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Graphics\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRender.h">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Graphics\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="SkinModelRender.h">
-      <Filter>Engine\SkinModel</Filter>
+      <Filter>Engine\Graphics\SkinModel</Filter>
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\GPUBuffer.h">
       <Filter>Engine</Filter>
@@ -383,6 +401,18 @@
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\RWStructuredBuffer.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\BoxCollider.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\Animation.h">
+      <Filter>Engine\Graphics\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\AnimationClip.h">
+      <Filter>Engine\Graphics\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MiniEngine\AnimationPlayController.h">
+      <Filter>Engine\Graphics\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -60,6 +60,14 @@ public:
 		return m_world;
 	}
 	/// <summary>
+	/// tkmファイルを取得。
+	/// </summary>
+	/// <returns></returns>
+	const TkmFile& GetTkmFile() const
+	{
+		return m_tkmFile;
+	}
+	/// <summary>
 	/// メッシュに対して問い合わせを行う。
 	/// </summary>
 	/// <param name="queryFunc">問い合わせ関数</param>

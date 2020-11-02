@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include "tkEngine/graphics/tkAnimationClip.h"
-#include "tkEngine/graphics/tkAnimationPlayController.h"
+#include "AnimationClip.h"
+#include "AnimationPlayController.h"
+#include "math/Vector.h"
 
-namespace tkEngine{
-	namespace prefab {
-		class CModelRender;
-	}
-	class CSkeleton;
+
+
+
+	class Skeleton;
 	using AnimationEventListener = std::function<void(const wchar_t* clipName, const wchar_t* eventName)>;
 
 	/// <summary>
@@ -29,9 +29,8 @@ namespace tkEngine{
 	///		この機能を活用することで、アニメータが作成した歩きアニメーションなどに移動量を
 	///		含むことができ、アニメータが意図した移動を行うことができます。
 	/// </remarks>
-	class CAnimation {
+	class Animation {
 	public:
-
 		/// <summary>
 		/// 初期化済みか判定。
 		/// </summary>
@@ -46,7 +45,7 @@ namespace tkEngine{
 		/// </summary>
 		/// <param name="skeleton">アニメーションさせるスケルトン</param>
 		/// <param name="animClips">アニメーションクリップ。</param>
-		void Init(CSkeleton& skeleton, const vector<unique_ptr<CAnimationClip>>& animClips);
+		void Init(Skeleton& skeleton, const std::vector<std::unique_ptr<AnimationClip>>& animClips);
 		/// <summary>
 		/// アニメーションの再生。
 		/// </summary>
@@ -104,7 +103,7 @@ namespace tkEngine{
 		{
 			m_animationEventListeners.push_back(eventListener);
 		}
-	
+
 		/*!
 		* @brief	アニメーションイベントをリスナーに通知。
 		*/
@@ -125,16 +124,16 @@ namespace tkEngine{
 		/// <param name="rotation">モデルの回転</param>
 		/// <param name="scale">モデルの拡大率</param>
 		/// <returns>ワールド空間でのフットステップの移動量。</returns>
-		CVector3 CalcFootstepDeltaValueInWorldSpace(CQuaternion rotation, CVector3 scale) const;
+		Vector3 CalcFootstepDeltaValueInWorldSpace(Quaternion rotation, Vector3 scale) const;
 
 	private:
-		void PlayCommon(CAnimationClip* nextClip, float interpolateTime)
+		void PlayCommon(AnimationClip* nextClip, float interpolateTime)
 		{
-			if (nextClip->IsLoaded() == false) {
-				//アニメーションクリップがロードされていない。
-				TK_WARNING_MESSAGE_BOX("警告 : アニメーションクリップがロードされていません。");
-				return;
-			}
+			//if (nextClip->IsLoaded() == false) {
+			//	//アニメーションクリップがロードされていない。
+			//	//TK_WARNING_MESSAGE_BOX("警告 : アニメーションクリップがロードされていません。");
+			//	return;
+			//}
 			int index = GetLastAnimationControllerIndex();
 			if (m_animationPlayController[index].GetAnimClip() == nextClip) {
 				return;
@@ -163,7 +162,7 @@ namespace tkEngine{
 		/// </summary>
 		void UpdateGlobalPose();
 	private:
-		
+
 		/*!
 		 *@brief	最終ポーズになるアニメーションのリングバッファ上でのインデックスを取得。
 		 */
@@ -180,20 +179,19 @@ namespace tkEngine{
 		{
 			return (startIndex + localIndex) % ANIMATION_PLAY_CONTROLLER_NUM;
 		}
-		
+
 	private:
 		static const int ANIMATION_PLAY_CONTROLLER_NUM = 32;	//!<アニメーションコントローラの数。
-		vector<CAnimationClip*>	m_animationClips;	//!<アニメーションクリップの配列。
-		CSkeleton* m_skeleton = nullptr;	//!<アニメーションを適用するスケルトン。
-		CAnimationPlayController	m_animationPlayController[ANIMATION_PLAY_CONTROLLER_NUM];	//!<アニメーションコントローラ。リングバッファ。
+		std::vector<AnimationClip*>	m_animationClips;	//!<アニメーションクリップの配列。
+		Skeleton* m_skeleton = nullptr;	//!<アニメーションを適用するスケルトン。
+		AnimationPlayController	m_animationPlayController[ANIMATION_PLAY_CONTROLLER_NUM];	//!<アニメーションコントローラ。リングバッファ。
 		int m_numAnimationPlayController = 0;		//!<現在使用中のアニメーション再生コントローラの数。
 		int m_startAnimationPlayController = 0;		//!<アニメーションコントローラの開始インデックス。
 		float m_interpolateTime = 0.0f;
 		float m_interpolateTimeEnd = 0.0f;
 		bool m_isInterpolate = false;								//!<補間中？
-		vector<AnimationEventListener>	m_animationEventListeners;	//!<アニメーションイベントリスナーのリスト。
-		CVector3 m_footstepDeltaValue = g_vec3Zero;					//footstepボーンの移動量。
+		std::vector<AnimationEventListener>	m_animationEventListeners;	//!<アニメーションイベントリスナーのリスト。
+		Vector3 m_footstepDeltaValue = g_vec3Zero;					//footstepボーンの移動量。
 		bool m_isInited = false;
 		float m_deltaTimeOnUpdate = 0.0f;							//Update関数を実行したときのデルタタイム。
 	};
-}
