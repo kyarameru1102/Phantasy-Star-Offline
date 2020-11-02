@@ -415,7 +415,4 @@
       <Filter>Engine\Graphics\Animation</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\image\Title.DDS" />
-  </ItemGroup>
 </Project>
