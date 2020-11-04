@@ -78,6 +78,10 @@ public:
 			queryFunc(*m_meshs[i], m_descriptorHeap[i]);
 		}
 	}
+	Skeleton* GetSkeleton()
+	{
+		return m_skeleton;
+	}
 private:
 	/// <summary>
 	/// tkmメッシュからメッシュを作成。

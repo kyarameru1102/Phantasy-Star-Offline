@@ -11,31 +11,30 @@ namespace {
 	const float DELTA_SEC_PER_FRAME_ON_DCC_TOOL = 1.0f / 30.0f;
 }
 
-void Animation::Init(Skeleton& skeleton, const std::vector<std::unique_ptr<AnimationClip>>& animClips)
-{
-	//TK_ASSERT(animClips.empty() == false, "animClipListが空です。");
-	m_skeleton = &skeleton;
-	for (auto& animClip : animClips) {
-		m_animationClips.push_back(animClip.get());
-	}
-	//footstepボーンの番号を調べる。
-	int footstepBoneNo = -1;
-	int numBone = m_skeleton->GetNumBones();
-	for (int boneNo = 0; boneNo < numBone; boneNo++) {
-		auto bone = m_skeleton->GetBone(boneNo);
-		if (wcscmp(bone->GetName(), L"footstep") == 0) {
-			//footstepボーンが見つかった。
-			footstepBoneNo = boneNo;
-			break;
-		}
-	}
 
+
+void Animation::Init(Model& Model, AnimationClip animClipList[], int numAnimClip)
+{
+	if (animClipList == nullptr) {
+#ifdef _DEBUG
+		char message[256];
+		strcpy(message, "animClipListがNULLです。\n");
+		OutputDebugStringA(message);
+		//止める。
+		std::abort();
+#endif
+
+	}
+	m_skeleton = &Model.GetSkeleton();
+
+	for (int i = 0; i < numAnimClip; i++) {
+		m_animationClips.push_back(&animClipList[i]);
+	}
 	for (auto& ctr : m_animationPlayController) {
-		ctr.Init(m_skeleton, footstepBoneNo);
+		ctr.Init(m_skeleton);
 	}
 
 	Play(0);
-	m_isInited = true;
 }
 
 void Animation::Progress(float deltaTime)

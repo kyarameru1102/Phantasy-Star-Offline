@@ -1,11 +1,15 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.h"
+#include "AnimationClip.h"
 
 /// <summary>
 /// スキンモデルレンダー。
 /// </summary>
 /// モデルを表示しやすくするクラス。
 /// GameObjectを継承しているからNewGOでインスタンスを作成する必要があるよおおおお。
+//class Animation;
+//class AnimationClip;
 class SkinModelRender : public IGameObject
 {
 public:
@@ -18,17 +22,18 @@ public:
 	/// </summary>
 	~SkinModelRender();
 	/// <summary>
-	/// 初期化関数。
+	/// 初期化
 	/// </summary>
-	/// <param name="tkm">tkmファイル</param>
-	/// <param name="fx">使用するシェーダー</param>
-	/// シェーダーを差し替えたい場合のみ第二引数を変更してください。
-	/// シェーダーを変える気がないのであれば第二引数はいじらなくていい。
-	void Init(const char *tkm,const char *fx = "Assets/shader/model.fx");
-	/// <summary>
-	/// モデルを表示する座標を設定する関数。
-	/// </summary>
-	/// <param name="position">Vector3 position</param>
+	/// <param name="filePath">モデルのファイルパス(tkm)</param>
+	/// <param name="animationClips">アニメーションクリップ</param>
+	/// <param name="numAnimationClips">アニメーションクリップの数</param>
+	void Init(const char* filePath,
+		AnimationClip* animationClips = nullptr,
+		int numAnimationClips = 0,
+		const char* fx = "Assets/shader/model.fx"
+	);
+	//アニメーションの初期化
+	void InitAnimation(AnimationClip* animationClips, int numAnimationClips);
 	void SetPosition(const Vector3& position)
 	{
 		m_position = position;
@@ -61,6 +66,11 @@ public:
 	{
 		m_renderOn = on;
 	}
+	
+	void PlayAnimation(int animNo, float interpolateTime)
+	{
+		m_animation.Play(animNo, interpolateTime);
+	}
 private:
 	/// <summary>
 	/// 開始関数。
@@ -76,12 +86,18 @@ private:
 	/// </summary>
 	void Render() override;
 private:
-	ModelInitData	m_modelInitData;						//初期化用データ。
-	Model			m_model;								//モデル。
-	Vector3			m_position = Vector3::Zero;				//座標。
-	Quaternion		m_rotation = Quaternion::Identity;		//回転。
-	Vector3			m_scale = Vector3::One;					//拡大率。
-	bool			m_renderOn = true;						//描画されるかどうか。
-	bool            m_renderOK = false;						//Updateの後にレンダーが呼ばれるようにするフラグ。
+	Animation m_animation;								//アニメーション
+	AnimationClip* m_animationClip;						//アニメーションクリップ
+	int m_numAnimationClips = 0;						//アニメーションクリップの数
+	ModelInitData										m_modelInitData;						//初期化用データ。
+	Model												m_model;								//モデル。
+	Vector3												m_position = Vector3::Zero;				//座標。
+	Quaternion											m_rotation = Quaternion::Identity;		//回転。
+	Vector3												m_scale = Vector3::One;					//拡大率。
+	bool												m_renderOn = true;						//描画されるかどうか。
+	bool												m_renderOK = false;						//Updateの後にレンダーが呼ばれるようにするフラグ。
+	Skeleton											m_skeleton;
+	const char* m_filePath = nullptr;
+	bool m_isInitAnimation = false;						//アニメーション初期化した？
 };
 

@@ -73,8 +73,16 @@ public:
 	{
 		return static_cast<int>(m_keyFrames.size());
 	}
+	void LoadAsync(const char* filePath)
+	{
+		m_filePath = filePath;
+		m_loadThread = std::make_unique<std::thread>(
+			[&]() {	Load(m_filePath.c_str());  });
+	}
 private:
 	std::vector< AnimationEvent> m_animationEvents;	//アニメーションイベント。
 	std::vector< KeyFrame> m_keyFrames;				//キーフレーム。
+	std::string m_filePath;
+	std::unique_ptr< std::thread > m_loadThread;
 };
 

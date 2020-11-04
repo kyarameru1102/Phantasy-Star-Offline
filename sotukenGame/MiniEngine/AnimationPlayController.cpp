@@ -8,9 +8,8 @@
 
 #include "Skeleton.h"
 
-void AnimationPlayController::Init(Skeleton* skeleton, int footStepBoneNo)
+void AnimationPlayController::Init(Skeleton* skeleton)
 {
-	m_footstepBoneNo = footStepBoneNo;
 	int numBones = skeleton->GetNumBones();
 	//ボーン行列をバシッと確保。
 	m_boneMatrix.resize(numBones);

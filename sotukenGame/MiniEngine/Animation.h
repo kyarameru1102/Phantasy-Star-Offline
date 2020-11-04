@@ -40,12 +40,15 @@
 			return m_isInited;
 		}
 
+		
+		
 		/// <summary>
-		/// 初期化。
+		/// brief	初期化。
+		///param[in]	skinModel		アニメーションさせるスキンモデル。
+		///	param[in]	animeClipList	アニメーションクリップの配列。
+		///	param[in]	numAnimClip		アニメーションクリップの数。
 		/// </summary>
-		/// <param name="skeleton">アニメーションさせるスケルトン</param>
-		/// <param name="animClips">アニメーションクリップ。</param>
-		void Init(Skeleton& skeleton, const std::vector<std::unique_ptr<AnimationClip>>& animClips);
+		void Init(Model& Model, AnimationClip animClipList[], int numAnimClip);
 		/// <summary>
 		/// アニメーションの再生。
 		/// </summary>

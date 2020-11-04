@@ -33,7 +33,7 @@ public:
 	/// </summary>
 	/// <param name="skeleton">スケルトン</param>
 	/// <param name="footStepBoneNo">footstepボーンの番号</param>
-	void Init(Skeleton* skeleton, int footStepBoneNo);
+	void Init(Skeleton* skeleton);
 	/*!
 	* @brief	アニメーションクリップの変更。
 	*/

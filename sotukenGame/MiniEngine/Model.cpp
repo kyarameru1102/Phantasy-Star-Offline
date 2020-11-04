@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Model.h"
 
+//
+//void Model::LoadTkmFileAsync(const char* filePath)
+//{
+//}
 
 void Model::Init(const ModelInitData& initData)
 {
@@ -12,7 +16,6 @@ void Model::Init(const ModelInitData& initData)
 		//std::abort();
 		mbstowcs(wfxFilePath, initData.m_fxFilePath, 256);
 	}
-	
 
 	m_tkmFile.Load(initData.m_tkmFilePath);
 	m_meshParts.InitFromTkmFile(
@@ -24,6 +27,8 @@ void Model::Init(const ModelInitData& initData)
 		initData.m_expandConstantBufferSize,
 		initData.m_expandShaderResoruceView
 	);
+	
+	InitSkeleton(initData.m_tkmFilePath);
 
 	UpdateWorldMatrix(g_vec3Zero, g_quatIdentity, g_vec3One);
 }
@@ -49,4 +54,17 @@ void Model::Draw(RenderContext& rc)
 		g_camera3D->GetViewMatrix(), 
 		g_camera3D->GetProjectionMatrix()
 	);
+}
+
+void Model::InitSkeleton(const char* filePath)
+{
+	//スケルトンのデータを読み込む。
+	//cmoファイルの拡張子をtksに変更する。
+	std::string skeletonFilePath = filePath;
+	//文字列から.cmoファイル始まる場所を検索。
+	int pos = (int)skeletonFilePath.find(".tkm");
+	//.cmoファイルを.tksに置き換える。
+	skeletonFilePath.replace(pos, 4, ".tks");
+	//tksファイルをロードする。
+	bool result = m_skeleton.Init(skeletonFilePath.c_str());
 }

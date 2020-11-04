@@ -24,7 +24,7 @@ struct ModelInitData {
 class Model {
 
 public:
-
+	
 	/// <summary>
 	/// tkmファイルから初期化。
 	/// </summary>
@@ -44,7 +44,7 @@ public:
 	/// <param name="skeleton">スケルトン</param>
 	void BindSkeleton(Skeleton& skeleton)
 	{
-		m_meshParts.BindSkeleton(skeleton);
+		m_meshParts.BindSkeleton(m_skeleton);
 	}
 	/// <summary>
 	/// 描画
@@ -79,6 +79,12 @@ public:
 	{
 		m_meshParts.QueryMeshAndDescriptorHeap(queryFunc);
 	}
+	Skeleton& GetSkeleton()
+	{
+		return m_skeleton;/**m_meshParts.GetSkeleton();*/
+	}
+private:
+	void InitSkeleton(const char* filePath);
 private:
 
 	Matrix m_world;			//ワールド行列。

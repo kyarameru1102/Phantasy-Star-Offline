@@ -91,7 +91,15 @@ public:
 	/// </summary>
 	/// <param name="filePath"></param>
 	void Load(const char* filePath);
-	
+	/// <summary>
+		/// 非同期ロード。
+		/// IsLoaded関数を使用して、同期をとるようにしてください。
+		/// </summary>
+		/// <param name="filePath"></param>
+	void LoadAsync(const char* filePath)
+	{
+		m_tkaFile.LoadAsync(filePath);
+	}
 	/// <summary>
 	/// キーフレームとアニメーションイベントを構築する。
 	/// </summary>
