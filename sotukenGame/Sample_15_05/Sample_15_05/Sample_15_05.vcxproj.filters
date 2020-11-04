@@ -223,6 +223,9 @@
     <ClCompile Include="..\..\MiniEngine\AnimationPlayController.cpp">
       <Filter>Engine\Graphics\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="MobEnBase.cpp">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
@@ -413,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\AnimationPlayController.h">
       <Filter>Engine\Graphics\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MobEnBase.h">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
