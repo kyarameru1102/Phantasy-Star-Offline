@@ -42,7 +42,7 @@ public:
 	/// スケルトンを関連付ける。
 	/// </summary>
 	/// <param name="skeleton">スケルトン</param>
-	void BindSkeleton(Skeleton& skeleton)
+	void BindSkeleton()
 	{
 		m_meshParts.BindSkeleton(m_skeleton);
 	}

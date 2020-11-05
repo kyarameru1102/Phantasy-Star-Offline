@@ -21,7 +21,9 @@ void SkinModelRender::Init(const char* filePath, AnimationClip* animationClips, 
 	initData.m_tkmFilePath = filePath;
 	initData.m_fxFilePath = fx;
 
+	
 	m_model.Init(initData);
+	
 
 	//アニメーションの初期化
 	InitAnimation(animationClips, numAnimationClips);
@@ -37,9 +39,10 @@ void SkinModelRender::InitAnimation(AnimationClip* animationClips, int numAnimat
 	//アニメーションクリップが設定されてたら
 	if (animationClips != nullptr) {
 		m_animationClip = animationClips;
+		m_animationClip[0].SetLoopFlag(true);
 		m_numAnimationClips = numAnimationClips;
 		m_animation.Init(m_model, m_animationClip, m_numAnimationClips);
-		m_model.BindSkeleton(m_model.GetSkeleton());
+		
 		m_isInitAnimation = true;
 	}
 
@@ -54,7 +57,14 @@ bool SkinModelRender::Start()
 
 void SkinModelRender::Update()
 {
+
+	if (m_animation.IsInited()) {
+		//アニメーションを再生。
+		m_animation.Progress(1/60.0f);
+	}
+
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
 	m_renderOK = true;
 }
 

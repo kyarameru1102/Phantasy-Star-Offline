@@ -33,7 +33,7 @@ void Animation::Init(Model& Model, AnimationClip animClipList[], int numAnimClip
 	for (auto& ctr : m_animationPlayController) {
 		ctr.Init(m_skeleton);
 	}
-
+	m_isInited = true;
 	Play(0);
 }
 

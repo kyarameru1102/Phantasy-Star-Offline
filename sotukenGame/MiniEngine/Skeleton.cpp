@@ -47,6 +47,7 @@ void Skeleton::UpdateBoneWorldMatrix(Bone& bone, const Matrix& parentMatrix)
 bool Skeleton::Init(const char* tksFilePath)
 {
 	m_tksFile.Load(tksFilePath);
+	BuildBoneMatrices();
 		
 	return true;
 }

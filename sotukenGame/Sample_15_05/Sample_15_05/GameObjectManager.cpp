@@ -15,23 +15,6 @@ void GameObjectManager::Init(int gameObjectPrioMax)
 
 void GameObjectManager::Update()
 {
-	for (int i = 0; i < m_gameObjectListArray.size(); i++) {
-		for (auto go : m_gameObjectListArray[i]) {
-			if (go->GetStart() == false) {
-				if (go->Start())
-					go->StartCallEnd();
-			}
-			else {
-				if (go->GetIsDead() == false) {
-					go->Update();
-				}
-			}
-		}
-	}
-	//•`‰æˆ—B
-
-	Render();
-
 	for (auto& deleteList : m_deleteObjectListArray) {
 		for (IGameObject* go : deleteList) {
 			if (go->GetIsDead() == true)
@@ -48,6 +31,23 @@ void GameObjectManager::Update()
 		}
 		deleteList.clear();
 	}
+
+	for (int i = 0; i < m_gameObjectListArray.size(); i++) {
+		for (auto go : m_gameObjectListArray[i]) {
+			if (go->GetStart() == false) {
+				if (go->Start())
+					go->StartCallEnd();
+			}
+			else {
+				if (go->GetIsDead() == false) {
+					go->Update();
+				}
+			}
+		}
+	}
+	//•`‰æˆ—B
+
+	Render();
 }
 
 void GameObjectManager::Render()

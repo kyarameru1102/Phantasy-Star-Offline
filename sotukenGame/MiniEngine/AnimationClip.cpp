@@ -14,6 +14,7 @@ AnimationClip::~AnimationClip()
 void AnimationClip::Load(const char* filePath)
 {
 	m_tkaFile.Load(filePath);
+	BuildKeyFramesAndAnimationEvents();
 }
 
 void AnimationClip::BuildKeyFramesAndAnimationEvents()

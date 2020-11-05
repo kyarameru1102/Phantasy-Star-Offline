@@ -18,6 +18,8 @@ void Model::Init(const ModelInitData& initData)
 	}
 
 	m_tkmFile.Load(initData.m_tkmFilePath);
+	InitSkeleton(initData.m_tkmFilePath);
+	BindSkeleton();
 	m_meshParts.InitFromTkmFile(
 		m_tkmFile, 
 		wfxFilePath, 
@@ -28,7 +30,6 @@ void Model::Init(const ModelInitData& initData)
 		initData.m_expandShaderResoruceView
 	);
 	
-	InitSkeleton(initData.m_tkmFilePath);
 
 	UpdateWorldMatrix(g_vec3Zero, g_quatIdentity, g_vec3One);
 }
@@ -45,6 +46,8 @@ void Model::UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 	mRot.MakeRotationFromQuaternion(rot);
 	mScale.MakeScaling(scale);
 	m_world = mBias * mScale * mRot * mTrans;
+
+	m_skeleton.Update(m_world);
 }
 void Model::Draw(RenderContext& rc)
 {

@@ -38,6 +38,8 @@ struct SVSIn{
 	float4 pos 		: POSITION;
 	float3 normal	: NORMAL;
 	float2 uv 		: TEXCOORD0;
+	int4  indices  : BLENDINDICES0;
+	float4 weights  : BLENDWEIGHT0;
 };
 //ピクセルシェーダーへの入力。
 struct SPSIn{
@@ -51,13 +53,30 @@ struct SPSIn{
 
 //モデルテクスチャ。
 Texture2D<float4> g_texture : register(t0);	
+//ボーン行列
+StructuredBuffer<float4x4> boneMatrix : register(t1);
 
 //サンプラステート。
 sampler g_sampler : register(s0);
 
 /// <summary>
-/// モデル用の頂点シェーダーのエントリーポイント。
+/// スキン行列を計算。
 /// </summary>
+float4x4 CalcSkinMatrix(SVSIn vsIn)
+{
+	float4x4 skinning = 0;
+	float w = 0.0f;
+	[unroll]
+	for (int i = 0; i < 3; i++)
+	{
+		skinning += boneMatrix[vsIn.indices[i]] * vsIn.weights[i];
+		w += vsIn.weights[i];
+	}
+
+	skinning += boneMatrix[vsIn.indices[3]] * (1.0f - w);
+	return skinning;
+}
+
 SPSIn VSMain(SVSIn vsIn, uniform bool hasSkin)
 {
 	SPSIn psIn;
@@ -73,6 +92,29 @@ SPSIn VSMain(SVSIn vsIn, uniform bool hasSkin)
 
 	return psIn;
 }
+
+/// <summary>
+/// スキンありモデル用の頂点シェーダーのエントリーポイント。
+/// </summary>
+SPSIn VSMainSkin(SVSIn vsIn)
+{
+	SPSIn psIn;
+
+	float4x4 skinning = CalcSkinMatrix(vsIn);
+	float4 worldPos = mul(skinning, vsIn.pos);
+	
+	psIn.pos = worldPos;
+	
+	psIn.worldPos = psIn.pos.xyz;
+	
+	psIn.pos = mul(mView, psIn.pos);	//ワールド座標系からカメラ座標系に変換。
+	psIn.pos = mul(mProj, psIn.pos);	//カメラ座標系からスクリーン座標系に変換。
+	psIn.normal = normalize(mul(mWorld, vsIn.normal));
+	psIn.uv = vsIn.uv;
+
+	return psIn;
+}
+
 /// <summary>
 /// モデル用のピクセルシェーダーのエントリーポイント
 /// </summary>
