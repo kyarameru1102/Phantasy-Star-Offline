@@ -202,6 +202,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="BossEnBase.cpp" />
+    <ClCompile Include="Physics\Character\CharacterController.cpp" />
     <ClCompile Include="MobEnBase.cpp" />
     <ClCompile Include="Physics\BoxCollider.cpp" />
     <ClCompile Include="Physics\CapsuleCollider.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="..\..\MiniEngine\util\Stopwatch.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="BossEnBase.h" />
+    <ClInclude Include="Physics\Character\CharacterController.h" />
     <ClInclude Include="MobEnBase.h" />
     <ClInclude Include="Physics\BoxCollider.h" />
     <ClInclude Include="Physics\CapsuleCollider.h" />

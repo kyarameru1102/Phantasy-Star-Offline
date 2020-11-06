@@ -164,6 +164,11 @@ public:
 	{
 		Set(_v.x, _v.y, _v.z);
 	}
+
+	template<>
+	void Set(btVector3& _v) {
+		Set(_v.x(), _v.y(), _v.z());
+	}
 		
 	/// <summary>
 	/// ベクトルの加算。

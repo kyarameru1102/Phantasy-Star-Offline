@@ -59,6 +59,9 @@
     <Filter Include="Engine\Graphics\Animation">
       <UniqueIdentifier>{28e71927-4c9f-4f07-b609-b6a42605328c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Physics\Character">
+      <UniqueIdentifier>{af78dd35-23b6-42ea-bb4d-e2542a9a219a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -228,6 +231,9 @@
     </ClCompile>
     <ClCompile Include="BossEnBase.cpp">
       <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Character\CharacterController.cpp">
+      <Filter>Engine\Physics\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -425,6 +431,9 @@
     </ClInclude>
     <ClInclude Include="BossEnBase.h">
       <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Character\CharacterController.h">
+      <Filter>Engine\Physics\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
