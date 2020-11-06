@@ -4,6 +4,7 @@
 /// </summary>
 class MobEnBase : public IGameObject
 {
+ public:
 	/// <summary>
 	/// コンストラクタ。
 	/// </summary>

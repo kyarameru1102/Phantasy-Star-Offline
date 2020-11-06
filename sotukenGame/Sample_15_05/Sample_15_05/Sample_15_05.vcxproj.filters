@@ -226,6 +226,9 @@
     <ClCompile Include="MobEnBase.cpp">
       <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClCompile>
+    <ClCompile Include="BossEnBase.cpp">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
@@ -418,6 +421,9 @@
       <Filter>Engine\Graphics\Animation</Filter>
     </ClInclude>
     <ClInclude Include="MobEnBase.h">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnBase.h">
       <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClInclude>
   </ItemGroup>
