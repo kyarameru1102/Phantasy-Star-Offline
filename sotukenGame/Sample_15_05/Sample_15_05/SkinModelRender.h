@@ -91,21 +91,19 @@ private:
 	/// 描画関数。
 	/// </summary>
 	void Render() override;
-private:
-	
-	Up m_up = ZUp;										//ZあっぷかYあっぷ。
-	Animation m_animation;								//アニメーション
-	AnimationClip* m_animationClip;						//アニメーションクリップ
-	int m_numAnimationClips = 0;						//アニメーションクリップの数
-	ModelInitData										m_modelInitData;						//初期化用データ。
-	Model												m_model;								//モデル。
-	Vector3												m_position = Vector3::Zero;				//座標。
-	Quaternion											m_rotation = Quaternion::Identity;		//回転。
-	Vector3												m_scale = Vector3::One;					//拡大率。
-	bool												m_renderOn = true;						//描画されるかどうか。
-	bool												m_renderOK = false;						//Updateの後にレンダーが呼ばれるようにするフラグ。
-	Skeleton											m_skeleton;
-	const char* m_filePath = nullptr;
-	bool m_isInitAnimation = false;						//アニメーション初期化した？
+private:									
+	Animation		m_animation;							//アニメーション
+	AnimationClip*	m_animationClip;						//アニメーションクリップ
+	int				m_numAnimationClips = 0;				//アニメーションクリップの数
+	ModelInitData	m_modelInitData;						//初期化用データ。
+	Model			m_model;								//モデル。
+	Vector3			m_position = Vector3::Zero;				//座標。
+	Quaternion		m_rotation = Quaternion::Identity;		//回転。
+	Vector3			m_scale = Vector3::One;					//拡大率。
+	bool			m_renderOn = true;						//描画されるかどうか。
+	bool			m_renderOK = false;						//Updateの後にレンダーが呼ばれるようにするフラグ。
+	Skeleton		m_skeleton;								//スケルトン。
+	const char*		m_filePath = nullptr;					//tkmファイルのパス。
+	bool			m_isInitAnimation = false;				//アニメーション初期化した？
 };
 
