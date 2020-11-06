@@ -21,6 +21,11 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~SkinModelRender();
+	enum Up
+	{
+		ZUp,
+		YUp
+	};
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -30,7 +35,8 @@ public:
 	void Init(const char* filePath,
 		AnimationClip* animationClips = nullptr,
 		int numAnimationClips = 0,
-		const char* fx = "Assets/shader/model.fx"
+		const char* fx = "Assets/shader/model.fx",
+		Up up = Up::ZUp
 	);
 	//アニメーションの初期化
 	void InitAnimation(AnimationClip* animationClips, int numAnimationClips);
@@ -86,6 +92,8 @@ private:
 	/// </summary>
 	void Render() override;
 private:
+	
+	Up m_up = ZUp;										//ZあっぷかYあっぷ。
 	Animation m_animation;								//アニメーション
 	AnimationClip* m_animationClip;						//アニメーションクリップ
 	int m_numAnimationClips = 0;						//アニメーションクリップの数

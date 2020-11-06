@@ -12,8 +12,13 @@ SkinModelRender::~SkinModelRender()
 
 }
 
-void SkinModelRender::Init(const char* filePath, AnimationClip* animationClips, int numAnimationClips, const char* fx)
+void SkinModelRender::Init(const char* filePath, AnimationClip* animationClips, int numAnimationClips, const char* fx, Up up)
 {
+	//Z‚ ‚Á‚Õ‚È‚ç‰ñ“]B
+	if (up == ZUp) {
+		m_rotation.SetRotationDegX(90.0f);
+	}
+
 	m_filePath = filePath;
 
 	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»B
