@@ -13,12 +13,19 @@ Game::~Game()
 
 bool Game::Start()
 {
-    m_ladySkinModelRender = NewGO<SkinModelRender>(0, "UnityChan");
-    m_ladySkinModelRender->Init("Assets/modelData/unityChan.tkm");
+	static AnimationClip animationClip[1];
+	animationClip[0].Load("Assets/animData/unityChan/idle.tka");
+	animationClip[0].SetLoopFlag(true);
+
+
+	//Unity‚¿‚á‚ñ‚Ìƒ‚ƒfƒ‹‚Ì‰Šú‰»B
+	m_ladySkinModelRender = NewGO<SkinModelRender>(0, "UnityChan");
+	m_ladySkinModelRender->Init("Assets/modelData/unityChan.tkm", animationClip, 1);
+	m_ladySkinModelRender->PlayAnimation(0, 0.0f);
     return true;
 }
 
 void Game::Update()
 {
-    int a = 0;
+   
 }
