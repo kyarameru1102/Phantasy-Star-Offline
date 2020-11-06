@@ -22,6 +22,9 @@ bool Game::Start()
 	m_ladySkinModelRender = NewGO<SkinModelRender>(0, "UnityChan");
 	m_ladySkinModelRender->Init("Assets/modelData/unityChan.tkm", animationClip, 1);
 	m_ladySkinModelRender->PlayAnimation(0, 0.0f);
+	Quaternion qRot;
+	qRot.SetRotationDegX(90.0f);
+	m_ladySkinModelRender->SetRotation(qRot);
     return true;
 }
 
