@@ -25,6 +25,5 @@ public:
 	void Update() override;
 private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
-	Player* m_player = nullptr;
-};
+Player* m_player = nullptr;};
 
