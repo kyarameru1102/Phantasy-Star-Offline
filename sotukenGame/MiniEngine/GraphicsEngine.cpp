@@ -445,10 +445,7 @@ void GraphicsEngine::BeginRender()
 	m_renderContext.ClearDepthStencilView(m_currentFrameBufferDSVHandle, 1.0f);
 
 }
-void GraphicsEngine::ChangeRenderTargetToFrameBuffer(RenderContext& rc)
-{
-	rc.SetRenderTarget(m_currentFrameBufferRTVHandle, m_currentFrameBufferDSVHandle);
-}
+
 void GraphicsEngine::EndRender()
 {
 	// レンダリングターゲットへの描き込み完了待ち

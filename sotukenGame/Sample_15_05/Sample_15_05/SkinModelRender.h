@@ -32,14 +32,24 @@ public:
 	/// <param name="filePath">モデルのファイルパス(tkm)</param>
 	/// <param name="animationClips">アニメーションクリップ</param>
 	/// <param name="numAnimationClips">アニメーションクリップの数</param>
+	/// <param name="fx">シェーダー</param>
+	/// <param name="up">ZあっぷかYあっぷ</param>
 	void Init(const char* filePath,
 		AnimationClip* animationClips = nullptr,
 		int numAnimationClips = 0,
 		const char* fx = "Assets/shader/model.fx",
 		Up up = Up::ZUp
 	);
-	//アニメーションの初期化
+	/// <summary>
+	/// アニメーションの初期化。
+	/// </summary>
+	/// <param name="animationClips">アニメーションクリップ</param>
+	/// <param name="numAnimationClips">アニメーションクリップの数</param>
 	void InitAnimation(AnimationClip* animationClips, int numAnimationClips);
+	/// <summary>
+	/// 座標を設定する関数。
+	/// </summary>
+	/// <param name="position">座標。</param>
 	void SetPosition(const Vector3& position)
 	{
 		m_position = position;
@@ -72,7 +82,11 @@ public:
 	{
 		m_renderOn = on;
 	}
-	
+	/// <summary>
+	/// アニメーションを再生する関数。
+	/// </summary>
+	/// <param name="animNo">アニメーションの番号</param>
+	/// <param name="interpolateTime">デルタタイム</param>
 	void PlayAnimation(int animNo, float interpolateTime)
 	{
 		m_animation.Play(animNo, interpolateTime);

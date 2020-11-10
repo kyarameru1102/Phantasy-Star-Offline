@@ -145,11 +145,7 @@ public:
 	{
 		return m_frameBufferHeight;
 	}
-	/// <summary>
-	/// レンダリングターゲットをフレームバッファに変更する。
-	/// </summary>
-	/// <param name="rc"></param>
-	void ChangeRenderTargetToFrameBuffer(RenderContext& rc);
+	
 	/// <summary>
 	/// 現在のフレームバッファのレンダリングターゲットビューを取得。
 	/// </summary>
