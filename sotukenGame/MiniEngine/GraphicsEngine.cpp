@@ -470,3 +470,19 @@ void GraphicsEngine::EndRender()
 	//•`‰æŠ®—¹‘Ò‚¿B
 	WaitDraw();
 }
+
+void GraphicsEngine::BeginDeferredRender()
+{
+}
+
+void GraphicsEngine::EndModelDraw()
+{
+}
+
+void GraphicsEngine::RendertoPostEffect()
+{
+}
+
+void GraphicsEngine::RendertoShadow()
+{
+}

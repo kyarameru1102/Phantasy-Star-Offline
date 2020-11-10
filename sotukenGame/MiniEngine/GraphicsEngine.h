@@ -48,6 +48,39 @@ public:
 	/// </remarks>
 	void EndRender();
 	/// <summary>
+	/// ディファードレンダリングの開始前に呼び出して下さい
+	/// </summary>
+	void BeginDeferredRender();
+	/// <summary>
+	/// ディファードレンダリングでモデルのドローが終わったら呼び出してください
+	/// </summary>
+	void EndModelDraw();
+	/// <summary>
+	/// ポストエフェクトかける
+	/// </summary>
+	void RendertoPostEffect();
+	/// <summary>
+	/// シャドウマップを描画する
+	/// </summary>
+	void RendertoShadow();
+	/// <summary>
+	/// レンダリングターゲットをフレームバッファに変更する。
+	/// </summary>
+	/// <param name="rc"></param>
+	void ChangeRenderTargetToFrameBuffer(RenderContext& rc)
+	{
+		rc.SetRenderTarget(m_currentFrameBufferRTVHandle, m_currentFrameBufferDSVHandle);
+	}
+	/// <summary>
+	/// レンダリングターゲットを設定
+	/// </summary>
+	/// <param name="numRT"></param>
+	/// <param name="renderTargets"></param>
+	void SetRenderTarget(int numRT, RenderTarget* renderTargets[])
+	{
+		m_renderContext.SetRenderTargets(numRT, renderTargets);
+	}
+	/// <summary>
 	/// D3Dデバイスを取得。
 	/// </summary>
 	/// <returns></returns>

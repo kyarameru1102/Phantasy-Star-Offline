@@ -16,8 +16,6 @@ Title::~Title()
 
 bool Title::Start()
 {
-	
-
 	//”wŒiƒ‚ƒfƒ‹‰Šú‰»B
 	//m_bgSkinModelRender = NewGO<SkinModelRender>(0, "backGround");
 	//m_bgSkinModelRender->Init("Assets/modelData/bg.tkm");
