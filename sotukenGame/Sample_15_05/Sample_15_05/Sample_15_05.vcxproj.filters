@@ -235,6 +235,9 @@
     <ClCompile Include="Physics\Character\CharacterController.cpp">
       <Filter>Engine\Physics\Character</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStatusUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
@@ -435,5 +438,6 @@
     <ClInclude Include="Physics\Character\CharacterController.h">
       <Filter>Engine\Physics\Character</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerStatusUI.h" />
   </ItemGroup>
 </Project>

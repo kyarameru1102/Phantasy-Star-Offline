@@ -1,4 +1,5 @@
 #pragma once
+#include "Player.h"
 /// <summary>
 /// ゲームシーン。
 /// </summary>
@@ -24,5 +25,5 @@ public:
 	void Update() override;
 private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
-};
+Player* m_player = nullptr;};
 

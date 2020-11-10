@@ -13,7 +13,19 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~Player();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
+	void Update() override;
 
-	SkinModelRender m_model;
+	SkinModelRender* m_playerSkinModel = nullptr;
+
+	const enum {
+		enStay01,
+		enStay02,
+		enAnimationClipNum
+	};
+	int m_animState = enStay01; //アニメーションの状態。
+	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };
 

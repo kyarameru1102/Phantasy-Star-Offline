@@ -17,7 +17,7 @@ bool SpriteRender::Start()
 
 void SpriteRender::Update()
 {
-	m_sprite.Update(m_position,m_rotation,m_scale);
+	m_sprite.Update(m_position,m_rotation,m_scale, m_pivot);
 }
 
 void SpriteRender::Render2D()

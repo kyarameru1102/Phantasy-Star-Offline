@@ -13,6 +13,10 @@ class MobEnBase : public IGameObject
 	/// デストラクタ。
 	/// </summary>
 	~MobEnBase();
-
+	//移動
+	//回転
+	//攻撃
+	//アニメーション
+	
 };
 

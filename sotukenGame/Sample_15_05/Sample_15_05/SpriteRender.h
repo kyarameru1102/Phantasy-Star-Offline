@@ -38,6 +38,14 @@ public:
 	{
 		m_scale = scale;
 	}
+	/// <summary>
+	/// ピボットを設定する関数。
+	/// </summary>
+	/// <param name="pivot">Vector2 pivot</param>
+	void SetPivot(const Vector2& pivot)
+	{
+		m_pivot = pivot;
+	}
 private:
 	/// <summary>
 	/// 開始関数。
@@ -58,5 +66,6 @@ private:
 	Vector3				m_position = Vector3::Zero;
 	Quaternion			m_rotation = Quaternion::Identity;
 	Vector3				m_scale = Vector3::One;
+	Vector2				m_pivot = { 0.5f, 0.5f };
 };
 

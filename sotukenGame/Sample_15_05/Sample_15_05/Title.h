@@ -2,6 +2,7 @@
 /// <summary>
 /// タイトルシーン。
 /// </summary>
+class PlayerStatusUI;
 class Title : public IGameObject
 {
 public:
@@ -29,5 +30,7 @@ private:
 	Quaternion m_rot = Quaternion::Identity;
 	float addRot = 0.0f;
 	bool m_ok = false;
+
+	PlayerStatusUI* m_playerStatusUI = nullptr;
 };
 
