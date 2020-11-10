@@ -24,5 +24,6 @@ public:
 	void Update() override;
 private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
+	SkinModelRender* m_goblinSkinModelRender = nullptr;
 };
 
