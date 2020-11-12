@@ -7,15 +7,20 @@ Player::Player()
 
 Player::~Player()
 {
-
+	DeleteGO(m_playerSkinModel);
 }
 bool Player::Start()
 {
 	//アニメーションをロード。
 	animClip[enStay01].Load("Assets/animData/player/blad/stay_01.tka");
 	animClip[enStay02].Load("Assets/animData/player/sword/stay_02.tka");
+	animClip[enChange01].Load("Assets/animData/player/blad/change_01.tka");
+	animClip[enChange02].Load("Assets/animData/player/sword/change_02.tka");
 	animClip[enStay01].SetLoopFlag(true);
 	animClip[enStay02].SetLoopFlag(true);
+	animClip[enChange01].SetLoopFlag(true);
+	animClip[enChange02].SetLoopFlag(true);
+
 	//モデルの初期化。
 	m_playerSkinModel = NewGO<SkinModelRender>(0);
 	m_playerSkinModel->Init("Assets/modelData/player/player.tkm", animClip, enAnimationClipNum);
@@ -43,14 +48,24 @@ void Player::Update()
 	m_playerSkinModel->SetRotation(m_rotation);
 
 
-	if (GetAsyncKeyState('B')) {
-		//ブレードモード。
-		m_animState = enStay01;
+	//if (g_pad[0]->IsPress(enButtonX)) {
+	//	//Xボタンで構えを切り替える。
+	//	m_animState++;
+	//	if (m_animState > enStay02) {
+	//		//構えを戻す。
+	//		m_animState = enStay01;
+	//	}
+	//}
+	/*if (g_pad[0]->IsPress(enButtonX)) {
+		m_changeAnimFlag = true;
 	}
-	else if(GetAsyncKeyState('S')){
-		//ツインソードモード。
-		m_animState = enStay02;
-	}
+	if (m_changeAnimFlag != false) {
+
+		m_changeAnimTimer++;
+		if (m_changeAnimTimer >= m_changeAnimTime) {
+
+		}
+	}*/
 	//アニメーションを再生。
 	m_playerSkinModel->PlayAnimation(m_animState, 0.0f);
 }

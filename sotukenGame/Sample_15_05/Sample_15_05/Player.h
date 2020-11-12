@@ -39,8 +39,13 @@ private:
 	const enum {
 		enStay01,
 		enStay02,
+		enChange01,
+		enChange02,
 		enAnimationClipNum
 	};
+	bool m_changeAnimFlag = false;
+	int m_changeAnimTimer = 0;
+	int m_changeAnimTime = 35;//武器を変えるのにかかるフレーム。
 	int m_animState = enStay01; //アニメーションの状態。
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };
