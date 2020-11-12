@@ -23,7 +23,7 @@ bool Game::Start()
 	//m_ladySkinModelRender->PlayAnimation(0, 0.0f);
 	//プレイヤー作成。
 	m_player = NewGO<Player>(0, "player");
-	
+	m_gameCam = NewGO<GameCamera>(0, "gameCamera");
     return true;
 }
 

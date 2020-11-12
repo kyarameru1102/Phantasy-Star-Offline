@@ -1,20 +1,16 @@
 #pragma once
 #include "Player.h"
-#include "GameCamera.h"
-/// <summary>
-/// ゲームシーン。
-/// </summary>
-class Game : public IGameObject
+class GameCamera : public IGameObject
 {
 public:
 	/// <summary>
 	/// コンストラクタ。
 	/// </summary>
-	Game();
+	GameCamera();
 	/// <summary>
 	/// デストラクタ。
 	/// </summary>
-	~Game();
+	~GameCamera();
 	/// <summary>
 	/// スタート関数。
 	/// </summary>
@@ -25,8 +21,11 @@ public:
 	/// </summary>
 	void Update() override;
 private:
-	SkinModelRender* m_ladySkinModelRender = nullptr;
 	Player* m_player = nullptr;
-	GameCamera* m_gameCam = nullptr;
+	Vector3 m_position = Vector3::Zero;
+	Vector3 m_traget = Vector3::Zero;
+	Vector3 m_toPlayerVec = { 0.0f, 200.0f, 600.0f };//カメラからプレイヤーに向かって伸びるベクトル。
+
+
 };
 

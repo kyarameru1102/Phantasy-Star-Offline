@@ -65,6 +65,9 @@
     <Filter Include="ソース ファイル\Game\UI">
       <UniqueIdentifier>{a3109487-7ae6-4bd4-9e23-58a3263361c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Camera">
+      <UniqueIdentifier>{9a58eb20-436e-45e0-b6d6-fa56c3d0c96c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -240,6 +243,9 @@
     </ClCompile>
     <ClCompile Include="PlayerStatusUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -443,6 +449,9 @@
     </ClInclude>
     <ClInclude Include="PlayerStatusUI.h">
       <Filter>ソース ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h">
+      <Filter>ソース ファイル\Game\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
