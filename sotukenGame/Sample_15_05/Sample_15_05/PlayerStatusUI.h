@@ -12,12 +12,30 @@ public:
 	/// 更新関数が呼ばれる前に呼ばれる開始関数。
 	/// </summary>
 	/// <returns>trueを返すと一度だけ呼ばれる。</returns>
-	bool Start();
+	bool Start()override;
 
 	/// <summary>
 	/// 更新関数。
 	/// </summary>
-	void Update();
+	void Update()override;
+
+	/// <summary>
+	/// 現在のプレイヤーHPを設定。
+	/// </summary>
+	/// <param name="currentHP">現在のプレイヤーのHPを設定</param>
+	void SetCurrentPlayerHP(const float& currentHP)
+	{
+		m_currentPlayerHP = currentHP;
+	}
+
+	/// <summary>
+	/// 現在のプレイヤーHPを取得。
+	/// </summary>
+	/// <returns>現在のプレイヤーのHP</returns>
+	const float& GetCurrentPlayerHP() const
+	{
+		return m_currentPlayerHP;
+	}
 
 private:
 
@@ -39,5 +57,8 @@ private:
 	Vector3 m_spritePosition[en_playerUINum] = { Vector3::Zero };	//スプライトの座標。
 	Vector3 m_spriteScale[en_playerUINum] = { Vector3::One };		//スプライトの拡大率。
 	Vector2 m_spritePivot[en_playerUINum] = { { 0.5f, 0.5f } };		//スプライトのピボット。
+
+	float m_currentPlayerHP = 0.0f;		//プレイヤーの現在のHP。
+	float m_hp = 0.0f;					//プレイヤーの現在のHPを保存する変数。
 };
 
