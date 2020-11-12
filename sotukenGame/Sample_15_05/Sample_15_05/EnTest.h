@@ -8,7 +8,7 @@ public:
 	EnTest();
 	~EnTest();
 	bool Start() override;
-
+	int a=0;
 private:
 	SkinModelRender* m_EnTestSkinModel = nullptr;
 };
