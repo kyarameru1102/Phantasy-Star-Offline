@@ -1,5 +1,7 @@
 #pragma once
 #include "Player.h"
+#include "GameCamera.h"
+#include "BackGround.h"
 /// <summary>
 /// ゲームシーン。
 /// </summary>
@@ -25,5 +27,8 @@ public:
 	void Update() override;
 private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
-Player* m_player = nullptr;};
+	Player* m_player = nullptr;
+	GameCamera* m_gameCam = nullptr;
+	BackGround* m_bg = nullptr;
+};
 

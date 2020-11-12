@@ -201,7 +201,10 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TkmFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BossEnBase.cpp" />
+    <ClCompile Include="EnTest.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Physics\Character\CharacterController.cpp" />
     <ClCompile Include="MobEnBase.cpp" />
     <ClCompile Include="Physics\BoxCollider.cpp" />
@@ -272,7 +275,10 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\util\Stopwatch.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="BossEnBase.h" />
+    <ClInclude Include="EnTest.h" />
+    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Physics\Character\CharacterController.h" />
     <ClInclude Include="MobEnBase.h" />
     <ClInclude Include="Physics\BoxCollider.h" />
@@ -293,7 +299,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Title.h" />
-    <ClInclude Include="TrianglePolygon.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>

@@ -165,7 +165,7 @@ void Material::BeginRender(RenderContext& rc, int hasSkin)
 		rc.SetPipelineState(m_transSkinModelPipelineState);
 	}
 	else {
-	//	rc.SetPipelineState(m_nonSkinModelPipelineState);
-		rc.SetPipelineState(m_transNonSkinModelPipelineState);
+		rc.SetPipelineState(m_nonSkinModelPipelineState);
+	//	rc.SetPipelineState(m_transNonSkinModelPipelineState);
 	}
 }

@@ -7,6 +7,7 @@
 #include <vector>
 #include <functional>
 #include <memory>
+#include <fstream>
 
 #include "MiniEngine.h"
 #include "GameObjectManager.h"
