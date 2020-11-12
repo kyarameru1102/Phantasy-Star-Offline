@@ -91,6 +91,10 @@ public:
 	{
 		m_animation.Play(animNo, interpolateTime);
 	}
+	Model& GetModel()
+	{
+		return m_model;
+	}
 private:
 	/// <summary>
 	/// ŠJnŠÖ”B

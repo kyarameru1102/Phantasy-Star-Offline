@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "GameCamera.h"
+#include "BackGround.h"
 /// <summary>
 /// ゲームシーン。
 /// </summary>
@@ -28,5 +29,6 @@ private:
 	SkinModelRender* m_ladySkinModelRender = nullptr;
 	Player* m_player = nullptr;
 	GameCamera* m_gameCam = nullptr;
+	BackGround* m_bg = nullptr;
 };
 
