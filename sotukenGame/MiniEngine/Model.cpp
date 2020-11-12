@@ -19,7 +19,6 @@ void Model::Init(const ModelInitData& initData)
 
 	m_tkmFile.Load(initData.m_tkmFilePath);
 	InitSkeleton(initData.m_tkmFilePath);
-	BindSkeleton();
 	m_meshParts.InitFromTkmFile(
 		m_tkmFile, 
 		wfxFilePath, 
@@ -36,11 +35,8 @@ void Model::Init(const ModelInitData& initData)
 
 void Model::UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 {
-	Matrix mBias;
-//todo	if (enUpdateAxis == enFbxUpAxisZ) {
-		//Z-up
-		mBias.MakeRotationX(Math::PI * -0.5f);
-//	}
+	Matrix mBias;	
+	mBias.MakeRotationX(Math::PI * -0.5f);
 	Matrix mTrans, mRot, mScale;
 	mTrans.MakeTranslation(pos);
 	mRot.MakeRotationFromQuaternion(rot);
@@ -68,6 +64,10 @@ void Model::InitSkeleton(const char* filePath)
 	int pos = (int)skeletonFilePath.find(".tkm");
 	//.cmoファイルを.tksに置き換える。
 	skeletonFilePath.replace(pos, 4, ".tks");
-	//tksファイルをロードする。
-	bool result = m_skeleton.Init(skeletonFilePath.c_str());
+	std::ifstream ifs(skeletonFilePath);
+	if (ifs.is_open()) {
+		//tksファイルをロードする。
+		bool result = m_skeleton.Init(skeletonFilePath.c_str());
+		BindSkeleton();
+	}
 }

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "PlayerStatusUI.h"
 
+const float PLAYER_MAX_HP = 100.0f;  //プレイヤーの最大HP。
+
 PlayerStatusUI::PlayerStatusUI()
 {
 }
@@ -52,18 +54,25 @@ bool PlayerStatusUI::Start()
 	m_spritePosition[en_playerUIHPBer] = { 523.0f, -237.0f, 0.0f };
 	m_spritePosition[en_playerUIPPBer] = { 523.0f, -277.0f, 0.0f };
 
+	//現在のプレイヤーHPを設定。
+	m_currentPlayerHP = PLAYER_MAX_HP;
+
 	return true;
 }
 
 void PlayerStatusUI::Update()
 {
-	if (g_pad[0]->IsPress(enButtonLeft) && m_spriteScale[en_playerUIHP].x > 0.0f) {
-		m_spriteScale[en_playerUIHP].x -= 0.01f;
+	m_hp = m_currentPlayerHP / PLAYER_MAX_HP;
+	m_spriteScale[en_playerUIHP].x = m_hp;
+	m_hp = m_currentPlayerHP;
+
+	if (g_pad[0]->IsPress(enButtonRight) && m_currentPlayerHP < PLAYER_MAX_HP) {
+		m_currentPlayerHP += 1.0f;
+	}
+	if (g_pad[0]->IsPress(enButtonLeft) && m_currentPlayerHP > 0.0f) {
+		m_currentPlayerHP -= 1.0f;
 	}
 
-	if (g_pad[0]->IsPress(enButtonRight) && m_spriteScale[en_playerUIHP].x < 1.0f) {
-		m_spriteScale[en_playerUIHP].x += 0.01f;
-	}
 	m_hpSprite->SetScale(m_spriteScale[en_playerUIHP]);
 
 	m_statusSprite->SetPosition(m_spritePosition[en_playerUIStatus]);
