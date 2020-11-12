@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Physics/MeshCollider.h"
+#include "Physics/BoxCollider.h"
 
 class BackGround : public IGameObject
 {
@@ -11,6 +12,6 @@ public:
 	void Update()override;
 private:
 	SkinModelRender* m_bgModel = nullptr;
-	//MeshCollider m_mesh;
+	BoxCollider m_box;
 };
 
