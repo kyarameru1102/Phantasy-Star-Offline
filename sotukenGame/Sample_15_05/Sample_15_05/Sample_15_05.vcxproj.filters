@@ -68,11 +68,14 @@
     <Filter Include="ソース ファイル\Game\Camera">
       <UniqueIdentifier>{9a58eb20-436e-45e0-b6d6-fa56c3d0c96c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\BackGround">
+      <UniqueIdentifier>{560f069c-7979-4dc1-9ea6-66a7e176dc43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Light">
+      <UniqueIdentifier>{2670c7ee-73a8-46a9-8dfb-2ceff7d20016}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="system\system.cpp">
       <Filter>ソース ファイル\system</Filter>
     </ClCompile>
@@ -166,9 +169,6 @@
     <ClCompile Include="..\..\MiniEngine\Model.cpp">
       <Filter>Engine\Graphics\SkinModel</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\Physics.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
@@ -246,6 +246,15 @@
     </ClCompile>
     <ClCompile Include="GameCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>ソース ファイル\Game\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>ソース ファイル\Game\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -333,12 +342,6 @@
     <ClInclude Include="system\system.h">
       <Filter>ソース ファイル\system</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="TrianglePolygon.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClInclude>
@@ -377,9 +380,6 @@
     </ClInclude>
     <ClInclude Include="Physics\CapsuleCollider.h">
       <Filter>Engine\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\Sprite.h">
       <Filter>Engine\Graphics\Sprite</Filter>
@@ -452,6 +452,15 @@
     </ClInclude>
     <ClInclude Include="GameCamera.h">
       <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>ソース ファイル\Game\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>ソース ファイル\Game\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
