@@ -34,6 +34,7 @@ private:
 	SkinModelRender* m_playerSkinModel = nullptr;
 	Vector3 m_position = Vector3::Zero;//座標。
 	Vector3 m_moveSpeed = Vector3::Zero;//ムーブスピード。
+	Quaternion m_rotation = Quaternion::Identity; //回転クォータニオン。
 	CharacterController m_charaCon;//キャラコン。
 	const enum {
 		enStay01,

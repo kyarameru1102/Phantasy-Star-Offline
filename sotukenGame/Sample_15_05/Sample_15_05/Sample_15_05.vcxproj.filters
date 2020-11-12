@@ -256,6 +256,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>ソース ファイル\Game\Light</Filter>
     </ClCompile>
+    <ClCompile Include="EnTest.cpp">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
@@ -461,6 +464,9 @@
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>ソース ファイル\Game\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="EnTest.h">
+      <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
