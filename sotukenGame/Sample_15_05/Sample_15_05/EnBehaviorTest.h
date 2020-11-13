@@ -1,5 +1,9 @@
 #pragma once
-//敵挙動確認クラス
+/// <summary>
+/// 敵挙動確認クラス
+/// </summary>
+#include "EnTest.h";
+
 class EnBehaviorTest : public IGameObject
 {
 	/// <summary>
@@ -19,5 +23,6 @@ class EnBehaviorTest : public IGameObject
 	/// 更新関数。
 	/// </summary>
 	void Update() override;
+	EnTest* m_entest = nullptr;
 };
 

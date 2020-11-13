@@ -68,11 +68,11 @@ void Player::Update()
 	if (g_pad[0]->IsTrigger(enButtonX)) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
-		//m_attackAndChangState = enChange01;
+		//m_Chang01State = enChange01;
 	}
 	/*else if (g_pad[0]->IsPress(enButtonY)) {
 		m_changeAnimFlag = true;
-		m_attackAndChangState = attackAndChang01;
+		m_Chang02State = attackAndChang01;
 	}*/
 	if (m_changeAnimFlag != false) {
 		//武器の状態によって武器変更のアニメーションを決める。
