@@ -25,10 +25,18 @@ public:
 	/// 更新関数。
 	/// </summary>
 	void Update() override;
+	/// <summary>
+	/// プレイヤーの座標を設定する。
+	/// </summary>
+	/// <param name="pos">座標。</param>
 	void SetPosition(const Vector3& pos)
 	{
 		m_position = pos;
 	}
+	/// <summary>
+	/// プレイヤーの座標を返す。
+	/// </summary>
+	/// <returns></returns>
 	const Vector3& GetPosition() const
 	{
 		return m_position;
