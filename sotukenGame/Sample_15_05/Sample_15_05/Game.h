@@ -5,6 +5,8 @@
 /// <summary>
 /// ゲームシーン。
 /// </summary>
+
+class PlayerStatusUI;
 class Game : public IGameObject
 {
 public:
@@ -30,5 +32,6 @@ private:
 	Player* m_player = nullptr;
 	GameCamera* m_gameCam = nullptr;
 	BackGround* m_bg = nullptr;
+	PlayerStatusUI* m_playerStatusUI = nullptr;
 };
 
