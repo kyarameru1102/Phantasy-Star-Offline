@@ -2,7 +2,7 @@
 /// <summary>
 /// 敵挙動確認クラス
 /// </summary>
-#include "EnTest.h";
+#include "EnTest.h"
 
 class EnBehaviorTest : public IGameObject
 {

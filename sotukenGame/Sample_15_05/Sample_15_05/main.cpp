@@ -4,7 +4,7 @@
 #include "util/stopwatch.h"
 #include "Physics/Physics.h"
 #include "Title.h"
-
+#include "EnBehaviorTest.h"
 //ŠÖ”éŒ¾
 void InitRootSignature(RootSignature& rs);
 
