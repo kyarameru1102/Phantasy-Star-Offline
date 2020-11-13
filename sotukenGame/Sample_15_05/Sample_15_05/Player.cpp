@@ -28,13 +28,23 @@ bool Player::Start()
 	qRot.SetRotationDegX(0.0f);
 	m_playerSkinModel->SetRotation(qRot);
 	m_charaCon.Init(50.0f, 100.0f, m_position);
+	m_gameCam = FindGO<GameCamera>("gameCamera");
 	return true;
 }
 void Player::Update()
 {
+	Vector3 cameraDir = m_gameCam->GetTarget() - m_gameCam->GetPosition();
+	cameraDir.y = 0.0f;
+	cameraDir.Normalize();
+
+	Vector3 cameraDirX;
+	cameraDirX.Cross(
+		cameraDir,
+		Vector3::AxisY
+	);
 	//プレイヤーのムーブスピードを更新。
-	m_moveSpeed.x = g_pad[0]->GetLStickXF() * -5.0f;
-	m_moveSpeed.z = g_pad[0]->GetLStickYF() * -5.0f;
+	m_moveSpeed = cameraDirX * g_pad[0]->GetLStickXF() * -5.0f +
+		cameraDir * g_pad[0]->GetLStickYF() * 5.0f;
 	//座標を設定。
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_playerSkinModel->SetPosition(m_position);
@@ -48,24 +58,37 @@ void Player::Update()
 	m_playerSkinModel->SetRotation(m_rotation);
 
 
-	//if (g_pad[0]->IsPress(enButtonX)) {
-	//	//Xボタンで構えを切り替える。
-	//	m_animState++;
-	//	if (m_animState > enStay02) {
-	//		//構えを戻す。
-	//		m_animState = enStay01;
-	//	}
-	//}
-	/*if (g_pad[0]->IsPress(enButtonX)) {
+	if (g_pad[0]->IsPress(enButtonX)) {
+		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
 	}
 	if (m_changeAnimFlag != false) {
-
-		m_changeAnimTimer++;
-		if (m_changeAnimTimer >= m_changeAnimTime) {
-
+		//武器の状態によって武器変更のアニメーションを決める。
+		if (m_weaponState == enBladState) {
+			m_animState = enChange01;
 		}
-	}*/
+		else if(m_weaponState == enSwordState){
+			m_animState = enChange02;
+		}
+		//タイマーを加算。
+		m_changeAnimTimer++;
+		if (m_changeAnimTimer > m_changeAnimTime) {
+			//武器変更のアニメーションが終わった。
+			//m_weaponStateが武器変更前の状態で、変更後の状態にする。
+			if (m_weaponState == enBladState) {
+				m_weaponState = enSwordState;
+				m_animState = enStay02;
+			}
+			else if (m_weaponState == enSwordState) {
+				m_weaponState = enBladState;
+				m_animState = enStay01;
+			}
+			//フラグをfalseにする。
+			m_changeAnimFlag = false;
+			//タイマーをリセット。
+			m_changeAnimTimer = 0;
+		}
+	}
 	//アニメーションを再生。
 	m_playerSkinModel->PlayAnimation(m_animState, 0.0f);
 }

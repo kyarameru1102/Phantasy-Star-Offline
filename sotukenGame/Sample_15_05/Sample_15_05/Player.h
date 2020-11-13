@@ -1,5 +1,7 @@
 #pragma once
+class GameCamera;
 #include "Physics/Character/CharacterController.h"
+#include "GameCamera.h"
 /// <summary>
 /// プレイヤークラス。
 /// </summary>
@@ -32,21 +34,25 @@ public:
 	}
 private:
 	SkinModelRender* m_playerSkinModel = nullptr;
+	GameCamera* m_gameCam = nullptr;
 	Vector3 m_position = Vector3::Zero;//座標。
 	Vector3 m_moveSpeed = Vector3::Zero;//ムーブスピード。
 	Quaternion m_rotation = Quaternion::Identity; //回転クォータニオン。
 	CharacterController m_charaCon;//キャラコン。
 	const enum {
-		enStay01,
-		enStay02,
-		enChange01,
-		enChange02,
-		enAnimationClipNum
+		enStay01,            //ブレイド状態。
+		enStay02,            //ソード状態。
+		enChange01,          //ブレイドからソードに変更。
+		enChange02,         //ソードからブレイドに変更。
+		enAnimationClipNum, //アニメーションクリップの数。
+		enBladState,
+		enSwordState
 	};
 	bool m_changeAnimFlag = false;
 	int m_changeAnimTimer = 0;
-	int m_changeAnimTime = 35;//武器を変えるのにかかるフレーム。
+	int m_changeAnimTime = 70;//武器を変えるのにかかるフレーム。
 	int m_animState = enStay01; //アニメーションの状態。
+	int m_weaponState = enBladState;//武器の状態。
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };
 
