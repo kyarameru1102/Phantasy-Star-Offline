@@ -50,6 +50,8 @@ void Player::Update()
 	//プレイヤーのムーブスピードを更新。
 	m_moveSpeed = cameraDirX * g_pad[0]->GetLStickXF() * -5.0f +
 		cameraDir * g_pad[0]->GetLStickYF() * 5.0f;
+
+	m_moveSpeed.y = -1.0f;
 	//座標を設定。
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_playerSkinModel->SetPosition(m_position);
