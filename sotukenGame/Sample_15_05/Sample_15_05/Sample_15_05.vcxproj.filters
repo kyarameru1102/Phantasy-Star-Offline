@@ -259,6 +259,9 @@
     <ClCompile Include="EnTest.cpp">
       <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClCompile>
+    <ClCompile Include="EnBehaviorTest.cpp">
+      <Filter>ソース ファイル\Game\Scean</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
@@ -467,6 +470,9 @@
     </ClInclude>
     <ClInclude Include="EnTest.h">
       <Filter>ソース ファイル\Game\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="EnBehaviorTest.h">
+      <Filter>ソース ファイル\Game\Scean</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
