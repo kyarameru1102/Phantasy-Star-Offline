@@ -13,7 +13,7 @@ Title::~Title()
 	//DeleteGO(m_ladySkinModelRender);
 	//DeleteGO(m_bgSkinModelRender);
 	DeleteGO(m_spriteRender);
-	DeleteGO(m_playerStatusUI);
+	//DeleteGO(m_playerStatusUI);
 }
 
 bool Title::Start()
@@ -25,7 +25,7 @@ bool Title::Start()
 	m_spriteRender = NewGO<SpriteRender>(0, "Sprite");
 	m_spriteRender->Init("Assets/image/Title.DDS", 780.0f, 1280.0f);
 
-	m_playerStatusUI = NewGO<PlayerStatusUI>(0);
+	//m_playerStatusUI = NewGO<PlayerStatusUI>(0);
 
 	return true;
 }

@@ -203,6 +203,7 @@
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BossEnBase.cpp" />
+    <ClCompile Include="EnBehaviorTest.cpp" />
     <ClCompile Include="EnTest.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Physics\Character\CharacterController.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BossEnBase.h" />
+    <ClInclude Include="EnBehaviorTest.h" />
     <ClInclude Include="EnTest.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Physics\Character\CharacterController.h" />
