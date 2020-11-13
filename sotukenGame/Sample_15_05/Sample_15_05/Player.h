@@ -44,6 +44,8 @@ private:
 		enStay02,            //ソード状態。
 		enChange01,          //ブレイドからソードに変更。
 		enChange02,         //ソードからブレイドに変更。
+		attackAndChang01,
+		attackAndChang02,
 		enAnimationClipNum, //アニメーションクリップの数。
 		enBladState,
 		enSwordState
@@ -53,6 +55,7 @@ private:
 	int m_changeAnimTime = 70;//武器を変えるのにかかるフレーム。
 	int m_animState = enStay01; //アニメーションの状態。
 	int m_weaponState = enBladState;//武器の状態。
+	int m_Chang01State = attackAndChang01;
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };
 
