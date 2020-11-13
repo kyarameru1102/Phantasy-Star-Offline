@@ -25,9 +25,10 @@ public:
 	/// 更新関数。
 	/// </summary>
 	void Update() override;
-	/// <summary>
-	/// プレイヤーの座標を返す。
-	/// </summary>
+	void SetPosition(const Vector3& pos)
+	{
+		m_position = pos;
+	}
 	const Vector3& GetPosition() const
 	{
 		return m_position;
@@ -55,7 +56,8 @@ private:
 	int m_changeAnimTime = 70;//武器を変えるのにかかるフレーム。
 	int m_animState = enStay01; //アニメーションの状態。
 	int m_weaponState = enBladState;//武器の状態。
-	int m_Chang01State = attackAndChang01;
+	int m_Chang01State = 0;
+	int m_Chang02State = 0;
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };
 
