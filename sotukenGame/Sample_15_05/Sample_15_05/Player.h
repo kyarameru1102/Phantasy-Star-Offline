@@ -69,5 +69,7 @@ private:
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 	bool m_jumpFlag = false;//ジャンプしてるかどうかのフラグ。
 	float m_speedY = 0.0f;//Y方向のスピード。
+
+	int a = 0;
 };
 
