@@ -60,5 +60,7 @@ private:
 
 	float m_currentPlayerHP = 0.0f;		//プレイヤーの現在のHP。
 	float m_hp = 0.0f;					//プレイヤーの現在のHPを保存する変数。
+
+	int c = 0;
 };
 
