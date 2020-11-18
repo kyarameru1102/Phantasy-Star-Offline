@@ -8,6 +8,7 @@
 #include <functional>
 #include <memory>
 #include <fstream>
+#include <d3d12.h>
 
 #include "MiniEngine.h"
 #include "GameObjectManager.h"
