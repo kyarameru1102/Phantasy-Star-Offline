@@ -85,6 +85,14 @@ public:
 	{
 		return m_dsvClearValue;
 	}
+	//クリアカラー設定
+	void SetClearColor(const Vector4& vector4)
+	{
+		m_rtvClearColor[0] = vector4.x;
+		m_rtvClearColor[1] = vector4.y;
+		m_rtvClearColor[2] = vector4.z;
+		m_rtvClearColor[3] = vector4.w;
+	}
 private:
 	/// <summary>
 	/// ディスクリプタヒープを作成。

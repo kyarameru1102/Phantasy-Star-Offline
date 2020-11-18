@@ -170,8 +170,113 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 
 	g_camera2D = &m_camera2D;
 	g_camera3D = &m_camera3D;
-	//
-	g_graphicsEngine = this;
+	
+	//ここからディファードレンダリングのための準備。
+
+	Vector3 lightDir = Vector3(1.0f,-1.0f,0.0f);
+	lightDir.Normalize();
+
+	m_dirLight.direction = Vector4(lightDir.x, lightDir.y, lightDir.z, 1.0f);
+	m_dirLight.lightcolor = { 1.4f, 1.4f, 1.4f, 1.4f };
+
+	float color3[4] = { 0.5f,0.5f,0.5f,1.0f };
+
+	//メインレンダリングターゲット
+	m_mainRenderTarget.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		1,
+		1,
+		DXGI_FORMAT_R16G16B16A16_FLOAT,
+		DXGI_FORMAT_D32_FLOAT,
+		color3
+	);
+
+	float color[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float color2[4] = { 0.0f,0.0f,0.0f,1.0f };
+
+	//ディファードレンダリングのためのレンダリングターゲットを初期するぜ
+	m_albedRT.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		1,
+		1,
+		DXGI_FORMAT_R16G16B16A16_FLOAT,
+		DXGI_FORMAT_D32_FLOAT,
+		color
+	);
+
+	m_albedRT.SetClearColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+
+	m_normalRT.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		1,
+		1,
+		DXGI_FORMAT_B8G8R8A8_UNORM,
+		DXGI_FORMAT_UNKNOWN,
+		color2
+	);
+
+	m_worldPosRT.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		1,
+		1,
+		DXGI_FORMAT_R32G32B32A32_FLOAT,
+		DXGI_FORMAT_UNKNOWN,
+		color
+	);
+
+	m_depthRT.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		1,
+		1,
+		DXGI_FORMAT_R16G16B16A16_FLOAT,
+		DXGI_FORMAT_UNKNOWN,
+		color
+	);
+
+	m_shadowColorRT.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		1,
+		1,
+		DXGI_FORMAT_R32_FLOAT,
+		DXGI_FORMAT_UNKNOWN,
+		color
+	);
+
+	m_shadowColorRT.SetClearColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+
+
+	//ディファードレンダリング用のテクスチャを作成しまーす
+	//テクスチャデータの設定をする
+	SpriteInitData spriteInitData;
+	spriteInitData.m_width = FRAME_BUFFER_W;
+	spriteInitData.m_height = FRAME_BUFFER_H;
+	//アルベド
+	spriteInitData.m_textures[0] = &m_albedRT.GetRenderTargetTexture();
+	//法線
+	spriteInitData.m_textures[1] = &m_normalRT.GetRenderTargetTexture();
+	//深度
+	//spriteInitData.m_textures[2] = &m_depthRT.GetRenderTargetTexture();
+	//ワールド座標
+	spriteInitData.m_textures[2] = &m_shadowColorRT.GetRenderTargetTexture();
+	//ディファードレンダリング専用のシェーダー使う
+	spriteInitData.m_fxFilePath = "Assets/shader/deferred.fx";
+	spriteInitData.m_expandConstantBuffer = &m_dirLight;
+	spriteInitData.m_expandConstantBufferSize = sizeof(m_dirLight);
+	m_defferdSprite.Init(spriteInitData);
+
+	spriteInitData.m_textures[0] = &m_mainRenderTarget.GetRenderTargetTexture();
+	spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
+
+	m_copyMainRtToFrameBufferSprite.Init(spriteInitData);
+
+	m_postEffect.Init();
+
 
 	return true;
 }
@@ -470,14 +575,58 @@ void GraphicsEngine::EndRender()
 
 void GraphicsEngine::BeginDeferredRender()
 {
+	/*RenderTarget* rt[] = {
+		m_shadowMap->GetRenderTarget()
+	};*/
+
+	//レンダリングターゲットを設定
+	RenderTarget* rts[] = {
+		&m_albedRT,
+		&m_normalRT,
+		&m_shadowColorRT
+	};
+
+	//シャドウマップをシェーダーリソースビューとして使用したいので描き込み完了待ちする
+	//m_renderContext.WaitUntilFinishDrawingToRenderTargets(1, rt);
+
+	//G-Bufferのための３つのレンダリングターゲットを待機完了状態にする
+	m_renderContext.WaitUntilToPossibleSetRenderTargets(3, rts);
+
+	m_renderContext.SetRenderTargets(3, rts);
+	m_renderContext.SetViewport(m_albedRT);
+	m_renderContext.ClearRenderTargetViews(3, rts);
 }
 
 void GraphicsEngine::EndModelDraw()
 {
+	//レンダリングターゲットを設定
+	RenderTarget* rts[] = {
+		&m_albedRT,
+		&m_normalRT,
+		&m_shadowColorRT
+	};
+	m_renderContext.WaitUntilFinishDrawingToRenderTargets(3, rts);
+
+	RenderTarget* rt[] = {
+		&m_mainRenderTarget
+	};
+
+	m_renderContext.WaitUntilToPossibleSetRenderTargets(1, rt);
+	SetRenderTarget(1, rt);
+	m_renderContext.ClearRenderTargetViews(1, rt);
+	m_defferdSprite.Draw(m_renderContext);
 }
 
 void GraphicsEngine::RendertoPostEffect()
 {
+	//ポストエフェクトかけて(メインレンダリングターゲットに)
+	m_postEffect.Render(m_renderContext);
+
+	//レンダリングターゲットをフレームバッファにして
+	ChangeRenderTargetToFrameBuffer(m_renderContext);
+
+	//フレームバッファにドローする
+	m_copyMainRtToFrameBufferSprite.Draw(m_renderContext);
 }
 
 void GraphicsEngine::RendertoShadow()

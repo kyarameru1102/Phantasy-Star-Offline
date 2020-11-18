@@ -9,9 +9,13 @@
 #include "DirectXTK/Inc/DDSTextureLoader.h"
 #include "DirectXTK/Inc/ResourceUploadBatch.h"
 #include "RenderContext.h"
+#include "RenderTarget.h"
 #include "rayTracing/RaytracingEngine.h"
 #include "Camera.h"
 #include "NullTextureMaps.h"
+#include "Sprite.h"
+#include "PostEffect.h"
+
 
 /// <summary>
 /// DirectX12に依存するグラフィックスエンジン
@@ -312,6 +316,24 @@ private:
 	Camera m_camera3D;						//3Dカメラ。
 	raytracing::Engine m_raytracingEngine;	//レイトレエンジン。
 	NullTextureMaps m_nullTextureMaps;		//ヌルテクスチャマップ。
+	//ディファードレンダリング用テクスチャ。
+	Sprite m_defferdSprite;				//ディファードレンダリングの為のテクスチャ。
+	Sprite m_copyMainRtToFrameBufferSprite;		//メインレンダリングターゲットをコピーするためのスプライト。
+	//レンダリングターゲット。
+	RenderTarget m_mainRenderTarget;	//メインレンダリングターゲット。
+	RenderTarget m_albedRT;				//アルベドマップ。
+	RenderTarget m_normalRT;			//法線マップ。
+	RenderTarget m_worldPosRT;			//ワールド座標マップ。
+	RenderTarget m_shadowColorRT;		//影を落とす場所を決めるマップ。
+	RenderTarget m_depthRT;				//深値マップ。
+
+	struct SDirectionLight {
+		Vector4 direction;		//ライトの方向。
+		Vector4 lightcolor;			//ライトのカラー。
+	};
+	SDirectionLight m_dirLight;			//ライト。
+
+	PostEffect m_postEffect;			//ポストエフェクト
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

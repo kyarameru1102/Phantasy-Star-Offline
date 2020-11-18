@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderTarget.h"
 
 class ConstantBuffer;
 class Texture;
@@ -64,6 +65,27 @@ public:
 	void SetViewport(D3D12_VIEWPORT& viewport)
 	{
 		m_commandList->RSSetViewports(1, &viewport);
+	}
+	/// <summary>
+	/// ビューポートを設定
+	/// </summary>
+	/// <param name="renderTarget"></param>
+	void SetViewport(RenderTarget& renderTarget)
+	{
+		D3D12_VIEWPORT viewport;
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
+		viewport.Width = static_cast<float>(renderTarget.GetWidth());
+		viewport.Height = static_cast<float>(renderTarget.GetHeight());
+		viewport.MinDepth = D3D12_MIN_DEPTH;
+		viewport.MaxDepth = D3D12_MAX_DEPTH;
+		SetViewport(viewport);
+		D3D12_RECT srect;
+		srect.top = 0;
+		srect.left = 0;
+		srect.right = renderTarget.GetWidth();
+		srect.bottom = renderTarget.GetHeight();
+		SetScissorRect(srect);
 	}
 	/// <summary>
 	/// シザリング矩形を設定

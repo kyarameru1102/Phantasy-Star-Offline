@@ -74,6 +74,9 @@
     <Filter Include="ソース ファイル\Game\Light">
       <UniqueIdentifier>{2670c7ee-73a8-46a9-8dfb-2ceff7d20016}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Graphics\PostEffect">
+      <UniqueIdentifier>{c6fc964d-9046-458d-8bc0-21a48c10d074}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="system\system.cpp">
@@ -261,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="EnBehaviorTest.cpp">
       <Filter>ソース ファイル\Game\Scean</Filter>
+    </ClCompile>
+    <ClCompile Include="PostEffect.cpp">
+      <Filter>Engine\Graphics\PostEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -473,6 +479,12 @@
     </ClInclude>
     <ClInclude Include="EnBehaviorTest.h">
       <Filter>ソース ファイル\Game\Scean</Filter>
+    </ClInclude>
+    <ClInclude Include="PostEffect.h">
+      <Filter>Engine\Graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Engine\Graphics\PostEffect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
