@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Player.h"
 
+const float MAX_SPEED_Y = 50.0f; //Y方向のスピードの最大値。
+const float FLAME_NUM = 40.0f;  //フレーム数。
+const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変動値。
+                                                           //Y方向のスピードの最大値をフレーム数で割って、
+                                                           //1フレームあたりの変動値を求める。
 Player::Player()
 {
 }
@@ -25,14 +30,16 @@ bool Player::Start()
 	animClip[attackAndChang01].SetLoopFlag(true);
 	animClip[attackAndChang02].SetLoopFlag(true);
 
-
 	//モデルの初期化。
 	m_playerSkinModel = NewGO<SkinModelRender>(0);
 	m_playerSkinModel->Init("Assets/modelData/player/player.tkm", animClip, enAnimationClipNum);
 	Quaternion qRot;
 	qRot.SetRotationDegX(0.0f);
 	m_playerSkinModel->SetRotation(qRot);
+	m_position.y = 200.0f;
+	m_playerSkinModel->SetPosition(m_position);
 	m_charaCon.Init(50.0f, 100.0f, m_position);
+
 	m_gameCam = FindGO<GameCamera>("gameCamera");
 	return true;
 }
@@ -47,11 +54,38 @@ void Player::Update()
 		cameraDir,
 		Vector3::AxisY
 	);
-	//プレイヤーのムーブスピードを更新。
-	m_moveSpeed = cameraDirX * g_pad[0]->GetLStickXF() * -5.0f +
-		cameraDir * g_pad[0]->GetLStickYF() * 5.0f;
+	//プレイヤーのムーブスピードを計算。
+	m_moveSpeed = cameraDirX * g_pad[0]->GetLStickXF() * -10.0f +
+		cameraDir * g_pad[0]->GetLStickYF() * 10.0f;
 
-	m_moveSpeed.y = -1.0f;
+	if (m_charaCon.IsOnGround() != false) {
+		//地面の上にいる。
+		if (g_pad[0]->IsPress(enButtonB)) {
+			//Bボタンを押した。
+			//ジャンプフラグを立てる。
+			m_jumpFlag = true;
+			//Yスピードを最大値にする。
+			m_speedY = MAX_SPEED_Y;
+		}
+		else {
+			//フラグを下す。
+			m_jumpFlag = true;
+			//Yスピードを0にする。
+			m_speedY = 0.0f;
+		}
+	}
+	if (m_jumpFlag != false || m_charaCon.IsOnGround() != true) {
+		//ジャンプしているまたは、落下している。
+		m_speedY -= FLUCTUATION_VALUE_Y;
+	}
+
+	if (m_speedY <= -MAX_SPEED_Y) {
+		//Yスピードの最低値を固定する。
+		m_speedY = -MAX_SPEED_Y;
+	}
+	//ムーブスピードにYスピードを加算。
+	m_moveSpeed.y += m_speedY;
+
 	//座標を設定。
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_playerSkinModel->SetPosition(m_position);
@@ -68,12 +102,11 @@ void Player::Update()
 	if (g_pad[0]->IsTrigger(enButtonX)) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
-		//m_Chang01State = enChange01;
+		m_Chang01State = enChange01;
+		m_Chang02State = enChange02;
+		m_changeAnimTime = 35;
 	}
-	/*else if (g_pad[0]->IsPress(enButtonY)) {
-		m_changeAnimFlag = true;
-		m_Chang02State = attackAndChang01;
-	}*/
+
 	if (m_changeAnimFlag != false) {
 		//武器の状態によって武器変更のアニメーションを決める。
 		if (m_weaponState == enBladState) {
@@ -102,5 +135,6 @@ void Player::Update()
 		}
 	}
 	//アニメーションを再生。
-	m_playerSkinModel->PlayAnimation(m_animState, 0.0f);
+	float aa = m_changeAnimTime / 60.0f;
+	m_playerSkinModel->PlayAnimation(m_animState, aa);
 }
