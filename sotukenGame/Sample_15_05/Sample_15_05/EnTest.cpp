@@ -13,7 +13,7 @@ EnTest::~EnTest()
 bool EnTest::Start()
 {
 	//アニメーションクリップのロード
-	m_animationClip[enIdle].Load("Assets/animData/DragonBoar/boar_run.tka");
+	m_animationClip[enIdle].Load("Assets/animData/DragonBoar/boar_scream.tka");
 	m_animationClip[enIdle].SetLoopFlag(true);
 	//モデルの初期化
 	m_EnTestSkinModel = NewGO<SkinModelRender>(0);
