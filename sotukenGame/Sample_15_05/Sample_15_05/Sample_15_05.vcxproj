@@ -220,6 +220,7 @@
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Physics\RigidBody.cpp" />
+    <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="PlayerStatusUI.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="SkinModelRender.cpp" />
@@ -299,6 +300,7 @@
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Physics\RigidBody.h" />
+    <ClInclude Include="PlayerAnimation.h" />
     <ClInclude Include="PlayerStatusUI.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Primitive.h" />

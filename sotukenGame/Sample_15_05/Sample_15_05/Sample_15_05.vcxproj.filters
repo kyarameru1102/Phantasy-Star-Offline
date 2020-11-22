@@ -196,6 +196,9 @@
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerAnimation.cpp">
+      <Filter>ソースファイル\Game\Charactor\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

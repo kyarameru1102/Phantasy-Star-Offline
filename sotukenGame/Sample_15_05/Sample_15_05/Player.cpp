@@ -127,38 +127,44 @@ bool Player::Start()
 {
 	m_weapon[0] = NewGO<Weapon>(0, "weapon_01");
 	m_weapon[1] = NewGO<Weapon>(0, "weapon_02");
-	//アニメーションをロード。
-	animClip[enStay_blad].Load("Assets/animData/player/blad/stay_01.tka");
-	animClip[enStay_sword].Load("Assets/animData/player/sword/stay_02.tka");
-	animClip[enChange_blad].Load("Assets/animData/player/blad/change_01.tka");
-	animClip[enChange_sword].Load("Assets/animData/player/sword/change_02.tka");
-	animClip[enWalk_sword].Load("Assets/animData/player/sword/walk_02.tka");
-	animClip[enRun_sword].Load("Assets/animData/player/sword/run_02.tka");
+	////アニメーションをロード。
+	//animClip[enStay_blad].Load("Assets/animData/player/blad/stay_01.tka");
+	//animClip[enStay_sword].Load("Assets/animData/player/sword/stay_02.tka");
+	//animClip[enChange_blad].Load("Assets/animData/player/blad/change_01.tka");
+	//animClip[enChange_sword].Load("Assets/animData/player/sword/change_02.tka");
+	//animClip[enWalk_sword].Load("Assets/animData/player/sword/walk_02.tka");
+	//animClip[enRun_sword].Load("Assets/animData/player/sword/run_02.tka");
 
-	animClip[enJumpStart_sword].Load("Assets/animData/player/sword/jumpStart_02.tka");
-	animClip[enStayInTheAir_sword].Load("Assets/animData/player/sword/stayInTheAir_02.tka");
-	animClip[enJumpEnd_sword].Load("Assets/animData/player/sword/jumpEnd_02.tka");
+	//animClip[enJumpStart_sword].Load("Assets/animData/player/sword/jumpStart_02.tka");
+	//animClip[enStayInTheAir_sword].Load("Assets/animData/player/sword/stayInTheAir_02.tka");
+	//animClip[enJumpEnd_sword].Load("Assets/animData/player/sword/jumpEnd_02.tka");
 
-	animClip[enStay_blad].SetLoopFlag(true);
-	animClip[enStay_sword].SetLoopFlag(true);
-	animClip[enChange_blad].SetLoopFlag(true);
-	animClip[enChange_sword].SetLoopFlag(true);
-	animClip[enWalk_sword].SetLoopFlag(true);
-	animClip[enRun_sword].SetLoopFlag(true);
+	//animClip[enStay_blad].SetLoopFlag(true);
+	//animClip[enStay_sword].SetLoopFlag(true);
+	//animClip[enChange_blad].SetLoopFlag(true);
+	//animClip[enChange_sword].SetLoopFlag(true);
+	//animClip[enWalk_sword].SetLoopFlag(true);
+	//animClip[enRun_sword].SetLoopFlag(true);
 
-	animClip[enJumpStart_sword].SetLoopFlag(true);
-	animClip[enStayInTheAir_sword].SetLoopFlag(true);
-	animClip[enJumpEnd_sword].SetLoopFlag(true);
-
+	//animClip[enJumpStart_sword].SetLoopFlag(true);
+	//animClip[enStayInTheAir_sword].SetLoopFlag(true);
+	//animClip[enJumpEnd_sword].SetLoopFlag(true);
+	m_playerAnim = NewGO<PlayerAnimation>(0, "playerAnim");
 
 	//モデルの初期化。
 	m_playerSkinModel = NewGO<SkinModelRender>(0);
-	m_playerSkinModel->Init("Assets/modelData/player/player.tkm", animClip, enAnimationClipNum);
-	Quaternion qRot;
+	m_playerSkinModel->Init(
+		"Assets/modelData/player/player.tkm",
+		m_playerAnim->GetAnimationClip(),
+		enAnimationClipNum,
+		"Assets/shader/model.fx",
+		SkinModelRender::YUp
+		);
+	/*Quaternion qRot;
 	qRot.SetRotationDegX(0.0f);
 	m_playerSkinModel->SetRotation(qRot);
 	m_position.y = 200.0f;
-	m_playerSkinModel->SetPosition(m_position);
+	m_playerSkinModel->SetPosition(m_position);*/
 	m_charaCon.Init(50.0f, 100.0f, m_position);
 
 

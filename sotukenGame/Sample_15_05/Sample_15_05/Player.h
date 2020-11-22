@@ -4,6 +4,7 @@ class Weapon;
 #include "Physics/Character/CharacterController.h"
 #include "GameCamera.h"
 #include "Weapon.h"
+#include "PlayerAnimation.h"
 /// <summary>
 /// プレイヤークラス。
 /// </summary>
@@ -56,28 +57,33 @@ public:
 		return m_position;
 	}
 private:
+	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
 	GameCamera* m_gameCam = nullptr;
 	Vector3 m_position = Vector3::Zero;//座標。
 	Vector3 m_moveSpeed = Vector3::Zero;//ムーブスピード。
 	Quaternion m_rotation = Quaternion::Identity; //回転クォータニオン。
 	CharacterController m_charaCon;//キャラコン。
-	const enum {
-		enStay_blad,            //ブレイド状態。
-		enStay_sword,            //ソード状態。
-		enWalk_blad,           //ブレイド状態で歩く。
-		enWalk_sword,           //ソード状態で歩く。
-		enRun_blad,            //ブレイド状態で走る。
-		enRun_sword,            //ソード状態で走る。
-		enJumpStart_blad,       //ブレイド状態でジャンプする。
-		enJumpStart_sword,      //ソード状態でジャンプする。
-		enStayInTheAir_blad,   //ブレイド状態で滞空。
-		enStayInTheAir_sword,  //ソード状態で滞空。
-		enJumpEnd_blad,       //ブレイド状態でジャンプ終了。
-		enJumpEnd_sword,      //ソード状態でジャンプ終了。
-		enChange_blad,          //ブレイドからソードに変更。
-		enChange_sword,         //ソードからブレイドに変更。
-		enAnimationClipNum, //アニメーションクリップの数。
+	//const enum {
+	//	enStay_blad,            //ブレイド状態。
+	//	enStay_sword,            //ソード状態。
+	//	enWalk_blad,           //ブレイド状態で歩く。
+	//	enWalk_sword,           //ソード状態で歩く。
+	//	enRun_blad,            //ブレイド状態で走る。
+	//	enRun_sword,            //ソード状態で走る。
+	//	enJumpStart_blad,       //ブレイド状態でジャンプする。
+	//	enJumpStart_sword,      //ソード状態でジャンプする。
+	//	enStayInTheAir_blad,   //ブレイド状態で滞空。
+	//	enStayInTheAir_sword,  //ソード状態で滞空。
+	//	enJumpEnd_blad,       //ブレイド状態でジャンプ終了。
+	//	enJumpEnd_sword,      //ソード状態でジャンプ終了。
+	//	enChange_blad,          //ブレイドからソードに変更。
+	//	enChange_sword,         //ソードからブレイドに変更。
+	//	enAnimationClipNum, //アニメーションクリップの数。
+	//	enBladState,
+	//	enSwordState
+	//};
+	enum {
 		enBladState,
 		enSwordState
 	};
@@ -86,7 +92,7 @@ private:
 	int m_changeAnimTime = 70;//武器を変えるのにかかるフレーム。
 	int m_animState = enStay_blad; //アニメーションの状態。
 	int m_weaponState = enBladState;//武器の状態。
-	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
+	//AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 	bool m_jumpFlag = false;//ジャンプしてるかどうかのフラグ。
 	float m_speedY = 0.0f;//Y方向のスピード。
 	float m_magnificationSpeed = 5.0f; //速さの倍率。
