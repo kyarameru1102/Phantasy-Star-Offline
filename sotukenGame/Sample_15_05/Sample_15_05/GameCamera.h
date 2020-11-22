@@ -39,7 +39,7 @@ private:
 	Player* m_player = nullptr;
 	Vector3 m_position = Vector3::Zero;
 	Vector3 m_target = Vector3::Zero;
-	Vector3 m_toPlayerVec = { 0.0f, 300.0f, 600.0f };//カメラからプレイヤーに向かって伸びるベクトル。
+	Vector3 m_toPlayerVec = { 0.0f, 200.0f, 400.0f };//カメラからプレイヤーに向かって伸びるベクトル。
 	float m_angleAxisX = 0.0f;//X軸回転の角度。
 	float m_angleAxisY = 0.0f;//Y軸回転の角度。
 

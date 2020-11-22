@@ -77,6 +77,9 @@
     <Filter Include="Engine\Graphics\PostEffect">
       <UniqueIdentifier>{c6fc964d-9046-458d-8bc0-21a48c10d074}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Charactor\Player">
+      <UniqueIdentifier>{f55a6a0a-9bfa-4d26-b194-de8de66becd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="system\system.cpp">
@@ -150,9 +153,6 @@
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\tkEngine.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル\Game\Scean\Game</Filter>
@@ -268,6 +268,12 @@
     <ClCompile Include="PostEffect.cpp">
       <Filter>Engine\Graphics\PostEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Game\Charactor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>ソース ファイル\Game\Charactor\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
@@ -353,9 +359,6 @@
     </ClInclude>
     <ClInclude Include="system\system.h">
       <Filter>ソース ファイル\system</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ソース ファイル\Game\Charactor</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>ソース ファイル\Game\Scean\Game</Filter>
@@ -485,6 +488,12 @@
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Engine\Graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ソース ファイル\Game\Charactor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>ソース ファイル\Game\Charactor\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
