@@ -268,11 +268,16 @@
     <ClCompile Include="PostEffect.cpp">
       <Filter>Engine\Graphics\PostEffect</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\Game\Charactor\Player</Filter>
     </ClCompile>
     <ClCompile Include="Weapon.cpp">
       <Filter>ソース ファイル\Game\Charactor\Player</Filter>
+=======
+    <ClCompile Include="GroupCoreGenerator.cpp">
+      <Filter>ソース ファイル</Filter>
+>>>>>>> 80f3ab7a0adf77bd8595128103be28a0d53106e0
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -489,11 +494,15 @@
     <ClInclude Include="Primitive.h">
       <Filter>Engine\Graphics\PostEffect</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Player.h">
       <Filter>ソース ファイル\Game\Charactor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
       <Filter>ソース ファイル\Game\Charactor\Player</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="GroupCoreGenerator.h" />
+>>>>>>> 80f3ab7a0adf77bd8595128103be28a0d53106e0
   </ItemGroup>
 </Project>

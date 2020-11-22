@@ -206,6 +206,7 @@
     <ClCompile Include="EnBehaviorTest.cpp" />
     <ClCompile Include="EnTest.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GroupCoreGenerator.cpp" />
     <ClCompile Include="Physics\Character\CharacterController.cpp" />
     <ClCompile Include="MobEnBase.cpp" />
     <ClCompile Include="Physics\BoxCollider.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="EnBehaviorTest.h" />
     <ClInclude Include="EnTest.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GroupCoreGenerator.h" />
     <ClInclude Include="Physics\Character\CharacterController.h" />
     <ClInclude Include="MobEnBase.h" />
     <ClInclude Include="Physics\BoxCollider.h" />
