@@ -220,6 +220,7 @@
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Physics\RigidBody.cpp" />
+    <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="PlayerStatusUI.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="SkinModelRender.cpp" />
@@ -232,6 +233,7 @@
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MiniEngine\Animation.h" />
@@ -298,6 +300,7 @@
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Physics\RigidBody.h" />
+    <ClInclude Include="PlayerAnimation.h" />
     <ClInclude Include="PlayerStatusUI.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Primitive.h" />
@@ -307,6 +310,7 @@
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MiniEngine\DirectXTK\DirectXTK_Desktop_2019_Win10.vcxproj">

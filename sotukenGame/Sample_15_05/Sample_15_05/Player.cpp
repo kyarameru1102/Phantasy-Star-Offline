@@ -9,42 +9,149 @@ const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変
 Player::Player()
 {
 }
-
 Player::~Player()
 {
 	DeleteGO(m_playerSkinModel);
 }
+void Player::YDirMove()
+{
+	if (m_charaCon.IsOnGround() != false) {
+		//地面の上にいる。
+		if (g_pad[0]->IsPress(enButtonA)) {
+			//Aボタンを押した。
+			//ジャンプフラグを立てる。
+			m_jumpFlag = true;
+			//Yスピードを最大値にする。
+			m_speedY = MAX_SPEED_Y;
+			jumpStartTimer = 0;
+		}
+		else {
+			//フラグを下す。
+			m_jumpFlag = false;
+			//Yスピードを0にする。
+			m_speedY = 0.0f;
+		}
+	}
+	if (m_jumpFlag != false) {
+		//ジャンプした時、アニメーションを流す。
+		jumpStartTimer++;
+		if (jumpStartTimer <= 40) {
+			if (m_weaponState == enSwordState) {
+				m_changeAnimTime = 10.0f;
+				m_animState = enJumpStart_sword;
+			}
+		}
+	}
+	if (m_charaCon.IsOnGround() != true) {
+		//ジャンプしているまたは、落下している。
+		m_speedY -= FLUCTUATION_VALUE_Y;
+		if (jumpStartTimer >= 40) {
+			if (m_weaponState == enSwordState) {
+				m_changeAnimTime = 10.0f;
+				m_animState = enStayInTheAir_sword;
+			}
+		}
+	}
+
+	if (m_speedY <= -MAX_SPEED_Y) {
+		//Yスピードの最低値を固定する。
+		m_speedY = -MAX_SPEED_Y;
+	}
+	//ムーブスピードにYスピードを加算。
+	m_moveSpeed.y += m_speedY;
+
+}
+void Player::WeaponChange()
+{
+	if (m_changeAnimFlag != false) {
+		//武器の状態によって武器変更のアニメーションを決める。
+		if (m_weaponState == enBladState) {
+			m_animState = enChange_blad;
+		}
+		else if (m_weaponState == enSwordState) {
+			m_animState = enChange_sword;
+		}
+		//武器変更時は動かない。
+		m_moveSpeed = Vector3::Zero;
+		//タイマーを加算。
+		m_changeAnimTimer++;
+		if (m_changeAnimTimer > m_changeAnimTime) {
+			//武器変更のアニメーションが終わった。
+			//m_weaponStateが武器変更前の状態で、変更後の状態にする。
+			if (m_weaponState == enBladState) {
+				m_weaponState = enSwordState;
+				m_animState = enStay_sword;
+			}
+			else if (m_weaponState == enSwordState) {
+				m_weaponState = enBladState;
+				m_animState = enStay_blad;
+			}
+			//フラグをfalseにする。
+			m_changeAnimFlag = false;
+			//タイマーをリセット。
+			m_changeAnimTimer = 0;
+		}
+	}
+}
+void Player::SetWeaponTR()
+{
+	//ボーンから武器の座標、回転、スケールを設定。
+	m_playerSkinModel->GetModel().GetSkeleton().GetBone(m_weapon01Num)->CalcWorldTRS(
+		m_weaponPos,
+		m_weaponRot,
+		m_weaponScale
+	);
+	Quaternion weaponRot = Quaternion::Identity;
+	weaponRot.SetRotationDegX(90.0f);
+	weaponRot.Multiply(m_weaponRot);
+	//座標にムーブスピードを加算。
+	m_weaponPos += m_moveSpeed;
+	m_weapon[0]->SetPosition(m_weaponPos);
+	m_weapon[0]->SetRtation(weaponRot);
+
+	//ボーンから武器の座標、回転、スケールを設定。
+	m_playerSkinModel->GetModel().GetSkeleton().GetBone(m_weapon02Num)->CalcWorldTRS(
+		m_weaponPos,
+		m_weaponRot,
+		m_weaponScale
+	);
+	weaponRot = Quaternion::Identity;
+	weaponRot.SetRotationDegX(90.0f);
+	weaponRot.Multiply(m_weaponRot);
+	//座標にムーブスピードを加算。
+	m_weaponPos += m_moveSpeed;
+	m_weapon[1]->SetPosition(m_weaponPos);
+	m_weapon[1]->SetRtation(weaponRot);
+}
 bool Player::Start()
 {
-	//アニメーションをロード。
-	animClip[enStay01].Load("Assets/animData/player/blad/stay_01.tka");
-	animClip[enStay02].Load("Assets/animData/player/sword/stay_02.tka");
-	animClip[enChange01].Load("Assets/animData/player/blad/change_01.tka");
-	animClip[enChange02].Load("Assets/animData/player/sword/change_02.tka");
-	animClip[attackAndChang01].Load("Assets/animData/player/blad/attackAndChange_01.tka");
-	animClip[attackAndChang02].Load("Assets/animData/player/sword/attackAndChange_02.tka");
-	animClip[enStay01].SetLoopFlag(true);
-	animClip[enStay02].SetLoopFlag(true);
-	animClip[enChange01].SetLoopFlag(true);
-	animClip[enChange02].SetLoopFlag(true);
-	animClip[attackAndChang01].SetLoopFlag(true);
-	animClip[attackAndChang02].SetLoopFlag(true);
-
+	//武器のインスタンス作成。
+	m_weapon[0] = NewGO<Weapon>(0, "weapon_01");
+	m_weapon[1] = NewGO<Weapon>(0, "weapon_02");
+	//プレイヤーのアニメーションのインスタンス作成。
+	m_playerAnim = NewGO<PlayerAnimation>(0, "playerAnim");
 	//モデルの初期化。
 	m_playerSkinModel = NewGO<SkinModelRender>(0);
-	m_playerSkinModel->Init("Assets/modelData/player/player.tkm", animClip, enAnimationClipNum);
-	Quaternion qRot;
-	qRot.SetRotationDegX(0.0f);
-	m_playerSkinModel->SetRotation(qRot);
-	m_position.y = 200.0f;
-	m_playerSkinModel->SetPosition(m_position);
+	m_playerSkinModel->Init(
+		"Assets/modelData/player/player.tkm",
+		m_playerAnim->GetAnimationClip(),
+		enAnimationClipNum,
+		"Assets/shader/model.fx",
+		SkinModelRender::YUp
+		);
+	//キャラコン初期化。
 	m_charaCon.Init(50.0f, 100.0f, m_position);
-
+	//武器の座標、回転を適応させるボーンの番号を検索。
+	m_weapon01Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_r");
+	m_weapon02Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l");
+	//GameCameraのインスタンスを検索。
 	m_gameCam = FindGO<GameCamera>("gameCamera");
 	return true;
 }
 void Player::Update()
 {
+	SetWeaponTR();
+	//カメラを考慮したプレイヤーの移動方向を計算する。
 	Vector3 cameraDir = m_gameCam->GetTarget() - m_gameCam->GetPosition();
 	cameraDir.y = 0.0f;
 	cameraDir.Normalize();
@@ -55,37 +162,50 @@ void Player::Update()
 		Vector3::AxisY
 	);
 	//プレイヤーのムーブスピードを計算。
-	m_moveSpeed = cameraDirX * g_pad[0]->GetLStickXF() * -10.0f +
-		cameraDir * g_pad[0]->GetLStickYF() * 10.0f;
+	m_moveSpeed = cameraDirX * g_pad[0]->GetLStickXF() * -m_magnificationSpeed +
+		cameraDir * g_pad[0]->GetLStickYF() * m_magnificationSpeed;
 
-	if (m_charaCon.IsOnGround() != false) {
-		//地面の上にいる。
+	if (fabs(m_moveSpeed.x) > 0.0f || fabs(m_moveSpeed.z) > 0.0f) {
+		//移動している。
 		if (g_pad[0]->IsPress(enButtonB)) {
-			//Bボタンを押した。
-			//ジャンプフラグを立てる。
-			m_jumpFlag = true;
-			//Yスピードを最大値にする。
-			m_speedY = MAX_SPEED_Y;
+			if (m_weaponState == enSwordState) {
+				//ソード状態。
+				m_changeAnimTime = 10.0f;
+				m_magnificationSpeed = 10.0f;
+				m_animState = enRun_sword;
+			}
 		}
 		else {
-			//フラグを下す。
-			m_jumpFlag = true;
-			//Yスピードを0にする。
-			m_speedY = 0.0f;
+			if (m_weaponState == enSwordState) {
+				m_changeAnimTime = 10.0f;
+				m_magnificationSpeed = 5.0f;
+				m_animState = enWalk_sword;
+			}
 		}
 	}
-	if (m_jumpFlag != false || m_charaCon.IsOnGround() != true) {
-		//ジャンプしているまたは、落下している。
-		m_speedY -= FLUCTUATION_VALUE_Y;
+	else if (m_weaponState == enSwordState){
+		//ソード状態。
+		m_animState = enStay_sword;
 	}
+	//Y方向の移動。
+	YDirMove();
 
-	if (m_speedY <= -MAX_SPEED_Y) {
-		//Yスピードの最低値を固定する。
-		m_speedY = -MAX_SPEED_Y;
+	//武器変更。
+	if (g_pad[0]->IsPress(enButtonX)) {
+		//武器変更のフラグを立てる。
+		m_changeAnimFlag = true;
+		m_changeAnimTime = 35;
 	}
-	//ムーブスピードにYスピードを加算。
-	m_moveSpeed.y += m_speedY;
+	WeaponChange();
 
+	//アニメーションを再生。
+	float aa = m_changeAnimTime / 60.0f;
+	m_playerSkinModel->PlayAnimation(m_animState, aa);
+
+	//とりあえずプレイヤーのY座標が-500以下になったら戻るようにする。
+	if (m_charaCon.GetPosition().y <= -500.0f) {
+		m_charaCon.SetPosition({ 0.0f, 500.0f, 0.0f });
+	}
 	//座標を設定。
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_playerSkinModel->SetPosition(m_position);
@@ -97,44 +217,4 @@ void Player::Update()
 		m_rotation.SetRotation(Vector3::AxisY, rot);
 	}
 	m_playerSkinModel->SetRotation(m_rotation);
-
-
-	if (g_pad[0]->IsTrigger(enButtonX)) {
-		//武器変更のフラグを立てる。
-		m_changeAnimFlag = true;
-		m_Chang01State = enChange01;
-		m_Chang02State = enChange02;
-		m_changeAnimTime = 35;
-	}
-
-	if (m_changeAnimFlag != false) {
-		//武器の状態によって武器変更のアニメーションを決める。
-		if (m_weaponState == enBladState) {
-			m_animState = enChange01;
-		}
-		else if(m_weaponState == enSwordState){
-			m_animState = enChange02;
-		}
-		//タイマーを加算。
-		m_changeAnimTimer++;
-		if (m_changeAnimTimer > m_changeAnimTime) {
-			//武器変更のアニメーションが終わった。
-			//m_weaponStateが武器変更前の状態で、変更後の状態にする。
-			if (m_weaponState == enBladState) {
-				m_weaponState = enSwordState;
-				m_animState = enStay02;
-			}
-			else if (m_weaponState == enSwordState) {
-				m_weaponState = enBladState;
-				m_animState = enStay01;
-			}
-			//フラグをfalseにする。
-			m_changeAnimFlag = false;
-			//タイマーをリセット。
-			m_changeAnimTimer = 0;
-		}
-	}
-	//アニメーションを再生。
-	float aa = m_changeAnimTime / 60.0f;
-	m_playerSkinModel->PlayAnimation(m_animState, aa);
 }
