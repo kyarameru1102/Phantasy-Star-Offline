@@ -92,7 +92,6 @@ private:
 	int m_changeAnimTime = 70;//武器を変えるのにかかるフレーム。
 	int m_animState = enStay_blad; //アニメーションの状態。
 	int m_weaponState = enBladState;//武器の状態。
-	//AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 	bool m_jumpFlag = false;//ジャンプしてるかどうかのフラグ。
 	float m_speedY = 0.0f;//Y方向のスピード。
 	float m_magnificationSpeed = 5.0f; //速さの倍率。
@@ -105,6 +104,5 @@ private:
 	Vector3 m_weaponPos = Vector3::Zero;          //武器の座標。
 	Quaternion m_weaponRot = Quaternion::Identity;//武器の回転。
 	Vector3 m_weaponScale = Vector3::One;       //武器のスケール。
-
 };
 

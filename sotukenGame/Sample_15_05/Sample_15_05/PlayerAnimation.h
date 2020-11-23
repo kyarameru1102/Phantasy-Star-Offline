@@ -19,13 +19,27 @@ const enum PlayerAnim {
 class PlayerAnimation : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	PlayerAnimation();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~PlayerAnimation();
-
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
 	bool Start() override;
-
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
 	void Update() override;
-
+	/// <summary>
+	/// アニメーションクリップを返す。
+	/// </summary>
+	/// <returns></returns>
 	AnimationClip* GetAnimationClip()
 	{
 		return animClip;

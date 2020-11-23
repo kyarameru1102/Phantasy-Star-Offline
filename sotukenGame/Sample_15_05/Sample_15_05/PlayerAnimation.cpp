@@ -5,6 +5,9 @@
 
 PlayerAnimation::PlayerAnimation()
 {
+	//アニメーションロード。
+	//プレイヤーのスキンモデルを初期化するより先にロードしたいから、
+	//コンストラクタでロードする。
 	animClip[enStay_blad].Load("Assets/animData/player/blad/stay_01.tka");
 	animClip[enStay_sword].Load("Assets/animData/player/sword/stay_02.tka");
 	animClip[enChange_blad].Load("Assets/animData/player/blad/change_01.tka");
