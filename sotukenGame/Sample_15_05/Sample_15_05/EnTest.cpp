@@ -17,7 +17,7 @@ bool EnTest::Start()
 	m_animationClip[enIdle].SetLoopFlag(true);
 	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
 	m_EnTestSkinModel = NewGO<SkinModelRender>(0);
-	m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Blue/DrBoarBl.tkm", m_animationClip, enAnimationClip_num);
+	m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_animationClip, enAnimationClip_num);
 	
 	m_rotation.SetRotation(Vector3::AxisX, (90.0f, 0.0f, 0.0f));
 	m_rotation.SetRotationDegY(90.0f);
