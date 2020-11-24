@@ -89,13 +89,13 @@ private:
 	};
 	bool m_changeAnimFlag = false;
 	int m_changeAnimTimer = 0;
-	int m_changeAnimTime = 70;//武器を変えるのにかかるフレーム。
+	int m_changeAnimTime = 35;//武器を変えるのにかかるフレーム。
 	int m_animState = enStay_blad; //アニメーションの状態。
 	int m_weaponState = enBladState;//武器の状態。
 	bool m_jumpFlag = false;//ジャンプしてるかどうかのフラグ。
 	float m_speedY = 0.0f;//Y方向のスピード。
 	float m_magnificationSpeed = 5.0f; //速さの倍率。
-
+	float m_complementaryTime = 0.0f;//アニメーション補完時間。
 	int jumpStartTimer = 40;
 
 	Weapon* m_weapon[2] = { nullptr, nullptr };

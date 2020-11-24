@@ -36,20 +36,16 @@ void Player::YDirMove()
 		//ジャンプした時、アニメーションを流す。
 		jumpStartTimer++;
 		if (jumpStartTimer <= 40) {
-			if (m_weaponState == enSwordState) {
-				m_changeAnimTime = 10.0f;
-				m_animState = enJumpStart_sword;
-			}
+			m_complementaryTime = 10.0f;
+				m_animState = enJumpStart_blad;
 		}
 	}
 	if (m_charaCon.IsOnGround() != true) {
 		//ジャンプしているまたは、落下している。
 		m_speedY -= FLUCTUATION_VALUE_Y;
 		if (jumpStartTimer >= 40) {
-			if (m_weaponState == enSwordState) {
-				m_changeAnimTime = 10.0f;
-				m_animState = enStayInTheAir_sword;
-			}
+			m_complementaryTime = 10.0f;
+				m_animState = enStayInTheAir_blad;
 		}
 	}
 
@@ -64,13 +60,8 @@ void Player::YDirMove()
 void Player::WeaponChange()
 {
 	if (m_changeAnimFlag != false) {
-		//武器の状態によって武器変更のアニメーションを決める。
-		if (m_weaponState == enBladState) {
-			m_animState = enChange_blad;
-		}
-		else if (m_weaponState == enSwordState) {
-			m_animState = enChange_sword;
-		}
+		m_complementaryTime = 10.0f;
+		m_animState = enChange_blad;
 		//武器変更時は動かない。
 		m_moveSpeed = Vector3::Zero;
 		//タイマーを加算。
@@ -80,11 +71,9 @@ void Player::WeaponChange()
 			//m_weaponStateが武器変更前の状態で、変更後の状態にする。
 			if (m_weaponState == enBladState) {
 				m_weaponState = enSwordState;
-				m_animState = enStay_sword;
 			}
 			else if (m_weaponState == enSwordState) {
 				m_weaponState = enBladState;
-				m_animState = enStay_blad;
 			}
 			//フラグをfalseにする。
 			m_changeAnimFlag = false;
@@ -150,6 +139,7 @@ bool Player::Start()
 }
 void Player::Update()
 {
+	m_animState = enStay_blad;
 	SetWeaponTR();
 	//カメラを考慮したプレイヤーの移動方向を計算する。
 	Vector3 cameraDir = m_gameCam->GetTarget() - m_gameCam->GetPosition();
@@ -168,38 +158,30 @@ void Player::Update()
 	if (fabs(m_moveSpeed.x) > 0.0f || fabs(m_moveSpeed.z) > 0.0f) {
 		//移動している。
 		if (g_pad[0]->IsPress(enButtonB)) {
-			if (m_weaponState == enSwordState) {
-				//ソード状態。
-				m_changeAnimTime = 10.0f;
-				m_magnificationSpeed = 10.0f;
-				m_animState = enRun_sword;
-			}
+			m_magnificationSpeed = 10.0f;
+			m_animState = enRun_blad;
 		}
 		else {
-			if (m_weaponState == enSwordState) {
-				m_changeAnimTime = 10.0f;
-				m_magnificationSpeed = 5.0f;
-				m_animState = enWalk_sword;
-			}
+			m_magnificationSpeed = 5.0f;
+			m_animState = enWalk_blad;
 		}
-	}
-	else if (m_weaponState == enSwordState){
-		//ソード状態。
-		m_animState = enStay_sword;
+		m_complementaryTime = 10.0f;
 	}
 	//Y方向の移動。
 	YDirMove();
 
 	//武器変更。
-	if (g_pad[0]->IsPress(enButtonX)) {
+	if (g_pad[0]->IsPress(enButtonLB1)) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
-		m_changeAnimTime = 35;
 	}
 	WeaponChange();
 
+	if (m_weaponState == enSwordState) {
+		m_animState++;
+	}
 	//アニメーションを再生。
-	float aa = m_changeAnimTime / 60.0f;
+	float aa = m_complementaryTime / 60.0f;
 	m_playerSkinModel->PlayAnimation(m_animState, aa);
 
 	//とりあえずプレイヤーのY座標が-500以下になったら戻るようにする。

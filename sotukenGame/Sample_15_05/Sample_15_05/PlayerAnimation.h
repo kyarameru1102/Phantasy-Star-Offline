@@ -10,8 +10,6 @@ const enum PlayerAnim {
 	enJumpStart_sword,      //ソード状態でジャンプする。
 	enStayInTheAir_blad,   //ブレイド状態で滞空。
 	enStayInTheAir_sword,  //ソード状態で滞空。
-	enJumpEnd_blad,       //ブレイド状態でジャンプ終了。
-	enJumpEnd_sword,      //ソード状態でジャンプ終了。
 	enChange_blad,          //ブレイドからソードに変更。
 	enChange_sword,         //ソードからブレイドに変更。
 	enAnimationClipNum, //アニメーションクリップの数。
