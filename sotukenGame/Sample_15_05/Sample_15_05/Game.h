@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "GameCamera.h"
 #include "BackGround.h"
+#include "Menu.h"
 /// <summary>
 /// ゲームシーン。
 /// </summary>
@@ -33,5 +34,6 @@ private:
 	GameCamera* m_gameCam = nullptr;
 	BackGround* m_bg = nullptr;
 	PlayerStatusUI* m_playerStatusUI = nullptr;
+	Menu* m_menu = nullptr;				//メニューのインスタンス。
 };
 
