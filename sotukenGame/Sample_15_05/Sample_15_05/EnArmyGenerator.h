@@ -13,8 +13,6 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~EnArmyGenerator();
-
-	void Update();
-
+	void Update()override;
 };
 

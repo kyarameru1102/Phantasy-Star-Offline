@@ -45,9 +45,7 @@ void EnTest::Update()
 	{
 		m_animState = enDie;
 	}
-	/*if (g_pad[0]->IsPress(enButtonA)) {
-		m_animState = enWalk;
-	}*/
+	
 	
 	m_EnTestSkinModel->SetScale({ 40.0, 40.0, 40.0 });
 	m_EnTestSkinModel->SetRotation(m_rotation);

@@ -8,3 +8,8 @@ EnArmyGenerator::EnArmyGenerator()
 EnArmyGenerator::~EnArmyGenerator()
 {
 }
+
+void EnArmyGenerator::Update()
+{
+
+}

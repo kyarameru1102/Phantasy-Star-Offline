@@ -10,6 +10,7 @@ Weapon::Weapon()
 
 Weapon::~Weapon()
 {
+	DeleteGO(m_skimModelRender);
 }
 
 bool Weapon::Start()

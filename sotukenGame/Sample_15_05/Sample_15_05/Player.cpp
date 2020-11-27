@@ -12,7 +12,13 @@ Player::Player()
 Player::~Player()
 {
 	DeleteGO(m_playerSkinModel);
-}
+	if (m_weapon[0] != nullptr) {
+		DeleteGO(m_weapon[0]);
+	}
+	if (m_weapon[1] != nullptr) {
+		DeleteGO(m_weapon[1]);
+	}
+	}
 void Player::YDirMove()
 {
 	if (m_charaCon.IsOnGround() != false) {
