@@ -5,7 +5,16 @@
 class EnArmyGenerator : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	EnArmyGenerator();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~EnArmyGenerator();
+
+	void Update();
+
 };
 
