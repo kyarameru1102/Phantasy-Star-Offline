@@ -12,6 +12,7 @@ const enum PlayerAnim {
 	enStayInTheAir_sword,  //ソード状態で滞空。
 	enChange_blad,          //ブレイドからソードに変更。
 	enChange_sword,         //ソードからブレイドに変更。
+	enAttack_blad,
 	enAnimationClipNum, //アニメーションクリップの数。
 };
 class PlayerAnimation : public IGameObject

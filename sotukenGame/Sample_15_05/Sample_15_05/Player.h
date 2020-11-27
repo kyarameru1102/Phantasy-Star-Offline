@@ -32,6 +32,10 @@ public:
 	/// </summary>
 	void SetWeaponTR();
 	/// <summary>
+	/// 向きと移動スピードを設定する。
+	/// </summary>
+	void SetDirAndSpeed();
+	/// <summary>
 	/// スタート関数。
 	/// </summary>
 	/// <returns></returns>
@@ -56,6 +60,14 @@ public:
 	{
 		return m_position;
 	}
+	Vector3 GetRootPos()
+	{
+		return m_rootPos;
+	}
+	bool GetAttackFlag()
+	{
+		return m_attackFlag;
+	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
@@ -64,25 +76,6 @@ private:
 	Vector3 m_moveSpeed = Vector3::Zero;//ムーブスピード。
 	Quaternion m_rotation = Quaternion::Identity; //回転クォータニオン。
 	CharacterController m_charaCon;//キャラコン。
-	//const enum {
-	//	enStay_blad,            //ブレイド状態。
-	//	enStay_sword,            //ソード状態。
-	//	enWalk_blad,           //ブレイド状態で歩く。
-	//	enWalk_sword,           //ソード状態で歩く。
-	//	enRun_blad,            //ブレイド状態で走る。
-	//	enRun_sword,            //ソード状態で走る。
-	//	enJumpStart_blad,       //ブレイド状態でジャンプする。
-	//	enJumpStart_sword,      //ソード状態でジャンプする。
-	//	enStayInTheAir_blad,   //ブレイド状態で滞空。
-	//	enStayInTheAir_sword,  //ソード状態で滞空。
-	//	enJumpEnd_blad,       //ブレイド状態でジャンプ終了。
-	//	enJumpEnd_sword,      //ソード状態でジャンプ終了。
-	//	enChange_blad,          //ブレイドからソードに変更。
-	//	enChange_sword,         //ソードからブレイドに変更。
-	//	enAnimationClipNum, //アニメーションクリップの数。
-	//	enBladState,
-	//	enSwordState
-	//};
 	enum {
 		enBladState,
 		enSwordState
@@ -104,5 +97,15 @@ private:
 	Vector3 m_weaponPos = Vector3::Zero;          //武器の座標。
 	Quaternion m_weaponRot = Quaternion::Identity;//武器の回転。
 	Vector3 m_weaponScale = Vector3::One;       //武器のスケール。
+
+	bool m_attackFlag = false;
+	int attackTimer = 0;
+	int m_weapon03Num = 0; //3本目のボーンの番号。
+	Vector3 m_rootPos = Vector3::Zero;
+	Quaternion m_rot = Quaternion::Identity;
+	Vector3 m_rootScale = Vector3::One;
+	Vector3 v = Vector3::Zero;
+	Vector3 m_rerootpos = Vector3::Zero;
+	bool m_flag = false;
 };
 

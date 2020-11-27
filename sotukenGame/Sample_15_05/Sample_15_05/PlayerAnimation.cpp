@@ -38,6 +38,9 @@ PlayerAnimation::PlayerAnimation()
 	animClip[enStayInTheAir_blad].SetLoopFlag(true);
 	animClip[enStayInTheAir_sword].Load("Assets/animData/player/sword/stayInTheAir_02.tka");
 	animClip[enStayInTheAir_sword].SetLoopFlag(true);
+	//çUåÇ1
+	animClip[enAttack_blad].Load("Assets/animData/player/blad/attack_01_2.tka");
+	animClip[enAttack_blad].SetLoopFlag(true);
 }
 
 
