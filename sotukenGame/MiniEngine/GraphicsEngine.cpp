@@ -208,7 +208,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 
 	m_albedRT.SetClearColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
-	/*m_normalRT.Create(
+	m_normalRT.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
 		1,
@@ -218,7 +218,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 		color2
 	);
 
-	m_worldPosRT.Create(
+	/*m_worldPosRT.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
 		1,
@@ -236,9 +236,9 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 		DXGI_FORMAT_R16G16B16A16_FLOAT,
 		DXGI_FORMAT_UNKNOWN,
 		color
-	);
+	);*/
 
-	m_shadowColorRT.Create(
+	/*m_shadowColorRT.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
 		1,
@@ -259,7 +259,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	//アルベド
 	spriteInitData.m_textures[0] = &m_albedRT.GetRenderTargetTexture();
 	//法線
-	//spriteInitData.m_textures[1] = &m_normalRT.GetRenderTargetTexture();
+	spriteInitData.m_textures[1] = &m_normalRT.GetRenderTargetTexture();
 	//深度
 	//spriteInitData.m_textures[2] = &m_depthRT.GetRenderTargetTexture();
 	//ワールド座標
@@ -582,7 +582,7 @@ void GraphicsEngine::BeginDeferredRender()
 	//レンダリングターゲットを設定
 	RenderTarget* rts[] = {
 		&m_albedRT,
-		//&m_normalRT,
+		&m_normalRT,
 		//&m_shadowColorRT
 	};
 
@@ -590,11 +590,11 @@ void GraphicsEngine::BeginDeferredRender()
 	//m_renderContext.WaitUntilFinishDrawingToRenderTargets(1, rt);
 
 	//G-Bufferのための３つのレンダリングターゲットを待機完了状態にする
-	m_renderContext.WaitUntilToPossibleSetRenderTargets(1, rts);
+	m_renderContext.WaitUntilToPossibleSetRenderTargets(2, rts);
 
-	m_renderContext.SetRenderTargets(1, rts);
+	m_renderContext.SetRenderTargets(2, rts);
 	m_renderContext.SetViewport(m_albedRT);
-	m_renderContext.ClearRenderTargetViews(1, rts);
+	m_renderContext.ClearRenderTargetViews(2, rts);
 }
 
 void GraphicsEngine::EndModelDraw()
@@ -602,16 +602,16 @@ void GraphicsEngine::EndModelDraw()
 	//レンダリングターゲットを設定
 	RenderTarget* rts[] = {
 		&m_albedRT,
-		//&m_normalRT,
+		&m_normalRT,
 		//&m_shadowColorRT
 	};
-	//m_renderContext.WaitUntilFinishDrawingToRenderTargets(1, rts);
+	m_renderContext.WaitUntilFinishDrawingToRenderTargets(1, rts);
 
 	RenderTarget* rt[] = {
 		&m_mainRenderTarget
 	};
 
-	//m_renderContext.WaitUntilToPossibleSetRenderTargets(1, rt);
+	m_renderContext.WaitUntilToPossibleSetRenderTargets(1, rt);
 	SetRenderTarget(1, rt);
 	m_renderContext.ClearRenderTargetViews(1, rt);
 	m_defferdSprite.Draw(m_renderContext);
