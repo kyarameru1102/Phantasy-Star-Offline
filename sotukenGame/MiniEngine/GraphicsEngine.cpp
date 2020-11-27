@@ -173,11 +173,12 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	
 	//ここからディファードレンダリングのための準備。
 
+	//ディレクションライトの設定。
 	Vector3 lightDir = Vector3(1.0f,-1.0f,0.0f);
 	lightDir.Normalize();
 
 	m_dirLight.direction = Vector4(lightDir.x, lightDir.y, lightDir.z, 1.0f);
-	m_dirLight.lightcolor = { 1.4f, 1.4f, 1.4f, 1.4f };
+	m_dirLight.lightcolor = { 0.5f, 0.5f, 0.5f, 1.0f };
 
 	float color3[4] = { 0.5f,0.5f,0.5f,1.0f };
 

@@ -15,7 +15,9 @@ void BackGround::Init()
 	//インスタンス生成。
 	m_bgModel = NewGO<SkinModelRender>(0);
 	//モデルのイニット。
-	m_bgModel->Init("Assets/modelData/background.tkm", nullptr, 0, "Assets/shader/model.fx", SkinModelRender::YUp);
+	m_bgModel->Init("Assets/modelData/getumen.tkm", nullptr, 0, "Assets/shader/model.fx", SkinModelRender::YUp);
+
+	m_bgModel->SetScale(Vector3(4.0f,4.0f,4.0f));
 
 	//当たり判定用の初期化。
 	Matrix mTranse, mRot, mScale, mWorld;
