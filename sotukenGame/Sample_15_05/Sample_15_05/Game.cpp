@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "PlayerStatusUI.h"
+#include "Menu.h"
 
 Game::Game()
 {
@@ -23,5 +24,7 @@ bool Game::Start()
 
 void Game::Update()
 {
-   
+	if (g_pad[0]->IsTrigger(enButtonStart) && m_menu == nullptr) {
+		m_menu = NewGO<Menu>(0);
+   }
 }

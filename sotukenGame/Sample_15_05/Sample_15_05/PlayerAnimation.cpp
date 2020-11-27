@@ -41,6 +41,8 @@ PlayerAnimation::PlayerAnimation()
 	//çUåÇ1
 	animClip[enAttack_blad].Load("Assets/animData/player/blad/attack_01_2.tka");
 	animClip[enAttack_blad].SetLoopFlag(true);
+	animClip[enAttack_sword].Load("Assets/animData/player/sword/attack_02_2.tka");
+	animClip[enAttack_sword].SetLoopFlag(true);
 }
 
 

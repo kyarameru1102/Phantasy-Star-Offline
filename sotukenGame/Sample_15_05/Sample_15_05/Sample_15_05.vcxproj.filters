@@ -202,6 +202,7 @@
     <ClCompile Include="EnArmyGenerator.cpp">
       <Filter>ソースファイル\Game\Charactor</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -432,6 +433,7 @@
     <ClInclude Include="EnArmyGenerator.h">
       <Filter>ソースファイル\Game\Charactor</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">

@@ -205,10 +205,15 @@ void Player::Update()
 		m_attackFlag = true;
 	}
 	if (m_attackFlag != false) {
+		m_moveSpeed = Vector3::Zero;
 		attackTimer++;
 		m_animState = enAttack_blad;
 		m_complementaryTime = 10.0f;
-		if (attackTimer > 120) {
+		int time = 120;
+		if (m_weaponState == enSwordState) {
+			time = 90;
+		}
+		if (attackTimer > time) {
 			m_attackFlag = false;
 			attackTimer = 0;
 		}

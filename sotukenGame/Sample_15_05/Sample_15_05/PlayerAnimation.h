@@ -13,6 +13,7 @@ const enum PlayerAnim {
 	enChange_blad,          //ブレイドからソードに変更。
 	enChange_sword,         //ソードからブレイドに変更。
 	enAttack_blad,
+	enAttack_sword,
 	enAnimationClipNum, //アニメーションクリップの数。
 };
 class PlayerAnimation : public IGameObject
