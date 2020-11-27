@@ -199,6 +199,9 @@
     <ClCompile Include="PlayerAnimation.cpp">
       <Filter>ソースファイル\Game\Charactor\Player</Filter>
     </ClCompile>
+    <ClCompile Include="EnArmyGenerator.cpp">
+      <Filter>ソースファイル\Game\Charactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -425,6 +428,9 @@
     </ClInclude>
     <ClInclude Include="PlayerAnimation.h">
       <Filter>ソースファイル\Game\Charactor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnArmyGenerator.h">
+      <Filter>ソースファイル\Game\Charactor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
