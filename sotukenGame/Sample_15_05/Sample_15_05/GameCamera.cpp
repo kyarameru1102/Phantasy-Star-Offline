@@ -48,7 +48,12 @@ void GameCamera::Update()
 		m_toPlayerVec = toPlayerVecOld;
 	}
 	//カメラのターゲットをプレイヤーに固定する。
-	m_target = m_player->GetPosition();
+	//if (m_player->GetAttackFlag() != false) {
+		m_target = m_player->GetRootPos();
+	//}
+	//else {
+		m_target = m_player->GetPosition();
+	//}
 	//ターゲットを設定。
 	g_camera3D->SetTarget(m_target);
 	//座標を更新。

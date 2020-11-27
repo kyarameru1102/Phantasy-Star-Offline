@@ -111,36 +111,15 @@ void Player::SetWeaponTR()
 	m_weaponPos += m_moveSpeed;
 	m_weapon[1]->SetPosition(m_weaponPos);
 	m_weapon[1]->SetRtation(weaponRot);
+
+	m_playerSkinModel->GetModel().GetSkeleton().GetBone(m_weapon03Num)->CalcWorldTRS(
+		m_rootPos,
+		m_rot,
+		m_rootScale
+	);
 }
-bool Player::Start()
+void Player::SetDirAndSpeed()
 {
-	//武器のインスタンス作成。
-	m_weapon[0] = NewGO<Weapon>(0, "weapon_01");
-	m_weapon[1] = NewGO<Weapon>(0, "weapon_02");
-	//プレイヤーのアニメーションのインスタンス作成。
-	m_playerAnim = NewGO<PlayerAnimation>(0, "playerAnim");
-	//モデルの初期化。
-	m_playerSkinModel = NewGO<SkinModelRender>(0);
-	m_playerSkinModel->Init(
-		"Assets/modelData/player/player.tkm",
-		m_playerAnim->GetAnimationClip(),
-		enAnimationClipNum,
-		"Assets/shader/model.fx",
-		SkinModelRender::YUp
-		);
-	//キャラコン初期化。
-	m_charaCon.Init(50.0f, 100.0f, m_position);
-	//武器の座標、回転を適応させるボーンの番号を検索。
-	m_weapon01Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_r");
-	m_weapon02Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l");
-	//GameCameraのインスタンスを検索。
-	m_gameCam = FindGO<GameCamera>("gameCamera");
-	return true;
-}
-void Player::Update()
-{
-	m_animState = enStay_blad;
-	SetWeaponTR();
 	//カメラを考慮したプレイヤーの移動方向を計算する。
 	Vector3 cameraDir = m_gameCam->GetTarget() - m_gameCam->GetPosition();
 	cameraDir.y = 0.0f;
@@ -167,6 +146,52 @@ void Player::Update()
 		}
 		m_complementaryTime = 10.0f;
 	}
+	if (
+		fabsf(m_moveSpeed.z) > 0.0f &&
+		fabsf(m_moveSpeed.x) > 0.0f) {
+		float rot = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+		m_rotation.SetRotation(Vector3::AxisY, rot);
+	}
+	m_playerSkinModel->SetRotation(m_rotation);
+}
+bool Player::Start()
+{
+	//武器のインスタンス作成。
+	m_weapon[0] = NewGO<Weapon>(0, "weapon_01");
+	m_weapon[1] = NewGO<Weapon>(0, "weapon_02");
+	//プレイヤーのアニメーションのインスタンス作成。
+	m_playerAnim = NewGO<PlayerAnimation>(0, "playerAnim");
+	//モデルの初期化。
+	m_playerSkinModel = NewGO<SkinModelRender>(0);
+	m_playerSkinModel->Init(
+		"Assets/modelData/player/player.tkm",
+		m_playerAnim->GetAnimationClip(),
+		enAnimationClipNum,
+		"Assets/shader/model.fx",
+		SkinModelRender::YUp
+		);
+	//キャラコン初期化。
+	m_charaCon.Init(50.0f, 100.0f, m_position);
+	//武器の座標、回転を適応させるボーンの番号を検索。
+	m_weapon01Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_r");
+	m_weapon02Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l");
+
+	m_weapon03Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"root");
+	//GameCameraのインスタンスを検索。
+	m_gameCam = FindGO<GameCamera>("gameCamera");
+	return true;
+}
+void Player::Update()
+{
+	//アニメーションを待機状態に設定。
+	m_animState = enStay_blad;
+
+	//武器の座標と回転を設定。
+	SetWeaponTR();
+
+	//向きと移動スピードを設定。
+	SetDirAndSpeed();
+
 	//Y方向の移動。
 	YDirMove();
 
@@ -176,27 +201,33 @@ void Player::Update()
 		m_changeAnimFlag = true;
 	}
 	WeaponChange();
-
+	if (m_attackFlag != true && g_pad[0]->IsPress(enButtonX)) {
+		m_attackFlag = true;
+	}
+	if (m_attackFlag != false) {
+		attackTimer++;
+		m_animState = enAttack_blad;
+		m_complementaryTime = 10.0f;
+		if (attackTimer > 120) {
+			m_attackFlag = false;
+			attackTimer = 0;
+		}
+	}
+	
 	if (m_weaponState == enSwordState) {
+		//ソード状態なら1足してソード状態のアニメーションを流す。
 		m_animState++;
 	}
 	//アニメーションを再生。
-	float aa = m_complementaryTime / 60.0f;
-	m_playerSkinModel->PlayAnimation(m_animState, aa);
+		float aa = m_complementaryTime / 60.0f;
+		m_playerSkinModel->PlayAnimation(m_animState, aa);
 
 	//とりあえずプレイヤーのY座標が-500以下になったら戻るようにする。
 	if (m_charaCon.GetPosition().y <= -500.0f) {
 		m_charaCon.SetPosition({ 0.0f, 500.0f, 0.0f });
 	}
+
 	//座標を設定。
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_playerSkinModel->SetPosition(m_position);
-
-	if (
-		fabsf(m_moveSpeed.z) > 0.0f &&
-		fabsf(m_moveSpeed.x) > 0.0f) {
-		float rot = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-		m_rotation.SetRotation(Vector3::AxisY, rot);
-	}
-	m_playerSkinModel->SetRotation(m_rotation);
 }
