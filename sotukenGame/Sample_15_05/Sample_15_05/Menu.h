@@ -4,6 +4,7 @@
 /// <summary>
 /// メニュー画面クラス
 /// </summary>
+class Game;
 class Menu : public IGameObject
 {
 public:
@@ -34,5 +35,6 @@ private:
 	Vector3 m_spritePosition[en_menuUINum] = { Vector3::Zero };		//スプライトの座標。
 
 	Title* m_title = nullptr;
+	Game* m_game = nullptr;
 };
 

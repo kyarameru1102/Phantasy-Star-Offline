@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Menu.h"
+#include "Game.h"
 
 Menu::Menu()
 {
@@ -46,6 +47,9 @@ void Menu::Update()
 	}
 	if (g_pad[0]->IsTrigger(enButtonB) && m_spritePosition[en_menuUIArrowButton].y == m_spritePosition[en_menuUIReturnTitle].y) {
 		m_title = NewGO<Title>(0);
+		DeleteGO(this);
+		m_game = FindGO<Game>("Game");
+		DeleteGO(m_game);
 	}
 
 	//À•W‚ğİ’èB

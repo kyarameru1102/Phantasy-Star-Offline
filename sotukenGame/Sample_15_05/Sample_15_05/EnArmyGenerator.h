@@ -14,7 +14,5 @@ public:
 	/// </summary>
 	~EnArmyGenerator();
 
-	void Update();
-
 };
 
