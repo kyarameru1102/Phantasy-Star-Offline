@@ -11,6 +11,7 @@ public:
 	~BackGround();
 	bool Start()override;
 	void Update()override;
+	void Init();
 private:
 	SkinModelRender* m_bgModel = nullptr;
 	BoxCollider m_box;

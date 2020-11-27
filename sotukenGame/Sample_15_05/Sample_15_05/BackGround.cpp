@@ -10,10 +10,14 @@ BackGround::~BackGround()
 {
 }
 
-bool BackGround::Start()
+void BackGround::Init()
 {
+	//インスタンス生成。
 	m_bgModel = NewGO<SkinModelRender>(0);
-	m_bgModel->Init("Assets/modelData/background.tkm",nullptr,0, "Assets/shader/model.fx",SkinModelRender::YUp);
+	//モデルのイニット。
+	m_bgModel->Init("Assets/modelData/background.tkm", nullptr, 0, "Assets/shader/model.fx", SkinModelRender::YUp);
+
+	//当たり判定用の初期化。
 	Matrix mTranse, mRot, mScale, mWorld;
 	//平行移動行列を作成。
 	mTranse.MakeTranslation(m_position);
@@ -33,7 +37,11 @@ bool BackGround::Start()
 	m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_ground);
 
 	g_physics.AddRigidBody(m_rigidBody);
+}
 
+bool BackGround::Start()
+{
+	Init();
 	return true;
 }
 
@@ -41,3 +49,4 @@ void BackGround::Update()
 {
 	m_bgModel->SetPosition(m_position);
 }
+
