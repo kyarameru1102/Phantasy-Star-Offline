@@ -123,10 +123,10 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	//アルベドカラーを出力。
 	float4 albedo = g_texture.Sample(g_sampler, psIn.uv);
 
-	float3 lig = 0.0f;
+	/*float3 lig = 0.0f;
 
 	float t = max(0.0, dot(-light.dirLight.direction, psIn.normal));
-	lig += t * light.dirLight.color;
+	lig += t * light.dirLight.color;*/
 
 	//ポイントライトから光によるランバート拡散反射を計算。
 	/*for( int i = 0; i < NUM_POINT_LIGHT; i++){
@@ -142,7 +142,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 		lig += light.pointsLights[i].color * t * affect;
 	}*/ 
 	//環境光を加算。
-	lig += 1.0f;
-	albedo.xyz *= lig;
+	//lig += 1.0f;
+	//albedo.xyz *= lig;
 	return albedo;
 }

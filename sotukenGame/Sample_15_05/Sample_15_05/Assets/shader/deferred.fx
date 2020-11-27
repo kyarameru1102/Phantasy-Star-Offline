@@ -32,9 +32,10 @@ PSInput VSMain(VSInput In)
 	psIn.uv = In.uv;
 	return psIn;
 }
-float4 PSMain( PSInput In ) : SV_Target0
+float4 PSMain(PSInput In) : SV_Target0
 {
 	float4 albedo = albedoTexture.Sample(Sampler, In.uv);
+	return albedo;
 	float3 normal = normalTexture.Sample(Sampler, In.uv).xyz;
 	float shadow = shadowTexture.Sample(Sampler, In.uv);
 	normal = (normal * 2.0f)-1.0f;
