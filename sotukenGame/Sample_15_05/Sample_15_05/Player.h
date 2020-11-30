@@ -20,6 +20,10 @@ public:
 	/// </summary>
 	~Player();
 	/// <summary>
+	/// 攻撃。
+	/// </summary>
+	void Attack();
+	/// <summary>
 	/// Y方向の移動。ジャンプや落下時の処理。
 	/// </summary>
 	void YDirMove();
@@ -68,6 +72,22 @@ public:
 	{
 		return m_attackFlag;
 	}
+	/// <summary>
+	/// HPを設定。
+	/// </summary>
+	/// <param name="hp">HP</param>
+	void SetHP(const float hp)
+	{
+		m_playerHP = hp;
+	}
+	/// <summary>
+	/// HPを返す。
+	/// </summary>
+	/// <returns></returns>
+	const float GetHP() const
+	{
+		return m_playerHP;
+	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
@@ -90,6 +110,7 @@ private:
 	float m_magnificationSpeed = 5.0f; //速さの倍率。
 	float m_complementaryTime = 0.0f;//アニメーション補完時間。
 	int jumpStartTimer = 40;
+	float m_playerHP = 100.0f;      //HP。
 
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 	int m_weapon01Num = 0; //1本目の武器のボーンの番号。
@@ -107,5 +128,9 @@ private:
 	Vector3 v = Vector3::Zero;
 	Vector3 m_rerootpos = Vector3::Zero;
 	bool m_flag = false;
+	int m_attackNum = 0;
+	int time = 0;
+	int m_continuousAttackTime = 0;
+	int num = 0;
 };
 

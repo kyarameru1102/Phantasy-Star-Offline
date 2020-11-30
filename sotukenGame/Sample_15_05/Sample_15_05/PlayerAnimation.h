@@ -12,9 +12,30 @@ const enum PlayerAnim {
 	enStayInTheAir_sword,  //ソード状態で滞空。
 	enChange_blad,          //ブレイドからソードに変更。
 	enChange_sword,         //ソードからブレイドに変更。
-	enAttack_blad,
-	enAttack_sword,
+	enAttack01_blad,         //ブレイド状態の攻撃1
+	enAttack01_sword,        //ソード状態の攻撃1
+	enAttack02_blad,         //ブレイド状態の攻撃2
+	enAttack02_sword,         //ソード状態の攻撃2
+	enAttack03_blad,         //ブレイド状態の攻撃3
+	enAttack03_sword,         //ソード状態の攻撃3
+	enAttack04_blad,         //ブレイド状態の攻撃4
+	enAttack04_sword,         //ソード状態の攻撃4
+	enAttack05_blad,         //ブレイド状態の攻撃5
+	enAttack05_sword,         //ソード状態の攻撃5
 	enAnimationClipNum, //アニメーションクリップの数。
+};
+const enum AttackAnimTime {
+	enAttackTime01_blad,
+	enAttackTime02_blad,
+	enAttackTime03_blad,
+	enAttackTime04_blad,
+	enAttackTime05_blad,
+	enAttackTime01_sword,
+	enAttackTime02_sword,
+	enAttackTime03_sword,
+	enAttackTime04_sword,
+	enAttackTime05_sword,
+	enAttackTimeNum
 };
 class PlayerAnimation : public IGameObject
 {
@@ -27,6 +48,10 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~PlayerAnimation();
+	/// <summary>
+	/// 攻撃アニメーションの時間を設定。
+	/// </summary>
+	void SetAttackAnimationTime();
 	/// <summary>
 	/// スタート関数。
 	/// </summary>
@@ -44,7 +69,11 @@ public:
 	{
 		return animClip;
 	}
+	int* GetAttackAnimationTime()
+	{
+		return m_attackAnimationTime;
+	}
 private:
-
+	int m_attackAnimationTime[enAttackTimeNum];//攻撃アニメーションの時間を設定する配列。
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };

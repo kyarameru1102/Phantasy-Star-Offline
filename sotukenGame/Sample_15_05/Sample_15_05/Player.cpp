@@ -18,12 +18,29 @@ Player::~Player()
 	if (m_weapon[1] != nullptr) {
 		DeleteGO(m_weapon[1]);
 	}
+}
+void Player::Attack()
+{
+	if (m_attackFlag != false) {
+		m_moveSpeed = Vector3::Zero;
+		attackTimer++;
+		m_animState = enAttack01_blad;
+		m_complementaryTime = 10.0f;
+		m_animState += m_attackNum * 2;
+		if (attackTimer > time) {
+			m_attackFlag = false;
+			attackTimer = 0;
+			m_attackNum = 0;
+			time = 0;
+			num = 0;
+		}
 	}
+}
 void Player::YDirMove()
 {
 	if (m_charaCon.IsOnGround() != false) {
 		//地面の上にいる。
-		if (g_pad[0]->IsPress(enButtonA)) {
+		if (g_pad[0]->IsTrigger(enButtonA)) {
 			//Aボタンを押した。
 			//ジャンプフラグを立てる。
 			m_jumpFlag = true;
@@ -142,7 +159,7 @@ void Player::SetDirAndSpeed()
 
 	if (fabs(m_moveSpeed.x) > 0.0f || fabs(m_moveSpeed.z) > 0.0f) {
 		//移動している。
-		if (g_pad[0]->IsPress(enButtonB)) {
+		if (g_pad[0]->IsPress(enButtonRB1)) {
 			m_magnificationSpeed = 10.0f;
 			m_animState = enRun_blad;
 		}
@@ -202,28 +219,45 @@ void Player::Update()
 	YDirMove();
 
 	//武器変更。
-	if (g_pad[0]->IsPress(enButtonLB1)) {
+	if (g_pad[0]->IsTrigger(enButtonLB1)) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
 	}
 	WeaponChange();
-	if (m_attackFlag != true && g_pad[0]->IsPress(enButtonX)) {
+	//攻撃。
+	if (g_pad[0]->IsTrigger(enButtonX)) {
+		//Xボタンを押した。
 		m_attackFlag = true;
-	}
-	if (m_attackFlag != false) {
-		m_moveSpeed = Vector3::Zero;
-		attackTimer++;
-		m_animState = enAttack_blad;
-		m_complementaryTime = 10.0f;
-		int time = 120;
-		if (m_weaponState == enSwordState) {
-			time = 90;
+		if (attackTimer <= 0) {
+			//攻撃タイムが0以下。
+			num = enAttackTime01_blad;
+			//タイムに最初の攻撃時間を入れる。
+			time = m_playerAnim->GetAttackAnimationTime()[num];
+			if (m_weaponState == enSwordState) {
+				//ソード状態
+				num = enAttackTime01_sword;
+				time = m_playerAnim->GetAttackAnimationTime()[num];
+			}
+			//連撃タイムにタイムを入れる。
+			m_continuousAttackTime = time;
+			//連撃タイムから50引く。
+			m_continuousAttackTime = 30;
 		}
-		if (attackTimer > time) {
-			m_attackFlag = false;
-			attackTimer = 0;
+		////連撃タイムにタイムを入れる。
+		//m_continuousAttackTime = time;
+		////連撃タイムから50引く。
+		//m_continuousAttackTime /= 2;
+		if (attackTimer >= m_continuousAttackTime && m_attackNum <= 4) {
+			//連撃タイム以降
+			m_attackNum++;
+			++num;
+			time = attackTimer + m_playerAnim->GetAttackAnimationTime()[num];
+			int att = m_playerAnim->GetAttackAnimationTime()[num];
+			att /= 2;
+			m_continuousAttackTime = attackTimer + 30;
 		}
 	}
+	Attack();
 	
 	if (m_weaponState == enSwordState) {
 		//ソード状態なら1足してソード状態のアニメーションを流す。
