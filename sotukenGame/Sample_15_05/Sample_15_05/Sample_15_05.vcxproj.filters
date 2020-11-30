@@ -203,6 +203,9 @@
     <ClCompile Include="..\..\MiniEngine\GraphicsEngine.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>ソースファイル\Game\Charactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -433,6 +436,9 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
       <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>ソースファイル\Game\Charactor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

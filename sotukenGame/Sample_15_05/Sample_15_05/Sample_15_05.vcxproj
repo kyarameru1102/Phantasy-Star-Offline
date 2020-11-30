@@ -225,6 +225,7 @@
     <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="PlayerStatusUI.cpp" />
     <ClCompile Include="PostEffect.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="SkinModelRender.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -308,6 +309,7 @@
     <ClInclude Include="PlayerStatusUI.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="SkinModelRender.h" />
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="stdafx.h" />
