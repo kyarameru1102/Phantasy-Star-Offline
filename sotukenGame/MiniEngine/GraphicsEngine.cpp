@@ -173,11 +173,12 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	
 	//ここからディファードレンダリングのための準備。
 
+	//ディレクションライトの設定。
 	Vector3 lightDir = Vector3(1.0f,-1.0f,0.0f);
 	lightDir.Normalize();
 
 	m_dirLight.direction = Vector4(lightDir.x, lightDir.y, lightDir.z, 1.0f);
-	m_dirLight.lightcolor = { 1.4f, 1.4f, 1.4f, 1.4f };
+	m_dirLight.lightcolor = { 0.5f, 0.5f, 0.5f, 1.0f };
 
 	float color3[4] = { 0.5f,0.5f,0.5f,1.0f };
 
@@ -218,7 +219,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 		color2
 	);
 
-	m_worldPosRT.Create(
+	/*m_worldPosRT.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
 		1,
@@ -236,9 +237,9 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 		DXGI_FORMAT_R16G16B16A16_FLOAT,
 		DXGI_FORMAT_UNKNOWN,
 		color
-	);
+	);*/
 
-	m_shadowColorRT.Create(
+	/*m_shadowColorRT.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
 		1,
@@ -248,7 +249,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 		color
 	);
 
-	m_shadowColorRT.SetClearColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_shadowColorRT.SetClearColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));*/
 
 
 	//ディファードレンダリング用のテクスチャを作成しまーす
@@ -263,7 +264,7 @@ bool GraphicsEngine::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeig
 	//深度
 	//spriteInitData.m_textures[2] = &m_depthRT.GetRenderTargetTexture();
 	//ワールド座標
-	spriteInitData.m_textures[2] = &m_shadowColorRT.GetRenderTargetTexture();
+	//spriteInitData.m_textures[2] = &m_shadowColorRT.GetRenderTargetTexture();
 	//ディファードレンダリング専用のシェーダー使う
 	spriteInitData.m_fxFilePath = "Assets/shader/deferred.fx";
 	spriteInitData.m_expandConstantBuffer = &m_dirLight;
@@ -583,18 +584,18 @@ void GraphicsEngine::BeginDeferredRender()
 	RenderTarget* rts[] = {
 		&m_albedRT,
 		&m_normalRT,
-		&m_shadowColorRT
+		//&m_shadowColorRT
 	};
 
 	//シャドウマップをシェーダーリソースビューとして使用したいので描き込み完了待ちする
 	//m_renderContext.WaitUntilFinishDrawingToRenderTargets(1, rt);
 
 	//G-Bufferのための３つのレンダリングターゲットを待機完了状態にする
-	m_renderContext.WaitUntilToPossibleSetRenderTargets(3, rts);
+	m_renderContext.WaitUntilToPossibleSetRenderTargets(2, rts);
 
-	m_renderContext.SetRenderTargets(3, rts);
+	m_renderContext.SetRenderTargets(2, rts);
 	m_renderContext.SetViewport(m_albedRT);
-	m_renderContext.ClearRenderTargetViews(3, rts);
+	m_renderContext.ClearRenderTargetViews(2, rts);
 }
 
 void GraphicsEngine::EndModelDraw()
@@ -603,9 +604,9 @@ void GraphicsEngine::EndModelDraw()
 	RenderTarget* rts[] = {
 		&m_albedRT,
 		&m_normalRT,
-		&m_shadowColorRT
+		//&m_shadowColorRT
 	};
-	m_renderContext.WaitUntilFinishDrawingToRenderTargets(3, rts);
+	m_renderContext.WaitUntilFinishDrawingToRenderTargets(1, rts);
 
 	RenderTarget* rt[] = {
 		&m_mainRenderTarget

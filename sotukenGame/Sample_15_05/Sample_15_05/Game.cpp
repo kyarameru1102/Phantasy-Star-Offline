@@ -14,6 +14,7 @@ Game::~Game()
 	DeleteGO(m_gameCam);
 	//DeleteGO(m_bg);
 	DeleteGO(m_playerStatusUI);
+
 }
 
 bool Game::Start()
@@ -28,8 +29,12 @@ bool Game::Start()
 
 void Game::Update()
 {
-	if (g_pad[0]->IsTrigger(enButtonStart) && m_menu == nullptr) {
+	if (g_pad[0]->IsTrigger(enButtonStart) && m_menu != nullptr) {
+		DeleteGO(m_menu);
+		m_menu = nullptr;
+	}
+	else if (g_pad[0]->IsTrigger(enButtonStart) && m_menu == nullptr) {
 		m_menu = NewGO<Menu>(0);
-		//DeleteGO(this);
-   }
+    }
+	
 }

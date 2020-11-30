@@ -46,18 +46,20 @@ void GameObjectManager::Update()
 		}
 	}
 	//•`‰æˆ—B
-
 	Render();
 }
 
 void GameObjectManager::Render()
 {
+	g_graphicsEngine->BeginDeferredRender();
 	//–‘O•`‰æB
 	PreRender();
 	//‚RDƒ‚ƒfƒ‹•`‰æB
 	Render3D();
-	//’x‰„•`‰æB
-	PostRender();
+	g_graphicsEngine->EndModelDraw();
+	g_graphicsEngine->RendertoPostEffect();
+	////’x‰„•`‰æB
+	//PostRender();
 	//‚QDŒn‚Ì•`‰æB
 	Render2D();
 }
