@@ -1,6 +1,7 @@
 #pragma once
 class Random
 {
+public:
 	/// <summary>
 	/// コンストラクタ。
 	/// </summary>
