@@ -8,3 +8,8 @@ Random::Random()
 Random::~Random()
 {
 }
+
+void Random::Init(unsigned long seed)
+{
+
+}
