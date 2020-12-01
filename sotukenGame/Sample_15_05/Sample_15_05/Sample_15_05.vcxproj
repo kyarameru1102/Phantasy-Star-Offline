@@ -203,6 +203,7 @@
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BossEnBase.cpp" />
+    <ClCompile Include="DrBoar.cpp" />
     <ClCompile Include="EnArmyGenerator.cpp" />
     <ClCompile Include="EnBehaviorTest.cpp" />
     <ClCompile Include="EnTest.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BossEnBase.h" />
+    <ClInclude Include="DrBoar.h" />
     <ClInclude Include="EnArmyGenerator.h" />
     <ClInclude Include="EnBehaviorTest.h" />
     <ClInclude Include="EnTest.h" />
