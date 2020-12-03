@@ -4,7 +4,9 @@
 /// </summary>
 #include "EnTest.h"
 #include "DrBoar.h"
-
+#include "BackGround.h";
+#include "Player.h"
+#include "GameCamera.h"
 class EnBehaviorTest : public IGameObject
 {
 public:
@@ -27,5 +29,8 @@ public:
 	void Update() override;
 	EnTest* m_entest = nullptr;
 	DrBoar* m_drboar = nullptr;
+	BackGround* m_bg = nullptr;
+	Player* m_player = nullptr;
+	GameCamera* m_gameCam = nullptr;
 };
 

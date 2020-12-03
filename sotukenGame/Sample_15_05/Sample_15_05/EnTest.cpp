@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "EnTest.h"
-
+#include "Player.h"
 EnTest::EnTest()
 {
 
@@ -24,30 +24,53 @@ bool EnTest::Start()
 	//モデルの初期化
 	m_EnTestSkinModel = NewGO<SkinModelRender>(0);
 	m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_animationClip, enAnimationClip_num);
-	
+	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
 
 	return true;
 }
-
-void EnTest::Update()
+void EnTest::Move()
 {
-	changeTimer++;
-	if (changeTimer == 30)
+	//プレイヤーを追いかける。
+	if (m_player == nullptr)
 	{
-		m_animState = enWalk;
+		m_player = FindGO<Player>("player");
 	}
-	if (changeTimer == 50)
-	{
-		m_animState = enRun;
+	if (m_player != nullptr) {
+		Vector3 playerLen = m_player->GetPosition() - m_position;
+		playerLen.Normalize();
+		m_movespeed = playerLen * 1.2f;
+		m_position += m_movespeed;
 	}
-	if (changeTimer == 70)
+}
+
+void EnTest::Turn()
+{
+	//プレイヤーに向けて回転させる
+	if (m_player == nullptr)
 	{
-		m_animState = enDie;
+		m_player = FindGO<Player>("player");
+	}
+	if (m_player != nullptr) {
+		Vector3 playerLen = m_player->GetPosition() - m_position;
+		float angle = atan2(playerLen.x, playerLen.z);
+		m_rotation.SetRotation(Vector3::AxisY, angle);
 	}
 	
+}
+void EnTest::Update()
+{
+	Move();
+	Turn();
+	//turntimer++;
+	/*if (turntimer < 50)
+	{
+		m_addrot.SetRotationDeg(Vector3::AxisY, 2.0f);
+		m_rotation *= m_addrot;
+	}*/
 	
 	m_EnTestSkinModel->SetScale({ 40.0, 40.0, 40.0 });
 	m_EnTestSkinModel->SetRotation(m_rotation);
+	m_EnTestSkinModel->SetPosition(m_position);
 	m_EnTestSkinModel->PlayAnimation(m_animState,0.0f);
 }

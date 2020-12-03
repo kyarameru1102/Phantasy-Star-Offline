@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "DrBoar.h"
-
+#include "Player.h"
 DrBoar::DrBoar()
 {
 }
@@ -24,11 +24,38 @@ bool DrBoar::Start()
 	//モデルの初期化
 	m_DrBoarSkinModel = NewGO<SkinModelRender>(0);
 	m_DrBoarSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_animationClip, enAnimationClip_num);
-
+	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
 	return true;
 }
+void DrBoar::Move()
+{
+	//プレイヤーを追いかける。
+	if (m_player == nullptr)
+	{
+		m_player = FindGO<Player>("player");
+	}
+	if (m_player != nullptr) {
+		Vector3 playerLen = m_player->GetPosition() - m_position;
+		playerLen.Normalize();
+		m_movespeed = playerLen * 1.2f;
+		m_position += m_movespeed;
+	}
+}
 
+void DrBoar::Turn()
+{
+	//プレイヤーに向けて回転させる
+	if (m_player == nullptr)
+	{
+		m_player = FindGO<Player>("player");
+	}
+	if (m_player != nullptr) {
+		Vector3 playerLen = m_player->GetPosition() - m_position;
+		float angle = atan2(playerLen.x, playerLen.z);
+		m_rotation.SetRotation(Vector3::AxisY, angle);
+	}
+}
 void DrBoar::Update()
 {
 	/*changeTimer++;
@@ -44,7 +71,8 @@ void DrBoar::Update()
 	{
 		m_animState = enDie;
 	}*/
-
+	Move();
+	Turn();
 
 	m_DrBoarSkinModel->SetScale({ 40.0, 40.0, 40.0 });
 	m_DrBoarSkinModel->SetRotation(m_rotation);
