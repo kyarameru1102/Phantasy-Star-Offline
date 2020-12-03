@@ -14,7 +14,7 @@ Game::~Game()
 	DeleteGO(m_gameCam);
 	//DeleteGO(m_bg);
 	DeleteGO(m_playerStatusUI);
-
+	DeleteGO(m_drBoar);
 }
 
 bool Game::Start()
