@@ -26,19 +26,22 @@ bool DrBoar::Start()
 	m_DrBoarSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_animationClip, enAnimationClip_num);
 	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
+	//キャラコン初期化。
+	m_charaCon.Init(200.0f, 150.0f, m_position);
 	return true;
 }
 void DrBoar::Move()
 {
 	//プレイヤーを追いかける。
-	if (m_player == nullptr)
+	/*if (m_player == nullptr)
 	{
 		m_player = FindGO<Player>("player");
-	}
+	}*/
 	if (m_player != nullptr) {
 		Vector3 playerLen = m_player->GetPosition() - m_position;
 		playerLen.Normalize();
 		m_movespeed = playerLen * 1.2f;
+		m_movespeed.y = m_speedY;
 		m_position += m_movespeed;
 	}
 }
@@ -46,10 +49,10 @@ void DrBoar::Move()
 void DrBoar::Turn()
 {
 	//プレイヤーに向けて回転させる
-	if (m_player == nullptr)
+	/*if (m_player == nullptr)
 	{
 		m_player = FindGO<Player>("player");
-	}
+	}*/
 	if (m_player != nullptr) {
 		Vector3 playerLen = m_player->GetPosition() - m_position;
 		float angle = atan2(playerLen.x, playerLen.z);
@@ -71,9 +74,17 @@ void DrBoar::Update()
 	{
 		m_animState = enDie;
 	}*/
-	Move();
-	Turn();
-
+	if (m_player == nullptr)
+	{
+		m_player = FindGO<Player>("player");
+	}
+	if (m_player != nullptr)
+	{
+		Move();
+		Turn();
+	}
+	m_position = m_charaCon.Execute(1.0f, m_movespeed);
+	m_position = m_charaCon.Execute(1.0f, m_movespeed);
 	m_DrBoarSkinModel->SetScale({ 40.0, 40.0, 40.0 });
 	m_DrBoarSkinModel->SetRotation(m_rotation);
 	m_DrBoarSkinModel->SetPosition(m_position);
