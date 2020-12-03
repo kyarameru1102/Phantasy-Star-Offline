@@ -13,18 +13,20 @@ EnTest::~EnTest()
 
 bool EnTest::Start()
 {
+	//プレイヤーのアニメーションのインスタンス作成。
+	m_enemyAnim = NewGO<EnemyAnimation>(0, "enemyAnim");
 	//アニメーションクリップのロード
-	m_animationClip[enIdle].Load("Assets/animData/DragonBoar/boar_idle.tka");
-	m_animationClip[enIdle].SetLoopFlag(true);
-	m_animationClip[enWalk].Load("Assets/animData/DragonBoar/boar_walk.tka");
-	m_animationClip[enWalk].SetLoopFlag(true);
-	m_animationClip[enRun].Load("Assets/animData/DragonBoar/boar_run.tka");
-	m_animationClip[enRun].SetLoopFlag(true);
-	m_animationClip[enDie].Load("Assets/animData/DragonBoar/boar_die.tka");
-	m_animationClip[enDie].SetLoopFlag(true);
+	//m_animationClip[enIdle].Load("Assets/animData/DragonBoar/boar_idle.tka");
+	//m_animationClip[enIdle].SetLoopFlag(true);
+	//m_animationClip[enWalk].Load("Assets/animData/DragonBoar/boar_walk.tka");
+	//m_animationClip[enWalk].SetLoopFlag(true);
+	//m_animationClip[enRun].Load("Assets/animData/DragonBoar/boar_run.tka");
+	//m_animationClip[enRun].SetLoopFlag(true);
+	//m_animationClip[enDie].Load("Assets/animData/DragonBoar/boar_die.tka");
+	//m_animationClip[enDie].SetLoopFlag(true);
 	//モデルの初期化
 	m_EnTestSkinModel = NewGO<SkinModelRender>(0);
-	m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_animationClip, enAnimationClip_num);
+	m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
 	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
 	//キャラコン初期化。
@@ -63,6 +65,7 @@ void EnTest::Turn()
 }
 void EnTest::Update()
 {
+	m_animState = enIdle;
 	if (m_player == nullptr)
 	{
 		m_player = FindGO<Player>("player");

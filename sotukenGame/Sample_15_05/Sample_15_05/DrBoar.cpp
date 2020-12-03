@@ -83,7 +83,7 @@ void DrBoar::Update()
 		Move();
 		Turn();
 	}
-	m_position = m_charaCon.Execute(1.0f, m_movespeed);
+
 	m_position = m_charaCon.Execute(1.0f, m_movespeed);
 	m_DrBoarSkinModel->SetScale({ 40.0, 40.0, 40.0 });
 	m_DrBoarSkinModel->SetRotation(m_rotation);

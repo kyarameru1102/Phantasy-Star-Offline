@@ -12,6 +12,7 @@ const enum BoarAnim {
 };
 class EnemyAnimation : public IGameObject
 {
+public:
 	/// <summary>
 	/// コンストラクタ。
 	/// </summary>
