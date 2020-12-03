@@ -63,6 +63,26 @@ PlayerAnimation::PlayerAnimation()
 	animClip[enAttack05_blad].SetLoopFlag(true);
 	animClip[enAttack05_sword].Load("Assets/animData/player/sword/attack_sword_05.tka");
 	animClip[enAttack05_sword].SetLoopFlag(true);
+	//çUåÇ6
+	animClip[enAttack06_blad].Load("Assets/animData/player/blad/attack_blad_06.tka");
+	animClip[enAttack06_blad].SetLoopFlag(true);
+	animClip[enAttack06_sword].Load("Assets/animData/player/sword/attack_sword_06.tka");
+	animClip[enAttack06_sword].SetLoopFlag(true);
+	//çUåÇ7
+	animClip[enAttack07_blad].Load("Assets/animData/player/blad/attack_blad_07.tka");
+	animClip[enAttack07_blad].SetLoopFlag(true);
+	animClip[enAttack07_sword].Load("Assets/animData/player/sword/attack_sword_07.tka");
+	animClip[enAttack07_sword].SetLoopFlag(true);
+	//çUåÇ8
+	animClip[enAttack08_blad].Load("Assets/animData/player/blad/attack_blad_08.tka");
+	animClip[enAttack08_blad].SetLoopFlag(true);
+	animClip[enAttack08_sword].Load("Assets/animData/player/sword/attack_sword_08.tka");
+	animClip[enAttack08_sword].SetLoopFlag(true);
+	//çUåÇ9
+	animClip[enAttack09_blad].Load("Assets/animData/player/blad/attack_blad_09.tka");
+	animClip[enAttack09_blad].SetLoopFlag(true);
+	animClip[enAttack09_sword].Load("Assets/animData/player/sword/attack_sword_09.tka");
+	animClip[enAttack09_sword].SetLoopFlag(true);
 }
 
 
@@ -72,15 +92,23 @@ PlayerAnimation::~PlayerAnimation()
 void PlayerAnimation::SetAttackAnimationTime()
 {
 	m_attackAnimationTime[enAttackTime01_blad] = 120;
-	m_attackAnimationTime[enAttackTime02_blad] = 110;
+	m_attackAnimationTime[enAttackTime02_blad] = 100;
 	m_attackAnimationTime[enAttackTime03_blad] = 120;
-	m_attackAnimationTime[enAttackTime04_blad] = 110;
-	m_attackAnimationTime[enAttackTime05_blad] = 110;
-	m_attackAnimationTime[enAttackTime01_sword] = 90;
-	m_attackAnimationTime[enAttackTime02_sword] = 100;
-	m_attackAnimationTime[enAttackTime03_sword] = 100;
-	m_attackAnimationTime[enAttackTime04_sword] = 100;
-	m_attackAnimationTime[enAttackTime05_sword] = 100;
+	m_attackAnimationTime[enAttackTime04_blad] = 100;
+	m_attackAnimationTime[enAttackTime05_blad] = 106;
+	m_attackAnimationTime[enAttackTime06_blad] = 100;
+	m_attackAnimationTime[enAttackTime07_blad] = 100;
+	m_attackAnimationTime[enAttackTime08_blad] = 130;
+	m_attackAnimationTime[enAttackTime09_blad] = 110;
+	m_attackAnimationTime[enAttackTime01_sword] = 80;
+	m_attackAnimationTime[enAttackTime02_sword] = 80;
+	m_attackAnimationTime[enAttackTime03_sword] = 90;
+	m_attackAnimationTime[enAttackTime04_sword] = 90;
+	m_attackAnimationTime[enAttackTime05_sword] = 90;
+	m_attackAnimationTime[enAttackTime06_sword] = 90;
+	m_attackAnimationTime[enAttackTime07_sword] = 80;
+	m_attackAnimationTime[enAttackTime08_sword] = 110;
+	m_attackAnimationTime[enAttackTime09_sword] = 150;
 }
 bool PlayerAnimation::Start()
 {

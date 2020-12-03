@@ -203,6 +203,15 @@
     <ClCompile Include="..\..\MiniEngine\GraphicsEngine.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>ソースファイル\Game\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="DrBoar.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAnimation.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -434,6 +443,15 @@
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>ソースファイル\Game\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="DrBoar.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
@@ -513,6 +531,9 @@
     </Filter>
     <Filter Include="Engine\Physics\Character">
       <UniqueIdentifier>{b603d868-cf45-4be1-ab13-490d69c7e9f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Game\Charactor\Enemy">
+      <UniqueIdentifier>{76806261-67c7-4a92-86f4-1e258fc89bfb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

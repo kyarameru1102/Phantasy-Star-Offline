@@ -203,8 +203,10 @@
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BossEnBase.cpp" />
+    <ClCompile Include="DrBoar.cpp" />
     <ClCompile Include="EnArmyGenerator.cpp" />
     <ClCompile Include="EnBehaviorTest.cpp" />
+    <ClCompile Include="EnemyAnimation.cpp" />
     <ClCompile Include="EnTest.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GroupCoreGenerator.cpp" />
@@ -225,6 +227,7 @@
     <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="PlayerStatusUI.cpp" />
     <ClCompile Include="PostEffect.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="SkinModelRender.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -284,8 +287,10 @@
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BossEnBase.h" />
+    <ClInclude Include="DrBoar.h" />
     <ClInclude Include="EnArmyGenerator.h" />
     <ClInclude Include="EnBehaviorTest.h" />
+    <ClInclude Include="EnemyAnimation.h" />
     <ClInclude Include="EnTest.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GroupCoreGenerator.h" />
@@ -308,6 +313,7 @@
     <ClInclude Include="PlayerStatusUI.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="SkinModelRender.h" />
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="stdafx.h" />
