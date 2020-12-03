@@ -206,6 +206,7 @@
     <ClCompile Include="DrBoar.cpp" />
     <ClCompile Include="EnArmyGenerator.cpp" />
     <ClCompile Include="EnBehaviorTest.cpp" />
+    <ClCompile Include="EnemyAnimation.cpp" />
     <ClCompile Include="EnTest.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GroupCoreGenerator.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="DrBoar.h" />
     <ClInclude Include="EnArmyGenerator.h" />
     <ClInclude Include="EnBehaviorTest.h" />
+    <ClInclude Include="EnemyAnimation.h" />
     <ClInclude Include="EnTest.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GroupCoreGenerator.h" />

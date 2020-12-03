@@ -209,6 +209,9 @@
     <ClCompile Include="DrBoar.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyAnimation.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -444,6 +447,9 @@
       <Filter>ソースファイル\Game\Charactor</Filter>
     </ClInclude>
     <ClInclude Include="DrBoar.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAnimation.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

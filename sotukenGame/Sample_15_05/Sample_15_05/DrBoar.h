@@ -1,4 +1,5 @@
 #pragma once
+#include "Physics/Character/CharacterController.h"
 /// <summary>
 /// ドラゴンボアクラス
 /// </summary>
@@ -55,9 +56,11 @@ private:
 	Quaternion m_rotation = Quaternion::Identity; //回転
 	Vector3 m_movespeed = Vector3::Zero;  //移動速度
 	int changeTimer = 0;       //アニメーション変更タイマー
+	float m_speedY = 0.0f;//Y方向のスピード。
 	int m_animState = enIdle; //アニメーションの状態。
 	AnimationClip m_animationClip[enAnimationClip_num];
 
 	Player* m_player = nullptr;
+	CharacterController m_charaCon;//キャラコン。
 };
 
