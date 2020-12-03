@@ -6,12 +6,17 @@ const float FLAME_NUM = 40.0f;  //フレーム数。
 const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変動値。
                                                            //Y方向のスピードの最大値をフレーム数で割って、
                                                            //1フレームあたりの変動値を求める。
+const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
+const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
+                                //入る数はアニメーションの数-１の数値を入れる。
 Player::Player()
 {
 }
 Player::~Player()
 {
-	DeleteGO(m_playerSkinModel);
+	if (m_playerSkinModel != nullptr) {
+		DeleteGO(m_playerSkinModel);
+	}
 	if (m_weapon[0] != nullptr) {
 		DeleteGO(m_weapon[0]);
 	}
@@ -19,20 +24,68 @@ Player::~Player()
 		DeleteGO(m_weapon[1]);
 	}
 }
+void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime01_sword)
+{
+	m_attackFlag = true;
+	if (attackTimer <= 0) {
+		//攻撃タイムが0以下。
+		m_attackAnimationTimeNum = attackTime01_blad;
+		m_attackAnimNum = attackAnimNum;
+		if (m_weaponState == enSwordState) {
+			//ソード状態
+			m_attackAnimationTimeNum = attackTime01_sword;
+		}
+		//タイムに最初の攻撃時間を入れる。
+		m_totalAttackAnimationTime = m_playerAnim->GetAttackAnimationTime()[m_attackAnimationTimeNum];
+		//連撃タイムにタイムを入れる。
+		m_continuousAttackTime = m_totalAttackAnimationTime;
+		//連撃タイムから50引く。
+		m_continuousAttackTime = 30;
+	}
+	if (attackTimer >= m_continuousAttackTime && m_attackNum < m_attackAnimNum) {
+		//連撃タイム以降
+		m_attackNum++;
+		m_attackAnimationTimeNum++;
+		//攻撃アニメーションの合計時間に次の攻撃アニメーションの時間を加算する。
+		m_totalAttackAnimationTime = attackTimer + m_playerAnim->GetAttackAnimationTime()[m_attackAnimationTimeNum];
+		m_continuousAttackTime = attackTimer + 30;
+		//フラグを立てて、この時は攻撃中でも方向を変えれるようにする。
+		m_attackAngleFlag = true;
+	}
+}
 void Player::Attack()
 {
 	if (m_attackFlag != false) {
 		m_moveSpeed = Vector3::Zero;
+		//攻撃タイマーを加算。
 		attackTimer++;
-		m_animState = enAttack01_blad;
-		m_complementaryTime = 10.0f;
+		//XボタンかYボタンで初期攻撃アニメーションを決める。
+		if (m_attackAnimNum == ATTACK_ANIM_NUM_X) {
+			m_animState = enAttack01_blad;
+		}
+		else {
+			m_animState = enAttack06_blad;
+		}
+		//m_attackNum×2を加算した番号のアニメーションを流す。
 		m_animState += m_attackNum * 2;
-		if (attackTimer > time) {
+		if (attackTimer > m_totalAttackAnimationTime) {
+			//攻撃アニメーション終了。
+			if (m_attackAnimationTimeNum == enAttackTime09_blad ||
+				m_attackAnimationTimeNum == enAttackTime09_sword) {
+				//武器チェンジの攻撃アニメーションだった。
+				//武器の状態を変更する。
+				if (m_weaponState == enBladState) {
+					m_weaponState = enSwordState;
+				}
+				else if (m_weaponState == enSwordState) {
+					m_weaponState = enBladState;
+				}
+			}
 			m_attackFlag = false;
 			attackTimer = 0;
 			m_attackNum = 0;
-			time = 0;
-			num = 0;
+			m_totalAttackAnimationTime = 0;
+			m_animState = enStay_blad;
 		}
 	}
 }
@@ -59,7 +112,6 @@ void Player::YDirMove()
 		//ジャンプした時、アニメーションを流す。
 		jumpStartTimer++;
 		if (jumpStartTimer <= 40) {
-			m_complementaryTime = 10.0f;
 				m_animState = enJumpStart_blad;
 		}
 	}
@@ -67,7 +119,6 @@ void Player::YDirMove()
 		//ジャンプしているまたは、落下している。
 		m_speedY -= FLUCTUATION_VALUE_Y;
 		if (jumpStartTimer >= 40) {
-			m_complementaryTime = 10.0f;
 				m_animState = enStayInTheAir_blad;
 		}
 	}
@@ -83,7 +134,6 @@ void Player::YDirMove()
 void Player::WeaponChange()
 {
 	if (m_changeAnimFlag != false) {
-		m_complementaryTime = 10.0f;
 		m_animState = enChange_blad;
 		//武器変更時は動かない。
 		m_moveSpeed = Vector3::Zero;
@@ -105,43 +155,7 @@ void Player::WeaponChange()
 		}
 	}
 }
-void Player::SetWeaponTR()
-{
-	//ボーンから武器の座標、回転、スケールを設定。
-	m_playerSkinModel->GetModel().GetSkeleton().GetBone(m_weapon01Num)->CalcWorldTRS(
-		m_weaponPos,
-		m_weaponRot,
-		m_weaponScale
-	);
-	Quaternion weaponRot = Quaternion::Identity;
-	weaponRot.SetRotationDegX(90.0f);
-	weaponRot.Multiply(m_weaponRot);
-	//座標にムーブスピードを加算。
-	m_weaponPos += m_moveSpeed;
-	m_weapon[0]->SetPosition(m_weaponPos);
-	m_weapon[0]->SetRtation(weaponRot);
-
-	//ボーンから武器の座標、回転、スケールを設定。
-	m_playerSkinModel->GetModel().GetSkeleton().GetBone(m_weapon02Num)->CalcWorldTRS(
-		m_weaponPos,
-		m_weaponRot,
-		m_weaponScale
-	);
-	weaponRot = Quaternion::Identity;
-	weaponRot.SetRotationDegX(90.0f);
-	weaponRot.Multiply(m_weaponRot);
-	//座標にムーブスピードを加算。
-	m_weaponPos += m_moveSpeed;
-	m_weapon[1]->SetPosition(m_weaponPos);
-	m_weapon[1]->SetRtation(weaponRot);
-
-	m_playerSkinModel->GetModel().GetSkeleton().GetBone(m_weapon03Num)->CalcWorldTRS(
-		m_rootPos,
-		m_rot,
-		m_rootScale
-	);
-}
-void Player::SetDirAndSpeed()
+void Player::SetSpeed()
 {
 	//カメラを考慮したプレイヤーの移動方向を計算する。
 	Vector3 cameraDir = m_gameCam->GetTarget() - m_gameCam->GetPosition();
@@ -167,15 +181,7 @@ void Player::SetDirAndSpeed()
 			m_magnificationSpeed = 5.0f;
 			m_animState = enWalk_blad;
 		}
-		m_complementaryTime = 10.0f;
 	}
-	if (
-		fabsf(m_moveSpeed.z) > 0.0f &&
-		fabsf(m_moveSpeed.x) > 0.0f) {
-		float rot = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-		m_rotation.SetRotation(Vector3::AxisY, rot);
-	}
-	m_playerSkinModel->SetRotation(m_rotation);
 }
 bool Player::Start()
 {
@@ -196,10 +202,9 @@ bool Player::Start()
 	//キャラコン初期化。
 	m_charaCon.Init(50.0f, 100.0f, m_position);
 	//武器の座標、回転を適応させるボーンの番号を検索。
-	m_weapon01Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_r");
-	m_weapon02Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l");
+	m_weapon[0]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_r"));
+	m_weapon[1]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l"));
 
-	m_weapon03Num = m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"root");
 	//GameCameraのインスタンスを検索。
 	m_gameCam = FindGO<GameCamera>("gameCamera");
 	return true;
@@ -209,54 +214,40 @@ void Player::Update()
 	//アニメーションを待機状態に設定。
 	m_animState = enStay_blad;
 
-	//武器の座標と回転を設定。
-	SetWeaponTR();
-
 	//向きと移動スピードを設定。
-	SetDirAndSpeed();
+	SetSpeed();
 
 	//Y方向の移動。
 	YDirMove();
 
 	//武器変更。
-	if (g_pad[0]->IsTrigger(enButtonLB1)) {
+	if (g_pad[0]->IsTrigger(enButtonLB1) && m_attackFlag != true) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
 	}
 	WeaponChange();
-	//攻撃。
-	if (g_pad[0]->IsTrigger(enButtonX)) {
-		//Xボタンを押した。
-		m_attackFlag = true;
-		if (attackTimer <= 0) {
-			//攻撃タイムが0以下。
-			num = enAttackTime01_blad;
-			//タイムに最初の攻撃時間を入れる。
-			time = m_playerAnim->GetAttackAnimationTime()[num];
-			if (m_weaponState == enSwordState) {
-				//ソード状態
-				num = enAttackTime01_sword;
-				time = m_playerAnim->GetAttackAnimationTime()[num];
-			}
-			//連撃タイムにタイムを入れる。
-			m_continuousAttackTime = time;
-			//連撃タイムから50引く。
-			m_continuousAttackTime = 30;
+	//攻撃のフラグを立てる。
+	if (m_changeAnimFlag != true) {
+		if (g_pad[0]->IsTrigger(enButtonX)) {
+			AttackFlag(enAttackTime01_blad, ATTACK_ANIM_NUM_X, enAttackTime01_sword);
 		}
-		////連撃タイムにタイムを入れる。
-		//m_continuousAttackTime = time;
-		////連撃タイムから50引く。
-		//m_continuousAttackTime /= 2;
-		if (attackTimer >= m_continuousAttackTime && m_attackNum <= 4) {
-			//連撃タイム以降
-			m_attackNum++;
-			++num;
-			time = attackTimer + m_playerAnim->GetAttackAnimationTime()[num];
-			int att = m_playerAnim->GetAttackAnimationTime()[num];
-			att /= 2;
-			m_continuousAttackTime = attackTimer + 30;
+		else if (g_pad[0]->IsTrigger(enButtonY)) {
+			AttackFlag(enAttackTime06_blad, ATTACK_ANIM_NUM_Y, enAttackTime06_sword);
 		}
 	}
+	//プレイヤーを回転させる。
+	if (
+		fabsf(m_moveSpeed.z) > 0.0f &&
+		fabsf(m_moveSpeed.x) > 0.0f) {
+
+		if (m_attackFlag != true || m_attackAngleFlag != false) {
+			m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+			m_attackAngleFlag = false;
+		}
+		m_rotation.SetRotation(Vector3::AxisY, m_angle);
+	}
+	m_playerSkinModel->SetRotation(m_rotation);
+	//攻撃。
 	Attack();
 	
 	if (m_weaponState == enSwordState) {
@@ -264,8 +255,9 @@ void Player::Update()
 		m_animState++;
 	}
 	//アニメーションを再生。
-		float aa = m_complementaryTime / 60.0f;
-		m_playerSkinModel->PlayAnimation(m_animState, aa);
+	//アニメーション補完時間。
+	float complementaryTime = m_complementaryFlame / 60.0f;
+	m_playerSkinModel->PlayAnimation(m_animState, complementaryTime);
 
 	//とりあえずプレイヤーのY座標が-500以下になったら戻るようにする。
 	if (m_charaCon.GetPosition().y <= -500.0f) {
@@ -275,4 +267,9 @@ void Player::Update()
 	//座標を設定。
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_playerSkinModel->SetPosition(m_position);
+	//前のフレームの座標から現在のフレームの座標に
+	//向かって伸びるベクトルを求める。
+	m_weaponMoveSpeed = m_position - m_oldPosition;
+	//前の座標を今の座標に置き換える。
+	m_oldPosition = m_position;
 }
