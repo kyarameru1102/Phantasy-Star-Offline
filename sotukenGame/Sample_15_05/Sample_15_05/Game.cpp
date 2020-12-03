@@ -24,6 +24,7 @@ bool Game::Start()
 	m_gameCam = NewGO<GameCamera>(0, "gameCamera");
 	m_bg = NewGO<BackGround>(0, "backGround");
 	m_playerStatusUI = NewGO<PlayerStatusUI>(0);
+	m_drBoar = NewGO<DrBoar>(0, "drBoar");
     return true;
 }
 
