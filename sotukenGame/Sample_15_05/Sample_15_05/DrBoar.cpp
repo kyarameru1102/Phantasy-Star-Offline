@@ -12,18 +12,11 @@ DrBoar::~DrBoar()
 
 bool DrBoar::Start()
 {
-	//アニメーションクリップのロード
-	m_animationClip[enIdle].Load("Assets/animData/DragonBoar/boar_idle.tka");
-	m_animationClip[enIdle].SetLoopFlag(true);
-	m_animationClip[enWalk].Load("Assets/animData/DragonBoar/boar_walk.tka");
-	m_animationClip[enWalk].SetLoopFlag(true);
-	m_animationClip[enRun].Load("Assets/animData/DragonBoar/boar_run.tka");
-	m_animationClip[enRun].SetLoopFlag(true);
-	m_animationClip[enDie].Load("Assets/animData/DragonBoar/boar_die.tka");
-	m_animationClip[enDie].SetLoopFlag(true);
+	//プレイヤーのアニメーションのインスタンス作成。
+	m_enemyAnim = NewGO<EnemyAnimation>(0, "enemyAnim");
 	//モデルの初期化
 	m_DrBoarSkinModel = NewGO<SkinModelRender>(0);
-	m_DrBoarSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_animationClip, enAnimationClip_num);
+	m_DrBoarSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm",m_enemyAnim->GetAnimationClip() , enAnimationClip_num);
 	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
 	//キャラコン初期化。
@@ -32,11 +25,7 @@ bool DrBoar::Start()
 }
 void DrBoar::Move()
 {
-	//プレイヤーを追いかける。
-	/*if (m_player == nullptr)
-	{
-		m_player = FindGO<Player>("player");
-	}*/
+	
 	if (m_player != nullptr) {
 		Vector3 playerLen = m_player->GetPosition() - m_position;
 		playerLen.Normalize();
@@ -61,19 +50,12 @@ void DrBoar::Turn()
 }
 void DrBoar::Update()
 {
-	/*changeTimer++;
-	if (changeTimer == 30)
-	{
-		m_animState = enWalk;
+	if (m_status == Idle_state) {
+		m_animState = enIdle;
 	}
-	if (changeTimer == 50)
-	{
+	if (m_status == Attack_state) {
 		m_animState = enRun;
 	}
-	if (changeTimer == 70)
-	{
-		m_animState = enDie;
-	}*/
 	if (m_player == nullptr)
 	{
 		m_player = FindGO<Player>("player");

@@ -23,17 +23,7 @@ private:
 	Vector3 m_position = Vector3::Zero;
 	Vector3 m_movespeed = Vector3::Zero;
 	//Vector3 playerLen = Vector3::Zero;
-	/*enum EnAnimationClip {
-		enIdle,
-		enWalk,
-		enRun,
-		enScream,
-		enAttack,
-		enHornattack,
-		enGethit,
-		enDie,
-		enAnimationClip_num
-	};*/
+	
 	int changeTimer = 0;
 	int turntimer = 0;
 	int turntimer2 = 0;
@@ -41,7 +31,7 @@ private:
 	bool turnflag = false;
 	
 	int m_animState = enIdle; //アニメーションの状態。
-	//AnimationClip m_animationClip[enAnimationClip_num];
+	
 
 	Player* m_player = nullptr;
 	CharacterController m_charaCon;//キャラコン。
