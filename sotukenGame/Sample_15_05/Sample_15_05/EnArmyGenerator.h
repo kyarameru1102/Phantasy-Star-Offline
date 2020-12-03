@@ -1,7 +1,9 @@
 #pragma once
+#include "Random.h"
 /// <summary>
 /// “G‚ÌŒQ‚ê‚ğ¶¬‚·‚éƒNƒ‰ƒX
 /// </summary>
+class Random;
 class EnArmyGenerator : public IGameObject
 {
 public:
@@ -14,5 +16,6 @@ public:
 	/// </summary>
 	~EnArmyGenerator();
 	void Update()override;
+	Random m_random;
 };
 

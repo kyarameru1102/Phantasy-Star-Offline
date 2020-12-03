@@ -3,6 +3,7 @@
 /// 敵挙動確認クラス
 /// </summary>
 #include "EnTest.h"
+#include "DrBoar.h"
 
 class EnBehaviorTest : public IGameObject
 {
@@ -25,5 +26,6 @@ public:
 	/// </summary>
 	void Update() override;
 	EnTest* m_entest = nullptr;
+	DrBoar* m_drboar = nullptr;
 };
 

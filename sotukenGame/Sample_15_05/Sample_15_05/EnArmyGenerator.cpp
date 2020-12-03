@@ -3,6 +3,7 @@
 
 EnArmyGenerator::EnArmyGenerator()
 {
+	
 }
 
 EnArmyGenerator::~EnArmyGenerator()
