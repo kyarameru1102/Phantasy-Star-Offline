@@ -44,5 +44,5 @@ void Weapon::Update()
 	//À•WÝ’èB
 	m_skimModelRender->SetPosition(m_position);
 	//‰ñ“]Ý’èB
-	m_skimModelRender->SetRotation(m_rotation);
+	m_skimModelRender->SetRotation(weaponRot);
 }
