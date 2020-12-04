@@ -43,8 +43,9 @@ private:
 		Idle_state,
 		Attack_state
 	};
+	
 	int m_status = Attack_state;    //状態
-	SkinModelRender* m_DrBoarSkinModel = nullptr;
+	SkinModelRender* m_DrBoarSkinModel = nullptr; //スキンモデル
 	Vector3 m_position = Vector3::Zero;  //座標
 	Vector3 m_scale = Vector3::One;      //拡大率
 	Quaternion m_rotation = Quaternion::Identity; //回転
@@ -52,10 +53,11 @@ private:
 	int changeTimer = 0;       //アニメーション変更タイマー
 	float m_speedY = 0.0f;//Y方向のスピード。
 	int m_animState = enIdle; //アニメーションの状態。
-	
+	int m_appearcolor = 0;  //配色No
 
 	Player* m_player = nullptr;
 	CharacterController m_charaCon;//キャラコン。
-	EnemyAnimation* m_enemyAnim = nullptr;
+	EnemyAnimation* m_enemyAnim = nullptr;  //アニメーションのロード
+	std::vector<int> boarcolor = { 1,2,3,4 }; //配色決定
 };
 

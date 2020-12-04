@@ -15,10 +15,27 @@ bool EnTest::Start()
 {
 	//プレイヤーのアニメーションのインスタンス作成。
 	m_enemyAnim = NewGO<EnemyAnimation>(0, "enemyAnim");
-	
+	m_appearcolor = boarcolor[rand() % boarcolor.size()];
 	//モデルの初期化
-	m_EnTestSkinModel = NewGO<SkinModelRender>(0);
-	m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
+	if (m_appearcolor == 1 ) {
+		m_EnTestSkinModel = NewGO<SkinModelRender>(0);
+		m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Blue/DrBoarBl.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
+	}
+	else if (m_appearcolor == 2)
+	{
+		m_EnTestSkinModel = NewGO<SkinModelRender>(0);
+		m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
+	}
+	else if (m_appearcolor == 3)
+	{
+		m_EnTestSkinModel = NewGO<SkinModelRender>(0);
+		m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Green/DrBoarGr.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
+	}
+	else if (m_appearcolor == 4)
+	{
+		m_EnTestSkinModel = NewGO<SkinModelRender>(0);
+		m_EnTestSkinModel->Init("Assets/modelData/enemy/DragonBoar/Red/DrBoarRe.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
+	}
 	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
 	//キャラコン初期化。

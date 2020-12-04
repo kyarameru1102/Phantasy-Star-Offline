@@ -27,8 +27,8 @@ public:
 	/// XVŠÖ”B
 	/// </summary>
 	void Update() override;
-	EnTest* m_entest = nullptr;
-	DrBoar* m_drboar = nullptr;
+	EnTest* m_entest[2] = { nullptr };
+	DrBoar* m_drboar[4] = { nullptr };
 	BackGround* m_bg = nullptr;
 	Player* m_player = nullptr;
 	GameCamera* m_gameCam = nullptr;
