@@ -17,6 +17,11 @@ public:
 	void Move();
 	void Turn();
 private:
+	enum {
+		Idle_state,
+		Attack_state
+	};
+	int m_status = Attack_state;    //ó‘Ô
 	SkinModelRender* m_EnTestSkinModel = nullptr;
 	Quaternion m_rotation = Quaternion::Identity;
 	Quaternion m_addrot = Quaternion::Identity;
