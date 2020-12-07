@@ -7,6 +7,8 @@
 #include "BackGround.h";
 #include "Player.h"
 #include "GameCamera.h"
+
+class PlayerStatusUI;
 class EnBehaviorTest : public IGameObject
 {
 public:
@@ -32,5 +34,6 @@ public:
 	BackGround* m_bg = nullptr;
 	Player* m_player = nullptr;
 	GameCamera* m_gameCam = nullptr;
+	PlayerStatusUI* m_playerStatusUI = nullptr;
 };
 

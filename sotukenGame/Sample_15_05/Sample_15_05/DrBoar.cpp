@@ -72,9 +72,14 @@ void DrBoar::Turn()
 	}
 }
 
+void DrBoar::Attack()
+{
+
+}
+
 void DrBoar::Die()
 {
-	if (m_hp == 0)
+	if (m_hp <= 0)
 	{
 		m_animState = enDie;
 		m_status = Die_state;

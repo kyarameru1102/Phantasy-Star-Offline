@@ -51,7 +51,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	auto& renderContext = g_graphicsEngine->GetRenderContext();
 
 	Stopwatch sw;
-	NewGO<Title>(0, "Title");
+	NewGO<EnBehaviorTest>(0, "Title");
 
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
