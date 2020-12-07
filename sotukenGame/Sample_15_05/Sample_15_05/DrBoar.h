@@ -29,19 +29,36 @@ public:
 
 	void Move();
 	void Turn();
-
+	void Die();
 	/// <summary>
-	/// プレイヤーの座標を返す。
+	/// ドラゴンボアの座標を返す。
 	/// </summary>
 	/// <returns></returns>
 	const Vector3& GetPosition() const
 	{
 		return m_position;
 	}
+	/// <summary>
+	/// ドラゴンボアのHPを返す。
+	/// </summary>
+	/// <returns></returns>
+	const int& GetHP() const
+	{
+		return m_hp;
+	}
+	/// <summary>
+	/// ドラゴンボアのHPを減らす。
+	/// </summary>
+	int GetHit(int damage) 
+	{
+		m_hp -= damage;
+		return true;
+	}
 private:
 	enum {
 		Idle_state,
-		Attack_state
+		Attack_state,
+		Die_state
 	};
 	
 	int m_status = Attack_state;    //状態
@@ -54,6 +71,7 @@ private:
 	float m_speedY = 0.0f;//Y方向のスピード。
 	int m_animState = enIdle; //アニメーションの状態。
 	int m_appearcolor = 0;  //配色No
+	int m_hp = 50;  //HP
 
 	Player* m_player = nullptr;
 	CharacterController m_charaCon;//キャラコン。

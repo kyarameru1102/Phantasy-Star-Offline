@@ -71,6 +71,16 @@ void DrBoar::Turn()
 		m_rotation.SetRotation(Vector3::AxisY, angle);
 	}
 }
+
+void DrBoar::Die()
+{
+	if (m_hp == 0)
+	{
+		m_animState = enDie;
+		m_status = Die_state;
+	}
+}
+
 void DrBoar::Update()
 {
 	if (m_status == Idle_state) {
@@ -87,8 +97,12 @@ void DrBoar::Update()
 	{
 		Move();
 		Turn();
+		Die();
 	}
-
+	if (m_status == Die_state)
+	{
+		DeleteGO(this);
+	}
 	m_position = m_charaCon.Execute(1.0f, m_movespeed);
 	m_DrBoarSkinModel->SetScale({ 40.0, 40.0, 40.0 });
 	m_DrBoarSkinModel->SetRotation(m_rotation);
