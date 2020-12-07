@@ -17,6 +17,11 @@ public:
 	void Move();
 	void Turn();
 private:
+	enum {
+		Idle_state,
+		Attack_state
+	};
+	int m_status = Attack_state;    //状態
 	SkinModelRender* m_EnTestSkinModel = nullptr;
 	Quaternion m_rotation = Quaternion::Identity;
 	Quaternion m_addrot = Quaternion::Identity;
@@ -32,9 +37,10 @@ private:
 	
 	int m_animState = enIdle; //アニメーションの状態。
 	
-
+	int m_appearcolor = 0;
 	Player* m_player = nullptr;
 	CharacterController m_charaCon;//キャラコン。
 	EnemyAnimation* m_enemyAnim = nullptr;
+	std::vector<int> boarcolor = { 1,2,3,4 };
 };
 
