@@ -52,7 +52,7 @@ void Weapon::Update()
 			m_drBoar = FindGO<DrBoar>("drBoar");
 			Vector3 v = m_drBoar->GetPosition() - m_position;
 			if (v.Length() <= 300.0f) {
-				m_drBoar->GetHit(25);
+				m_drBoar->GetHit(5);
 			}
 			m_nextAttackNum++;
 		}
