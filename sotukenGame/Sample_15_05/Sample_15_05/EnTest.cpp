@@ -39,7 +39,7 @@ bool EnTest::Start()
 	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
 	//ƒLƒƒƒ‰ƒRƒ“‰Šú‰»B
-	m_charaCon.Init(200.0f, 150.0f, m_position);
+	m_charaCon.Init(145.0f, 200.0f, m_position);
 	return true;
 }
 void EnTest::Move()
