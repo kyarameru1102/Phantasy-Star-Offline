@@ -53,4 +53,5 @@ private:
 	Quaternion m_rotation = Quaternion::Identity;//回転
 	int m_boneNum = 0; //ボーンの番号。
 	Vector3 m_scale = Vector3::Zero; //スケール。
+	int m_nextAttackNum = 0;
 };

@@ -102,6 +102,14 @@ public:
 	{
 		return m_attackFlag;
 	}
+	/// <summary>
+	/// 攻撃番号を返す。
+	/// </summary>
+	/// <returns></returns>
+	const int GetAttackNum() const
+	{
+		return m_attackNum;
+	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
@@ -130,7 +138,7 @@ private:
 
 	bool m_attackFlag = false;
 	int attackTimer = 0;
-	int m_attackNum = 0;
+	int m_attackNum = 0; //攻撃番号。
 	int m_totalAttackAnimationTime = 0; //攻撃アニメーションの合計の時間。
 	int m_continuousAttackTime = 0;  //連撃する際のアニメーションの合計の時間。
 	int m_attackAnimationTimeNum = 0; //攻撃アニメーションの時間を入れた配列の番号。

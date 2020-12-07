@@ -237,7 +237,7 @@ void Player::Update()
 	}
 	//プレイヤーを回転させる。
 	if (
-		fabsf(m_moveSpeed.z) > 0.0f &&
+		fabsf(m_moveSpeed.z) > 0.0f ||
 		fabsf(m_moveSpeed.x) > 0.0f) {
 
 		if (m_attackFlag != true || m_attackAngleFlag != false) {
