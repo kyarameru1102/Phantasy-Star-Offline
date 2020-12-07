@@ -94,6 +94,14 @@ public:
 	{
 		return m_weaponMoveSpeed;
 	}
+	/// <summary>
+	/// UŒ‚ƒtƒ‰ƒO‚ğ•Ô‚·B
+	/// </summary>
+	/// <returns></returns>
+	const bool GetAttackFlag() const
+	{
+		return m_attackFlag;
+	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;

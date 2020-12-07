@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 
-const float MAX_SPEED_Y = 50.0f; //Y方向のスピードの最大値。
-const float FLAME_NUM = 40.0f;  //フレーム数。
+const float MAX_SPEED_Y = 40.0f; //Y方向のスピードの最大値。
+const float FLAME_NUM = 30.0f;  //フレーム数。
 const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変動値。
                                                            //Y方向のスピードの最大値をフレーム数で割って、
                                                            //1フレームあたりの変動値を求める。
