@@ -29,6 +29,7 @@ public:
 
 	void Move();
 	void Turn();
+	void Attack();
 	void Die();
 	/// <summary>
 	/// ドラゴンボアの座標を返す。

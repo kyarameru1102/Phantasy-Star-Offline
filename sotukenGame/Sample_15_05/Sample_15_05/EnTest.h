@@ -16,6 +16,7 @@ public:
 	
 	void Move();
 	void Turn();
+	void Attack();
 private:
 	enum {
 		Idle_state,

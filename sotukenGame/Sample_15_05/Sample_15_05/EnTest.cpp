@@ -66,6 +66,14 @@ void EnTest::Turn()
 	}
 	
 }
+
+void EnTest::Attack()
+{
+	if (m_status == Attack_state && m_player != nullptr) {
+		
+	}
+}
+
 void EnTest::Update()
 {
 	if (m_status == Idle_state) {
