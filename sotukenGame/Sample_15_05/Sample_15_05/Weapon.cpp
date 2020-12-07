@@ -25,6 +25,7 @@ bool Weapon::Start()
 		SkinModelRender::YUp
 	);
 	m_player = FindGO<Player>("player");
+	m_nextAttackNum = m_player->GetAttackNum();
 	return true;
 }
 
@@ -47,10 +48,16 @@ void Weapon::Update()
 	m_skimModelRender->SetRotation(weaponRot);
 
 	if (m_player->GetAttackFlag() != false) {
-		m_drBoar = FindGO<DrBoar>("drBoar");
-		Vector3 v = m_drBoar->GetPosition() - m_position;
-		if (v.Length() <= 50.0f) {
-
+		if (m_nextAttackNum == m_player->GetAttackNum()) {
+			m_drBoar = FindGO<DrBoar>("drBoar");
+			Vector3 v = m_drBoar->GetPosition() - m_position;
+			if (v.Length() <= 300.0f) {
+				m_drBoar->GetHit(25);
+			}
+			m_nextAttackNum++;
 		}
+	}
+	else {
+		m_nextAttackNum = m_player->GetAttackNum();
 	}
 }
