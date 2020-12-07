@@ -45,4 +45,12 @@ void Weapon::Update()
 	m_skimModelRender->SetPosition(m_position);
 	//‰ñ“]Ý’èB
 	m_skimModelRender->SetRotation(weaponRot);
+
+	if (m_player->GetAttackFlag() != false) {
+		m_drBoar = FindGO<DrBoar>("drBoar");
+		Vector3 v = m_drBoar->GetPosition() - m_position;
+		if (v.Length() <= 50.0f) {
+
+		}
+	}
 }

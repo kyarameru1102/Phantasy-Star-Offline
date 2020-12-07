@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "DrBoar.h"
 class Weapon : public IGameObject
 {
 public:
@@ -46,6 +47,7 @@ public:
 	}
 private:
 	Player* m_player = nullptr; //プレイヤーのインスタンス。
+	DrBoar* m_drBoar = nullptr; //敵のインスタンス。
 	SkinModelRender* m_skimModelRender = nullptr; //スキンモデルレンダー。
 	Vector3 m_position = Vector3::Zero;//座標。
 	Quaternion m_rotation = Quaternion::Identity;//回転
