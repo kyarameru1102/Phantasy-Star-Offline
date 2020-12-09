@@ -74,7 +74,7 @@ public:
 		myContactResultCallback.m_me = colObj;
 		dynamicWorld->contactTest(colObj, myContactResultCallback);
 	}
-	void ContactTest(
+	void ContactTestCol(
 		btCollisionObject* colObj,
 		std::function<void(const btCollisionObject& contactCollisionObject)> cb
 	)
