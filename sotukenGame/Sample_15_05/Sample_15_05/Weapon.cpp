@@ -47,17 +47,21 @@ void Weapon::Update()
 	//回転設定。
 	m_skimModelRender->SetRotation(weaponRot);
 
-	if (m_player->GetAttackFlag() != false) {
-		if (m_nextAttackNum == m_player->GetAttackNum()) {
-			m_drBoar = FindGO<DrBoar>("drBoar");
-			Vector3 v = m_drBoar->GetPosition() - m_position;
-			if (v.Length() <= 300.0f) {
-				m_drBoar->GetHit(5);
+	//敵との当たり判定をとる前に、
+	//敵がいるかどうかを調べる。
+	QueryGOs<DrBoar>("drBoar", [&](DrBoar * drBoar)->bool {
+		if (m_player->GetAttackFlag() != false) {
+			if (m_nextAttackNum == m_player->GetAttackNum()) {
+				Vector3 v = drBoar->GetPosition() - m_position;
+				if (v.Length() <= 300.0f) {
+					drBoar->GetHit(5);
+				}
+				m_nextAttackNum++;
 			}
-			m_nextAttackNum++;
 		}
-	}
-	else {
-		m_nextAttackNum = m_player->GetAttackNum();
-	}
+		else {
+			m_nextAttackNum = m_player->GetAttackNum();
+		}
+		return true;
+		});
 }
