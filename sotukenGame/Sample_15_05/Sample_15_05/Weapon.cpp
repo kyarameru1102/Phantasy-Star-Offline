@@ -24,8 +24,16 @@ bool Weapon::Start()
 		"Assets/shader/model.fx",
 		SkinModelRender::YUp
 	);
+	m_skimModelRender->SetPosition(m_position);
+	m_skimModelRender->SetRotation(m_rotation);
 	m_player = FindGO<Player>("player");
+	//ゴースト作成。
 	m_nextAttackNum = m_player->GetAttackNum();
+	m_ghostObj.CreateBox(
+		m_position,
+		m_rotation,
+		{ 100.0f, 20.0f, 20.0f }
+	);
 	return true;
 }
 
@@ -46,6 +54,9 @@ void Weapon::Update()
 	m_skimModelRender->SetPosition(m_position);
 	//回転設定。
 	m_skimModelRender->SetRotation(weaponRot);
+
+	m_ghostObj.SetPosition(m_position);
+	m_ghostObj.SetRotation(weaponRot);
 
 	//敵との当たり判定をとる前に、
 	//敵がいるかどうかを調べる。

@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "DrBoar.h"
+#include "Physics/GhostObject.h"
 class Weapon : public IGameObject
 {
 public:
@@ -54,4 +55,5 @@ private:
 	int m_boneNum = 0; //ボーンの番号。
 	Vector3 m_scale = Vector3::Zero; //スケール。
 	int m_nextAttackNum = 0;
+	GhostObject m_ghostObj;
 };
