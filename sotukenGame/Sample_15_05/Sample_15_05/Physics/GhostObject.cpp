@@ -10,7 +10,7 @@ GhostObject::~GhostObject()
 void GhostObject::Release()
 {
 	if (m_isRegistPhysicsWorld == true) {
-		PhysicsWorld().RemoveCollisionObject(m_ghostObject);
+		g_physics.RemoveCollisionObject(m_ghostObject);
 		m_isRegistPhysicsWorld = false;
 	}
 }
@@ -33,6 +33,6 @@ void GhostObject::CreateCommon(Vector3 pos, Quaternion rot)
 	m_ghostObject.setWorldTransform(btTrans);
 
 	//ï®óùÉGÉìÉWÉìÇ…ìoò^ÅB
-	PhysicsWorld().AddCollisionObject(m_ghostObject);
+	g_physics.AddCollisionObject(m_ghostObject);
 	m_isRegistPhysicsWorld = true;
 }
