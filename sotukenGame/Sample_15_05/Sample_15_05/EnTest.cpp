@@ -39,7 +39,7 @@ bool EnTest::Start()
 	m_position = { 300.0f, 0.0f, 100.0f };
 	m_rotation.SetRotationDegY(90.0f);
 	//ƒLƒƒƒ‰ƒRƒ“‰Šú‰»B
-	m_charaCon.Init(145.0f, 200.0f, m_position);
+	m_charaCon.Init(145.0f, 100.0f, m_position);
 	return true;
 }
 void EnTest::Move()
@@ -70,7 +70,11 @@ void EnTest::Turn()
 void EnTest::Attack()
 {
 	if (m_status == Attack_state && m_player != nullptr) {
-		
+		Vector3 playerLen = m_player->GetPosition() - m_position;
+		if (playerLen.Length() <= 190.0f)
+		{
+			m_animState = enHornattack;
+		}
 	}
 }
 
@@ -90,6 +94,7 @@ void EnTest::Update()
 	{
 		Move();
 		Turn();
+		Attack();
 	}
 	//turntimer++;
 	/*if (turntimer < 50)

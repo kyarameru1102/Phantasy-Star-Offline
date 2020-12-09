@@ -74,19 +74,19 @@ public:
 		myContactResultCallback.m_me = colObj;
 		dynamicWorld->contactTest(colObj, myContactResultCallback);
 	}
-	void ContactTest(
+	void ContactTestCol(
 		btCollisionObject* colObj,
-		btCollisionWorld::ContactResultCallback& resultCallback
+		std::function<void(const btCollisionObject& contactCollisionObject)> cb
 	)
 	{
-		dynamicWorld->contactTest(colObj, resultCallback);
+		ContactTest(colObj, cb);
 	}
 	void ContactTestCharaCon(
 		CharacterController& charaCon,
-		btCollisionWorld::ContactResultCallback& resultCallback
+		std::function<void(const btCollisionObject& contactCollisionObject)> cb
 	)
 	{
-		ContactTest(charaCon.GetRigidBody()->GetBody(), resultCallback);
+		ContactTest(charaCon.GetRigidBody()->GetBody(), cb);
 	}
 	
 	/// <summary>

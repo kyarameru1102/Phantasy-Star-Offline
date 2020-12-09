@@ -74,7 +74,13 @@ void DrBoar::Turn()
 
 void DrBoar::Attack()
 {
-
+	if (m_status == Attack_state && m_player != nullptr) {
+		Vector3 playerLen = m_player->GetPosition() - m_position;
+		if (playerLen.Length() <= 190.0f)
+		{
+			m_animState = enHornattack;
+		}
+	}
 }
 
 void DrBoar::Die()
@@ -102,6 +108,7 @@ void DrBoar::Update()
 	{
 		Move();
 		Turn();
+		Attack();
 		Die();
 	}
 	if (m_status == Die_state)
