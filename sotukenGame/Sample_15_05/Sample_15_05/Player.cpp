@@ -199,6 +199,8 @@ bool Player::Start()
 		"Assets/shader/model.fx",
 		SkinModelRender::YUp
 		);
+	m_position.y += 100.0f;
+	m_playerSkinModel->SetPosition(m_position);
 	//キャラコン初期化。
 	m_charaCon.Init(50.0f, 100.0f, m_position);
 	//武器の座標、回転を適応させるボーンの番号を検索。

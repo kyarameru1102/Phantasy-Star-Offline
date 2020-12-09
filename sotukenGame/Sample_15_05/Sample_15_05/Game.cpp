@@ -14,7 +14,11 @@ Game::~Game()
 	DeleteGO(m_gameCam);
 	//DeleteGO(m_bg);
 	DeleteGO(m_playerStatusUI);
-	DeleteGO(m_drBoar);
+	QueryGOs<DrBoar>("drBoar", [](DrBoar * drBoar)->bool
+		{
+			DeleteGO(drBoar);
+			return true;
+		});
 }
 
 bool Game::Start()
