@@ -5,6 +5,7 @@ class Weapon;
 #include "GameCamera.h"
 #include "Weapon.h"
 #include "PlayerAnimation.h"
+#include "PlayerStatusUI.h"
 /// <summary>
 /// プレイヤークラス。
 /// </summary>
@@ -114,6 +115,7 @@ private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
 	GameCamera* m_gameCam = nullptr;
+	PlayerStatusUI* m_playerStatesUI = nullptr;
 	Vector3 m_position = Vector3::Zero;//座標。
 	Vector3 m_moveSpeed = Vector3::Zero;//ムーブスピード。
 	Quaternion m_rotation = Quaternion::Identity; //回転クォータニオン。
@@ -147,5 +149,8 @@ private:
 	bool m_attackAngleFlag = false;
 	Vector3 m_weaponMoveSpeed = Vector3::Zero; //武器のムーブスピード。
 	Vector3 m_oldPosition = Vector3::Zero; //前の座標。
+
+	bool m_kaihiFlag = false; //回避フラグ。
+	int m_kaihiTimer = 0;
 };
 

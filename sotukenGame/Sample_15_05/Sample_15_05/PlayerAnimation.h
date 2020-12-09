@@ -12,6 +12,8 @@ const enum PlayerAnim {
 	enStayInTheAir_sword,  //ソード状態で滞空。
 	enChange_blad,          //ブレイドからソードに変更。
 	enChange_sword,         //ソードからブレイドに変更。
+	enKaihi_blad,           //ブレイド状態で回避。
+	enKaihi_sword,          //ソード状態で回避。
 	enAttack01_blad,         //ブレイド状態の攻撃1
 	enAttack01_sword,        //ソード状態の攻撃1
 	enAttack02_blad,         //ブレイド状態の攻撃2

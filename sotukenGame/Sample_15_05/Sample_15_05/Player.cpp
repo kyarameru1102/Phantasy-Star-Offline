@@ -222,20 +222,30 @@ void Player::Update()
 	//Y方向の移動。
 	YDirMove();
 
+	if (g_pad[0]->IsTrigger(enButtonRB2)) {
+		m_kaihiFlag = true;
+		m_animState = enKaihi_blad;
+	}
+	if (m_kaihiFlag != false) {
+		m_kaihiTimer++;
+		m_animState = enKaihi_blad;
+		if (m_kaihiTimer >= 80) {
+			m_kaihiTimer = 0;
+			m_kaihiFlag = false;
+		}
+	}
 	//武器変更。
-	if (g_pad[0]->IsTrigger(enButtonLB1) && m_attackFlag != true) {
+	if (g_pad[0]->IsTrigger(enButtonLB1) && m_attackFlag != true && m_kaihiFlag != true) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
 	}
-	WeaponChange();
-	//攻撃のフラグを立てる。
-	if (m_changeAnimFlag != true) {
-		if (g_pad[0]->IsTrigger(enButtonX)) {
-			AttackFlag(enAttackTime01_blad, ATTACK_ANIM_NUM_X, enAttackTime01_sword);
-		}
-		else if (g_pad[0]->IsTrigger(enButtonY)) {
-			AttackFlag(enAttackTime06_blad, ATTACK_ANIM_NUM_Y, enAttackTime06_sword);
-		}
+	else if (m_changeAnimFlag != true && m_kaihiFlag != true) {
+	    	if (g_pad[0]->IsTrigger(enButtonX)) {
+			    AttackFlag(enAttackTime01_blad, ATTACK_ANIM_NUM_X, enAttackTime01_sword);
+		    }
+		    else if (g_pad[0]->IsTrigger(enButtonY)) {
+			    AttackFlag(enAttackTime06_blad, ATTACK_ANIM_NUM_Y, enAttackTime06_sword);
+		    }
 	}
 	//プレイヤーを回転させる。
 	if (
@@ -243,12 +253,16 @@ void Player::Update()
 		fabsf(m_moveSpeed.x) > 0.0f) {
 
 		if (m_attackFlag != true || m_attackAngleFlag != false) {
-			m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-			m_attackAngleFlag = false;
+			if (m_kaihiFlag != true) {
+				m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+				m_attackAngleFlag = false;
+			}
 		}
 		m_rotation.SetRotation(Vector3::AxisY, m_angle);
 	}
 	m_playerSkinModel->SetRotation(m_rotation);
+
+	WeaponChange();
 	//攻撃。
 	Attack();
 	

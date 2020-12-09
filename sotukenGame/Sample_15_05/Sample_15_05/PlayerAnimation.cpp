@@ -38,6 +38,11 @@ PlayerAnimation::PlayerAnimation()
 	animClip[enStayInTheAir_blad].SetLoopFlag(true);
 	animClip[enStayInTheAir_sword].Load("Assets/animData/player/sword/stayInTheAir_02.tka");
 	animClip[enStayInTheAir_sword].SetLoopFlag(true);
+	//âÒîÅB
+	animClip[enKaihi_blad].Load("Assets/animData/player/blad/kaihi_01.tka");
+	animClip[enKaihi_blad].SetLoopFlag(true);
+	animClip[enKaihi_sword].Load("Assets/animData/player/sword/kaihi_02.tka");
+	animClip[enKaihi_sword].SetLoopFlag(true);
 	//çUåÇ1
 	animClip[enAttack01_blad].Load("Assets/animData/player/blad/attack_blad_01.tka");
 	animClip[enAttack01_blad].SetLoopFlag(true);
