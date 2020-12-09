@@ -199,7 +199,6 @@
     <ClCompile Include="EnArmyGenerator.cpp">
       <Filter>ソースファイル\Game\Charactor</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="..\..\MiniEngine\GraphicsEngine.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
@@ -211,6 +210,12 @@
     </ClCompile>
     <ClCompile Include="EnemyAnimation.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>ソースファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\GhostObject.cpp">
+      <Filter>Engine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -439,7 +444,6 @@
     <ClInclude Include="EnArmyGenerator.h">
       <Filter>ソースファイル\Game\Charactor</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="..\..\MiniEngine\GraphicsEngine.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
@@ -451,6 +455,12 @@
     </ClInclude>
     <ClInclude Include="EnemyAnimation.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>ソースファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\GhostObject.h">
+      <Filter>Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
