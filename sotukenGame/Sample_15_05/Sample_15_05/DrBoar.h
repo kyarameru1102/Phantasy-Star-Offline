@@ -55,6 +55,14 @@ public:
 		m_hp -= damage;
 		return true;
 	}
+
+	/// <summary>
+	/// ドラゴンボアのキャラコンを返す。
+	/// </summary>
+	const CharacterController& GetCharaCon() const
+	{
+		return m_charaCon;
+	}
 private:
 	enum {
 		Idle_state,
