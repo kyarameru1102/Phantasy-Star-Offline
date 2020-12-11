@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GhostObject.h"
 #include "BoxCollider.h"
+#include "CollisionAttr.h"
 
 GhostObject::~GhostObject()
 {
@@ -31,7 +32,7 @@ void GhostObject::CreateCommon(Vector3 pos, Quaternion rot)
 	btTrans.setOrigin({ pos.x, pos.y, pos.z });
 	btTrans.setRotation({ rot.x, rot.y, rot.z, rot.w });
 	m_ghostObject.setWorldTransform(btTrans);
-
+	m_ghostObject.setUserIndex(enCollisionAttr_Ghost);
 	//ï®óùÉGÉìÉWÉìÇ…ìoò^ÅB
 	g_physics.AddCollisionObject(m_ghostObject);
 	m_isRegistPhysicsWorld = true;

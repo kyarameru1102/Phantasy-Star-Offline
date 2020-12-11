@@ -29,11 +29,11 @@ bool Weapon::Start()
 	m_player = FindGO<Player>("player");
 	//ゴースト作成。
 	m_nextAttackNum = m_player->GetAttackNum();
-	/*m_ghostObj.CreateBox(
+	m_ghostObj.CreateBox(
 		m_position,
 		m_rotation,
 		{ 500.0f, 500.0f, 500.0f }
-	);*/
+	);
 	return true;
 }
 
@@ -55,8 +55,8 @@ void Weapon::Update()
 	//回転設定。
 	m_skimModelRender->SetRotation(weaponRot);
 
-	/*m_ghostObj.SetPosition(m_position);
-	m_ghostObj.SetRotation(weaponRot);*/
+	m_ghostObj.SetPosition(m_position);
+	m_ghostObj.SetRotation(weaponRot);
 
 	//敵との当たり判定をとる前に、
 	//敵がいるかどうかを調べる。

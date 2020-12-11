@@ -17,7 +17,7 @@ void BackGround::Init()
 	//モデルのイニット。
 	m_bgModel->Init("Assets/modelData/stage/stage1.tkm", nullptr, 0, "Assets/shader/model.fx", SkinModelRender::YUp);
 
-	m_bgModel->SetScale(Vector3(5.0f, 5.0f, 5.0f));
+	m_bgModel->SetScale(Vector3(15.0f, 15.0f, 15.0f));
 
 	//当たり判定用の初期化。
 	Matrix mTranse, mRot, mScale, mWorld;

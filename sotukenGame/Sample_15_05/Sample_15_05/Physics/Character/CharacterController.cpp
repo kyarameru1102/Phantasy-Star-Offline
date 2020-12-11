@@ -26,13 +26,17 @@ namespace {
 				//自分に衝突した。or 地面に衝突した。
 				return 0.0f;
 			}
+			if (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Ghost) {
+				isHit = true;
+				return 0.0f;
+			}
 			//衝突点の法線を引っ張ってくる。
 			Vector3 hitNormalTmp;
 			hitNormalTmp.Set(convexResult.m_hitNormalLocal);
 			//上方向と衝突点の法線のなす角度を求める。
 			float angle = fabsf(acosf(hitNormalTmp.Dot(Vector3::Up)));
 			if (angle >= Math::PI * 0.3f		//地面の傾斜が54度以上なので壁とみなす。
-				|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character	//もしくはコリジョン属性がキャラクタなので壁とみなす。
+				|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_ground	//もしくはコリジョン属性がキャラクタなので壁とみなす。
 				) {
 				isHit = true;
 				Vector3 hitPosTmp;
@@ -71,13 +75,16 @@ namespace {
 				//自分に衝突した。or キャラクタ属性のコリジョンと衝突した。
 				return 0.0f;
 			}
+			if (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Ghost) {
+				return 0.0f;
+			}
 			//衝突点の法線を引っ張ってくる。
 			Vector3 hitNormalTmp = *(Vector3*)&convexResult.m_hitNormalLocal;
 			//上方向と法線のなす角度を求める。
 			float angle = hitNormalTmp.Dot(Vector3::Up);
 			angle = fabsf(acosf(angle));
 			if (angle < Math::PI * 0.3f		//地面の傾斜が54度より小さいので地面とみなす。
-				|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_map //もしくはコリジョン属性が地面と指定されている。
+				|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_ground //もしくはコリジョン属性が地面と指定されている。
 				) {
 				//衝突している。
 				isHit = true;

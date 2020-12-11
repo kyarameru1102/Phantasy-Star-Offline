@@ -9,4 +9,5 @@ enum EnCollisionAttr{
 	enCollisionAttr_User,
 	enCollisionAttr_ground,				//地面。
 	enCollisionAttr_obstacle,			//カメラの判定から外したいときにこの属性を入れる。
+	enCollisionAttr_Ghost,				//ゴースト。
 };
