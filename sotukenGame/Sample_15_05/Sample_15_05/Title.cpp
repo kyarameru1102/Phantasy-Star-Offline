@@ -23,7 +23,7 @@ bool Title::Start()
 	//m_bgSkinModelRender->Init("Assets/modelData/bg.tkm");
 	//spriteテスト。
 	m_spriteRender = NewGO<SpriteRender>(0, "Sprite");
-	m_spriteRender->Init("Assets/image/Title.DDS", 780.0f, 1280.0f);
+	m_spriteRender->Init("Assets/image/Title_tes.DDS", 780.0f, 1280.0f);
 
 	//m_playerStatusUI = NewGO<PlayerStatusUI>(0);
 
