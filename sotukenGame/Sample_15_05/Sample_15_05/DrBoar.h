@@ -59,9 +59,9 @@ public:
 	/// <summary>
 	/// ドラゴンボアのキャラコンを返す。
 	/// </summary>
-	const CharacterController& GetCharaCon() const
+	const CharacterController* GetCharaCon() const
 	{
-		return m_charaCon;
+		return &m_charaCon;
 	}
 private:
 	enum {
