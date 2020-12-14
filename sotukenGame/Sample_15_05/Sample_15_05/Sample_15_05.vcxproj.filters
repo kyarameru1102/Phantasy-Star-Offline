@@ -217,6 +217,9 @@
     <ClCompile Include="Physics\GhostObject.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="EnBase.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -461,6 +464,9 @@
     </ClInclude>
     <ClInclude Include="Physics\GhostObject.h">
       <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="EnBase.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
