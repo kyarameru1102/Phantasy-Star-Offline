@@ -62,7 +62,7 @@ void Weapon::Update()
 	//“G‚ª‚¢‚é‚©‚Ç‚¤‚©‚ð’²‚×‚éB
 	if (m_player->GetAttackFlag() != false) {
 		QueryGOs<DrBoar>("drBoar", [&](DrBoar * drBoar)->bool {
-			CharacterController charaCon = drBoar->GetCharaCon();
+			CharacterController& charaCon = *drBoar->GetCharaCon();
 			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
 				if (m_ghostObj.IsSelf(collisionObject) == true) {
 					drBoar->GetHit(10);
