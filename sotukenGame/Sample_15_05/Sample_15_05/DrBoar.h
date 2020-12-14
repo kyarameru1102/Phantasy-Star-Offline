@@ -59,7 +59,7 @@ public:
 	/// <summary>
 	/// ドラゴンボアのキャラコンを返す。
 	/// </summary>
-	const CharacterController* GetCharaCon() const
+	CharacterController* GetCharaCon() 
 	{
 		return &m_charaCon;
 	}
