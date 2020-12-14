@@ -32,7 +32,7 @@ bool Weapon::Start()
 	m_ghostObj.CreateBox(
 		m_position,
 		m_rotation,
-		{ 100.0f, 20.0f, 20.0f }
+		{ 100.0f, 100.0f, 100.0f }
 	);
 	return true;
 }
@@ -60,19 +60,27 @@ void Weapon::Update()
 
 	//“G‚Æ‚Ì“–‚½‚è”»’è‚ğ‚Æ‚é‘O‚ÉA
 	//“G‚ª‚¢‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚éB
-	QueryGOs<DrBoar>("drBoar", [&](DrBoar * drBoar)->bool {
-		if (m_player->GetAttackFlag() != false) {
-			if (m_nextAttackNum == m_player->GetAttackNum()) {
-				Vector3 v = drBoar->GetPosition() - m_position;
-				if (v.Length() <= 300.0f) {
-					drBoar->GetHit(5);
+	if (m_player->GetAttackFlag() != false) {
+		QueryGOs<DrBoar>("drBoar", [&](DrBoar * drBoar)->bool {
+			CharacterController charaCon = drBoar->GetCharaCon();
+			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
+				if (m_ghostObj.IsSelf(collisionObject) == true) {
+					drBoar->GetHit(10);
 				}
-				m_nextAttackNum++;
+			});
+			/*if (m_player->GetAttackFlag() != false) {
+				if (m_nextAttackNum == m_player->GetAttackNum()) {
+					Vector3 v = drBoar->GetPosition() - m_position;
+					if (v.Length() <= 300.0f) {
+						drBoar->GetHit(5);
+					}
+					m_nextAttackNum++;
+				}
 			}
-		}
-		else {
-			m_nextAttackNum = m_player->GetAttackNum();
-		}
-		return true;
+			else {
+				m_nextAttackNum = m_player->GetAttackNum();
+			}*/
+			return true;
 		});
+	}
 }

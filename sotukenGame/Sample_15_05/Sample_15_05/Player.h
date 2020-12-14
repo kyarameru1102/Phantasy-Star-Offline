@@ -152,5 +152,8 @@ private:
 
 	bool m_kaihiFlag = false; //回避フラグ。
 	int m_kaihiTimer = 0;
+
+	int m_playerLevel = 0; //プレイヤーのレベル。
+	int m_experiencePoint = 0;  //経験値。
 };
 
