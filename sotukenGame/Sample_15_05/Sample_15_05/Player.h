@@ -177,5 +177,8 @@ private:
 	float m_nextExperiencePoint = 10.0f; //次に必要な経験値。
 
 	Vector3 m_dir = Vector3::Zero;
+
+	int ATTACK_ANIM_NUM_X = 1;//Xボタンの攻撃アニメーションの数。
+	int ATTACK_ANIM_NUM_Y = 1;//Yボタンの攻撃アニメーションの数。
 };
 

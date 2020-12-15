@@ -6,8 +6,8 @@ const float FLAME_NUM = 30.0f;  //フレーム数。
 const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変動値。
                                                            //Y方向のスピードの最大値をフレーム数で割って、
                                                            //1フレームあたりの変動値を求める。
-const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
-const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
+//const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
+//const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
                                 //入る数はアニメーションの数-１の数値を入れる。
 Player::Player()
 {
@@ -23,6 +23,9 @@ Player::~Player()
 	if (m_weapon[1] != nullptr) {
 		DeleteGO(m_weapon[1]);
 	}
+	if (m_playerStatusUI != nullptr) {
+		DeleteGO(m_playerStatusUI);
+	}
 }
 void Player::GetExperiencePoint(const float experiencePoint)
 {
@@ -35,6 +38,10 @@ void Player::GetExperiencePoint(const float experiencePoint)
 		m_playerLevel++;
 		//次に必要なレベルを1.1倍に増やす。
 		m_nextExperiencePoint *= 1.1f;
+		if (m_playerLevel > 1) {
+			ATTACK_ANIM_NUM_X = 4;
+			ATTACK_ANIM_NUM_Y = 3;
+		}
 	}
 }
 void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime01_sword)
@@ -224,6 +231,7 @@ bool Player::Start()
 	//武器の座標、回転を適応させるボーンの番号を検索。
 	m_weapon[0]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_r"));
 	m_weapon[1]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l"));
+	//プレイヤーのUIのインスタンスを作成。
 	m_playerStatusUI = NewGO<PlayerStatusUI>(0, "playerStatusUI");
 	
 	//GameCameraのインスタンスを検索。
@@ -309,6 +317,6 @@ void Player::Update()
 	m_weaponMoveSpeed = m_position - m_oldPosition;
 	//前の座標を今の座標に置き換える。
 	m_oldPosition = m_position;
-
+	//HPを設定。
 	m_playerStatusUI->SetCurrentPlayerHP(m_playerHP);
 }

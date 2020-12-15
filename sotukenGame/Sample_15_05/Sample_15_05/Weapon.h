@@ -1,6 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "DrBoar.h"
+#include "EnBase.h"
 #include "Physics/GhostObject.h"
 class Weapon : public IGameObject
 {
@@ -46,9 +46,17 @@ public:
 	{
 		m_boneNum = boneNo;
 	}
+	/// <summary>
+	/// 攻撃力を上げる。
+	/// </summary>
+	/// <param name="ataackPow"></param>
+	void UpAtaackPow(const int ataackPow)
+	{
+		m_ataackPow += ataackPow;
+	}
 private:
 	Player* m_player = nullptr; //プレイヤーのインスタンス。
-	DrBoar* m_drBoar = nullptr; //敵のインスタンス。
+	EnBase* m_drBoar = nullptr; //敵のインスタンス。
 	SkinModelRender* m_skimModelRender = nullptr; //スキンモデルレンダー。
 	Vector3 m_position = Vector3::Zero;//座標。
 	Quaternion m_rotation = Quaternion::Identity;//回転
@@ -56,4 +64,5 @@ private:
 	Vector3 m_scale = Vector3::Zero; //スケール。
 	int m_nextAttackNum = 0;
 	GhostObject m_ghostObj;
+	int m_ataackPow = 10; //攻撃力。
 };

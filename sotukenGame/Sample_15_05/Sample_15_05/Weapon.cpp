@@ -63,12 +63,13 @@ void Weapon::Update()
 		if (m_nextAttackNum == m_player->GetAttackNum()) {
 			//攻撃フラグが立っている間、毎フレームダメージを与えないようにする。
 			//敵との当たり判定をとる前に、敵がいるかどうかを調べる。
-			QueryGOs<DrBoar>("drBoar", [&](DrBoar * drBoar)->bool {
-				//
+			QueryGOs<EnBase>("drBoar", [&](EnBase * drBoar)->bool {
+				//敵のキャラコンを取得。
 				CharacterController& charaCon = *drBoar->GetCharaCon();
 				g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
 					if (m_ghostObj.IsSelf(collisionObject) == true) {
-						drBoar->ReceiveDamage(10);
+						//当たっていたら、ダメージを与える。
+						drBoar->ReceiveDamage(m_ataackPow);
 					}
 				});
 				return true;
