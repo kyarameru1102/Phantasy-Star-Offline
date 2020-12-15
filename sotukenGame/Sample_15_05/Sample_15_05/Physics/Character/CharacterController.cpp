@@ -27,7 +27,6 @@ namespace {
 				return 0.0f;
 			}
 			if (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Ghost) {
-				isHit = true;
 				return 0.0f;
 			}
 			//Õ“Ë“_‚Ì–@ü‚ğˆø‚Á’£‚Á‚Ä‚­‚éB
