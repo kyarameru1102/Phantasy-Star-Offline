@@ -70,10 +70,9 @@ public:
 	/// <summary>
 	/// HP‚ğŒ¸‚ç‚·B
 	/// </summary>
-	int ReceiveDamage(int damage)
+	void ReceiveDamage(int damage)
 	{
 		m_playerHP -= damage;
-		return true;
 	}
 	/// <summary>
 	/// HP‚ğİ’èB
