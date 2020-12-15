@@ -33,12 +33,21 @@ public:
 		return m_hp;
 	}
 	/// <summary>
-	/// HPを減らす。
+	/// ダメージを受けてHPを減らす関数。
 	/// </summary>
-	int ReceiveDamage(int damage)
+	/// <param name="damage">int ダメージ量</param>
+	virtual void ReceiveDamage(int damage)
 	{
 		m_hp -= damage;
-		return true;
+	}
+	/// <summary>
+	/// HPを与える関数。
+	/// 主に回復等で使う。
+	/// </summary>
+	/// <param name="hp">int 回復量</param>
+	void ReceiveHP(int hp)
+	{
+		m_hp += hp;
 	}
 
 	/// <summary>

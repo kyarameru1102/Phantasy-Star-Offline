@@ -55,7 +55,7 @@ bool PlayerStatusUI::Start()
 	m_spritePosition[en_playerUIPPBer] = { 523.0f, -277.0f, 0.0f };
 
 	//現在のプレイヤーHPを設定。
-	m_currentPlayerHP = PLAYER_MAX_HP;
+	//m_currentPlayerHP = PLAYER_MAX_HP;
 
 	return true;
 }

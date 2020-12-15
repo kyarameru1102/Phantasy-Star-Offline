@@ -2,6 +2,7 @@
 #include "Physics/Character/CharacterController.h"
 #include "EnemyAnimation.h"
 #include "EnBase.h"
+#include "Physics/GhostObject.h"
 
 /// <summary>
 /// ドラゴンボアクラス
@@ -44,15 +45,21 @@ public:
 	/// 死。
 	/// </summary>
 	void Die();
-	
+	void ReceiveDamage(int damage) override
+	{
+		m_hp -= damage;
+		m_status = GetDamage_state;
+	}
 private:
 	/// <summary>
 	/// エネミーのステート。
 	/// </summary>
 	enum {
 		Idle_state,
-		Move_state,
+		Walk_state,
+		Run_state,
 		Attack_state,
+		GetDamage_state,
 		Die_state
 	};
 	int					m_status = Idle_state;			//状態。
@@ -62,6 +69,9 @@ private:
 	int					m_appearcolor = 0;				//配色No
 	EnemyAnimation*		m_enemyAnim = nullptr;			//アニメーションのロード。
 	std::vector<int>	boarcolor = { 1,2,3,4 };		//配色決定。
-	bool				isAttack = false;				//攻撃しているか。
+	bool				m_isAttack = false;				//攻撃しているか。
+	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
+	int					m_count = 0;					//攻撃が入るまでのカウント。
+	GhostObject			m_ghostObj;						//ゴースト。
 };
 
