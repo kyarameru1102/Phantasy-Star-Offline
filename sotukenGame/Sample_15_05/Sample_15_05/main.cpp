@@ -27,7 +27,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			
 		rc.Top = 0;
 		rc.Left = 0;
-		rc.Bottom = 1;
+		rc.Bottom = 3;
 		rc.Right = 30;
 		::SetConsoleWindowInfo(fhandle, TRUE, &rc);
 	}

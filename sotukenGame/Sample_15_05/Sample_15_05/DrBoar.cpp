@@ -44,14 +44,17 @@ bool DrBoar::Start()
 	m_rotation.SetRotationDegY(90.0f);
 	//キャラコン初期化。
 	m_charaCon.Init(145.0f, 200.0f, m_position);
+	Vector3 ghostPos = m_position;
+	m_ghostObj.CreateBox(ghostPos, m_rotation, Vector3(50.0f, 50.0f, 50.0f));
 
 	m_player = FindGO<Player>("player");
-
+	m_hp = 100;
 	return true;
 }
+
 void DrBoar::Move()
 {
-	m_status = Move_state;
+	m_status = Walk_state;
 	Vector3 playerLen = m_toPlayer;
 	playerLen.Normalize();
 	m_movespeed = playerLen * 1.2f;
@@ -68,9 +71,21 @@ void DrBoar::Turn()
 
 void DrBoar::Attack()
 {
-	if (m_toPlayer.Length() <= 190.0f)
+	if (m_toPlayer.Length() <= 200.0f)
 	{
 		m_status = Attack_state;
+		CharacterController& charaCon = *m_player->GetCharacterController();
+		g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+			if (m_ghostObj.IsSelf(collisionObject) == true) {
+				if (m_isAttack && !m_ATKoff) {
+					if (m_count >= 60 && m_count <= 70) {
+						m_player->ReceiveDamage(10);
+						m_ATKoff = true;
+						printf_s("Enemy_KOUGEKI\n");
+					}
+				}
+			}
+		});
 	}
 }
 
@@ -79,6 +94,7 @@ void DrBoar::Die()
 	if (m_hp <= 0)
 	{
 		m_status = Die_state;
+		m_charaCon.RemoveRigidBoby();
 	}
 }
 
@@ -87,16 +103,16 @@ void DrBoar::Update()
 	//毎フレーム距離はかる。
 	m_toPlayer = m_player->GetPosition() - m_position;
 
-	//プレイヤーが一定以上近づいたら。
-	{
+	//プレイヤーに近づく。
+	if (m_status != GetDamage_state) {
 		if (m_status != Attack_state && m_status != Die_state) {
 			Move();
 			Turn();
 		}
-	}
-	//さらに距離が近づくと。
-	Attack();
 
+		//距離が近づくと。
+		Attack();
+	}
 	//体力がゼロになると
 	Die();
 
@@ -105,11 +121,27 @@ void DrBoar::Update()
 	case Idle_state:
 		m_animState = enIdle;
 		break;
-	case Move_state:
-		m_animState = enRun;
+	case Walk_state:
+		m_animState = enWalk;
 		break;
 	case Attack_state:
 		m_animState = enHornattack;
+		m_count++;
+		m_isAttack = true;
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_status = Idle_state;
+			m_isAttack = false;
+			m_ATKoff = false;
+			m_count = 0;
+			m_animState = enIdle;
+			m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+		}
+		break;
+	case GetDamage_state:
+		m_animState = enGethit;
+		m_isAttack = false;
+		m_ATKoff = false;
+		m_count = 0;
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
 			m_status = Idle_state;
 			m_animState = enIdle;
@@ -122,11 +154,22 @@ void DrBoar::Update()
 	default:
 		break;
 	}
-	
+	static Vector3 dir, ghostPos;
+	if (m_movespeed.Length() >= 0.0f) {
+		dir = m_movespeed;
+		dir.Normalize();
+		dir *= 200.0f;
+	}
+	ghostPos = m_position + dir;
+
+	m_ghostObj.SetPosition(ghostPos);
+	m_ghostObj.SetRotation(m_rotation);
 	m_skinModelRender->SetScale({ 40.0, 40.0, 40.0 });
 	m_skinModelRender->SetRotation(m_rotation);
 	m_skinModelRender->SetPosition(m_position);
-	m_skinModelRender->PlayAnimation(m_animState, 0.0f);
+	m_skinModelRender->PlayAnimation(m_animState, 1.0f / 60.0f);
 	//デバッグ用。
-	printf_s( "%d", m_animState);
+	printf_s("AnimationState_%d\n", m_animState);
+	printf_s("EnemyHP_%d\n", m_hp);
+	
 }
