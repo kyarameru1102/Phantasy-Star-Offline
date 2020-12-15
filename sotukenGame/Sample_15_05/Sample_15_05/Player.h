@@ -67,6 +67,7 @@ public:
 	{
 		return m_position;
 	}
+
 	/// <summary>
 	/// HP‚ğİ’èB
 	/// </summary>

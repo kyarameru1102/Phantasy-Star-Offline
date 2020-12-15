@@ -65,7 +65,7 @@ void Weapon::Update()
 			CharacterController& charaCon = *drBoar->GetCharaCon();
 			g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
 				if (m_ghostObj.IsSelf(collisionObject) == true) {
-					drBoar->GetHit(10);
+					drBoar->ReceiveDamage(10);
 				}
 			});
 			/*if (m_player->GetAttackFlag() != false) {
