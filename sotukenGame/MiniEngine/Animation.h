@@ -39,9 +39,6 @@
 		{
 			return m_isInited;
 		}
-
-		
-		
 		/// <summary>
 		/// brief	初期化。
 		///param[in]	skinModel		アニメーションさせるスキンモデル。

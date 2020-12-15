@@ -95,6 +95,14 @@ public:
 	{
 		return m_model;
 	}
+	/// <summary>
+	/// 今アニメーションが流れているかどうかを返す。
+	/// </summary>
+	/// <returns></returns>
+	bool GetisAnimationPlaing() const
+	{
+		return m_animation.IsPlaying();
+	}
 private:
 	/// <summary>
 	/// 開始関数。

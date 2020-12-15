@@ -15,19 +15,14 @@ EnemyAnimation::EnemyAnimation()
 	animClip[enRun].SetLoopFlag(true);
 	//™ôšK
 	animClip[enScream].Load("Assets/animData/DragonBoar/boar_scream.tka");
-	animClip[enScream].SetLoopFlag(true);
 	//UŒ‚
 	animClip[enAttack].Load("Assets/animData/DragonBoar/boar_attack.tka");
-	animClip[enAttack].SetLoopFlag(true);
 	//ŠpUŒ‚
 	animClip[enHornattack].Load("Assets/animData/DragonBoar/boar_hornattack.tka");
-	animClip[enHornattack].SetLoopFlag(true);
 	//”íƒ_ƒ
 	animClip[enGethit].Load("Assets/animData/DragonBoar/boar_gethit.tka");
-	animClip[enGethit].SetLoopFlag(true);
 	//€–S
 	animClip[enDie].Load("Assets/animData/DragonBoar/boar_die.tka");
-	animClip[enDie].SetLoopFlag(true);
 }
 
 EnemyAnimation::~EnemyAnimation()
