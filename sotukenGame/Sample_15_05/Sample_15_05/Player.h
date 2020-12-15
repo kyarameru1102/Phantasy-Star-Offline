@@ -20,7 +20,11 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~Player();
-
+	/// <summary>
+	/// プレイヤーが経験値を取得する。ゲッターじゃないよ！！
+	/// </summary>
+	/// <param name="experiencePoint">倒した敵の経験値。</param>
+	void GetExperiencePoint(const float experiencePoint);
 	void AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime01_sword);
 	/// <summary>
 	/// 攻撃。
@@ -153,7 +157,10 @@ private:
 	bool m_kaihiFlag = false; //回避フラグ。
 	int m_kaihiTimer = 0;
 
-	int m_playerLevel = 0; //プレイヤーのレベル。
-	int m_experiencePoint = 0;  //経験値。
+	int m_playerLevel = 1; //プレイヤーのレベル。
+	float m_experiencePoint = 0.0f;  //経験値。
+	float m_nextExperiencePoint = 10.0f; //次に必要な経験値。
+
+	Vector3 m_dir = Vector3::Zero;
 };
 

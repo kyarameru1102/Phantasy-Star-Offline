@@ -24,6 +24,19 @@ Player::~Player()
 		DeleteGO(m_weapon[1]);
 	}
 }
+void Player::GetExperiencePoint(const float experiencePoint)
+{
+	//経験値に倒した敵の経験値を加算する。
+	m_experiencePoint += experiencePoint;
+	//次に必要な経験値より今の経験値が多い間はレベルを加算する。
+	while (m_experiencePoint >= m_nextExperiencePoint)
+	{
+		//レベルを加算。
+		m_playerLevel++;
+		//次に必要なレベルを1.1倍に増やす。
+		m_nextExperiencePoint *= 1.1f;
+	}
+}
 void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime01_sword)
 {
 	m_attackFlag = true;
@@ -56,7 +69,12 @@ void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime
 void Player::Attack()
 {
 	if (m_attackFlag != false) {
-		m_moveSpeed = Vector3::Zero;
+		if (attackTimer >= m_continuousAttackTime) {
+			m_moveSpeed = Vector3::Zero;
+		}
+		else {
+			m_moveSpeed = m_dir * 5.0f;
+		}
 		//攻撃タイマーを加算。
 		attackTimer++;
 		//XボタンかYボタンで初期攻撃アニメーションを決める。
@@ -254,6 +272,8 @@ void Player::Update()
 
 		if (m_attackFlag != true || m_attackAngleFlag != false) {
 			if (m_kaihiFlag != true) {
+				m_dir = m_moveSpeed;
+				m_dir.Normalize();
 				m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
 				m_attackAngleFlag = false;
 			}

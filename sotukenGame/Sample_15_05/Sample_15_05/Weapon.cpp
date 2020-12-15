@@ -32,7 +32,7 @@ bool Weapon::Start()
 	m_ghostObj.CreateBox(
 		m_position,
 		m_rotation,
-		{ 1.0f, 1.0f, 1.0f }
+		{ 500.0f, 50.0f, 50.0f }
 	);
 	return true;
 }
