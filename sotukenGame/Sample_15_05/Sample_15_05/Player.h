@@ -122,6 +122,14 @@ public:
 	{
 		return m_attackNum;
 	}
+	/// <summary>
+	/// プレイヤーのキャラコンを返す。
+	/// </summary>
+	/// <returns></returns>
+	CharacterController* GetCharacterController()
+	{
+		return &m_charaCon;
+	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
