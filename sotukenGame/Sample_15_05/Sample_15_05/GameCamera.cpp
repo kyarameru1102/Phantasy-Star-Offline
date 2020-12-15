@@ -49,6 +49,7 @@ void GameCamera::Update()
 	}
 	//ターゲットをプレイヤーにする。
 	m_target = m_player->GetPosition();
+	m_target.y += 100.0f;
 	//ターゲットを設定。
 	g_camera3D->SetTarget(m_target);
 	//座標を更新。

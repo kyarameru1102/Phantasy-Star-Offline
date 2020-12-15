@@ -224,7 +224,8 @@ bool Player::Start()
 	//武器の座標、回転を適応させるボーンの番号を検索。
 	m_weapon[0]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_r"));
 	m_weapon[1]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l"));
-
+	m_playerStatusUI = NewGO<PlayerStatusUI>(0, "playerStatusUI");
+	
 	//GameCameraのインスタンスを検索。
 	m_gameCam = FindGO<GameCamera>("gameCamera");
 	return true;
@@ -308,4 +309,6 @@ void Player::Update()
 	m_weaponMoveSpeed = m_position - m_oldPosition;
 	//前の座標を今の座標に置き換える。
 	m_oldPosition = m_position;
+
+	m_playerStatusUI->SetCurrentPlayerHP(m_playerHP);
 }

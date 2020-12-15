@@ -58,31 +58,25 @@ void Weapon::Update()
 	m_ghostObj.SetPosition(m_position);
 	m_ghostObj.SetRotation(weaponRot);
 
-	//敵との当たり判定をとる前に、
-	//敵がいるかどうかを調べる。
 	if (m_player->GetAttackFlag() != false) {
+		//プレイヤーが攻撃している。
 		if (m_nextAttackNum == m_player->GetAttackNum()) {
+			//攻撃フラグが立っている間、毎フレームダメージを与えないようにする。
+			//敵との当たり判定をとる前に、敵がいるかどうかを調べる。
 			QueryGOs<DrBoar>("drBoar", [&](DrBoar * drBoar)->bool {
+				//
 				CharacterController& charaCon = *drBoar->GetCharaCon();
 				g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
 					if (m_ghostObj.IsSelf(collisionObject) == true) {
 						drBoar->ReceiveDamage(10);
 					}
 				});
-				/*if (m_player->GetAttackFlag() != false) {
-					if (m_nextAttackNum == m_player->GetAttackNum()) {
-						Vector3 v = drBoar->GetPosition() - m_position;
-						if (v.Length() <= 300.0f) {
-							drBoar->GetHit(5);
-						}
-						m_nextAttackNum++;
-					}
-				}
-				else {
-					m_nextAttackNum = m_player->GetAttackNum();
-				}*/
 				return true;
 			});
+			m_nextAttackNum++;
 		}
+	}
+	else {
+		m_nextAttackNum = m_player->GetAttackNum();
 	}
 }

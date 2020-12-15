@@ -134,7 +134,7 @@ private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
 	GameCamera* m_gameCam = nullptr;
-	PlayerStatusUI* m_playerStatesUI = nullptr;
+	PlayerStatusUI* m_playerStatusUI = nullptr;
 	Vector3 m_position = Vector3::Zero;//座標。
 	Vector3 m_moveSpeed = Vector3::Zero;//ムーブスピード。
 	Quaternion m_rotation = Quaternion::Identity; //回転クォータニオン。
