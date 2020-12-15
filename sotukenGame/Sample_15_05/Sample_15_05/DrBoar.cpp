@@ -90,7 +90,6 @@ void DrBoar::Update()
 	//プレイヤーが一定以上近づいたら。
 	{
 		if (m_status != Attack_state && m_status != Die_state) {
-
 			Move();
 			Turn();
 		}

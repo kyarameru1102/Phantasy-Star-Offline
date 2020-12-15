@@ -35,7 +35,7 @@ public:
 	/// <summary>
 	/// HP‚ğŒ¸‚ç‚·B
 	/// </summary>
-	int GetHit(int damage)
+	int ReceiveDamage(int damage)
 	{
 		m_hp -= damage;
 		return true;
