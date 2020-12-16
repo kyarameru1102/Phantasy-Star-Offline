@@ -57,6 +57,10 @@ public:
 	{
 		return &m_charaCon;
 	}
+	void SetPosition(Vector3 pos)
+	{
+		m_position = pos;
+	}
 protected:
 	SkinModelRender*	m_skinModelRender = nullptr;			//スキンモデル
 	Vector3				m_position = Vector3::Zero;				//座標

@@ -8,6 +8,9 @@ BackGround::BackGround()
 
 BackGround::~BackGround()
 {
+	DeleteGO(m_bgModel);
+	g_physics.RemoveRigidBody(m_rigidBody);
+	m_rigidBody.Release();
 }
 
 void BackGround::Init()

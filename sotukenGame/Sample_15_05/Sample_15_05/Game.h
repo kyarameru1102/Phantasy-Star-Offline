@@ -35,7 +35,7 @@ private:
 	GameCamera* m_gameCam = nullptr;
 	BackGround* m_bg = nullptr;
 	PlayerStatusUI* m_playerStatusUI = nullptr;
-	DrBoar* m_drBoar = nullptr;
+	DrBoar* m_drBoar[3];
 	Menu* m_menu = nullptr;				//メニューのインスタンス。
 };
 
