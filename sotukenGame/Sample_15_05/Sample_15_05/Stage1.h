@@ -4,6 +4,9 @@
 #include "DrBoar.h"
 #include "Title.h"
 
+/// <summary>
+/// ステージ1クラス
+/// </summary>
 class Stage1 : public IGameObject
 {
 public:
@@ -20,7 +23,6 @@ public:
 	/// 更新関数。
 	/// </summary>
 	void Update()override;
-
 private:
 	enum {
 		ENEMY_NUM = 2		//エネミーの数。

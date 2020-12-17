@@ -26,22 +26,13 @@ bool Stage1::Start()
 
 void Stage1::Update()
 {
-	if (m_downEnemy < 2) {
-		m_downEnemy += m_drBoar[0]->GetDeathCount();
-		m_downEnemy += m_drBoar[1]->GetDeathCount();
-	}
-	if (g_pad[0]->IsTrigger(enButtonSelect)) {
-		m_game = FindGO<Game>("Game");
-		DeleteGO(m_game);
-		DeleteGO(this);
-	}
-
-	if (m_downEnemy == 2) {
-		m_timer++;
-		if (m_timer > 150) {
-			m_game = FindGO<Game>("Game");
-			DeleteGO(m_game);
-			DeleteGO(this);
+	for (int i = 0; i > ENEMY_NUM; i++) {
+		if (m_drBoar[i] != nullptr) {
+			if (m_drBoar[i]->GetDeath()) {
+				m_downEnemy++;
+				m_drBoar[i] = nullptr;
+			}
 		}
 	}
 }
+
