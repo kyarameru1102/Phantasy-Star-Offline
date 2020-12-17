@@ -50,6 +50,11 @@ public:
 		m_hp -= damage;
 		m_status = GetDamage_state;
 	}
+
+	const int& GetDeathCount()const
+	{
+		return m_deathCount;
+	}
 private:
 	/// <summary>
 	/// エネミーのステート。
@@ -73,5 +78,6 @@ private:
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
 	GhostObject			m_ghostObj;						//ゴースト。
+	int					m_deathCount = 0;				//死んだときのカウント。
 };
 

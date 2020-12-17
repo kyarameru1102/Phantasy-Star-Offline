@@ -12,13 +12,14 @@ Game::~Game()
 {
 	DeleteGO(m_player);
 	DeleteGO(m_gameCam);
-	DeleteGO(m_bg);
+	//DeleteGO(m_bg);
 	DeleteGO(m_playerStatusUI);
-	QueryGOs<DrBoar>("drBoar", [](DrBoar * drBoar)->bool
+	/*QueryGOs<DrBoar>("drBoar", [](DrBoar * drBoar)->bool
 	{
 		DeleteGO(drBoar);
 		return true;
-	});
+	});*/
+	DeleteGO(m_stage1);
 }
 
 bool Game::Start()
@@ -26,13 +27,14 @@ bool Game::Start()
 	//プレイヤー作成。
 	m_player = NewGO<Player>(0, "player");
 	m_gameCam = NewGO<GameCamera>(0, "gameCamera");
-	m_bg = NewGO<BackGround>(0, "backGround");
-	m_drBoar[0] = NewGO<DrBoar>(0, "drBoar");
+	m_stage1 = NewGO<Stage1>(0);
+	//m_bg = NewGO<BackGround>(0, "backGround");
+	/*m_drBoar[0] = NewGO<DrBoar>(0, "drBoar");
 	m_drBoar[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
 	m_drBoar[1] = NewGO<DrBoar>(0, "drBoar");
 	m_drBoar[1]->SetPosition({ 300.0f, 0.0f, 100.0f });
 	m_drBoar[2] = NewGO<DrBoar>(0, "drBoar");
-	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -100.0f });
+	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -100.0f });*/
 	
     return true;
 }

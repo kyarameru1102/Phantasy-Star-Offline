@@ -96,6 +96,7 @@ void DrBoar::Die()
 		m_status = Die_state;
 		m_charaCon.RemoveRigidBoby();
 		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_deathCount++;
 			m_player->GetExperiencePoint(10);
 			SetIsDead();
 		}

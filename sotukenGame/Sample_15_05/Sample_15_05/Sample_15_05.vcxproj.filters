@@ -220,6 +220,7 @@
     <ClCompile Include="EnBase.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Stage1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -468,6 +469,7 @@
     <ClInclude Include="EnBase.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Stage1.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
