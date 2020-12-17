@@ -87,11 +87,24 @@ public:
 	{
 		return animClip;
 	}
+	/// <summary>
+	/// 攻撃アニメーションの時間を設定する配列を返す。
+	/// </summary>
+	/// <returns></returns>
 	int* GetAttackAnimationTime()
 	{
 		return m_attackAnimationTime;
 	}
+	/// <summary>
+	/// 攻撃の切り替えの時間を設定する配列を返す。
+	/// </summary>
+	/// <returns></returns>
+	int* GetSwitchAttackTime()
+	{
+		return m_switchAttackTime;
+	}
 private:
 	int m_attackAnimationTime[enAttackTimeNum];//攻撃アニメーションの時間を設定する配列。
+	int m_switchAttackTime[enAttackTimeNum];//攻撃の切り替えの時間を設定する配列。
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };

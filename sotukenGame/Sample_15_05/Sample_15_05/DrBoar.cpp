@@ -8,6 +8,7 @@ DrBoar::DrBoar()
 DrBoar::~DrBoar()
 {
 	DeleteGO(m_skinModelRender);
+	DeleteGO(m_enemyAnim);
 }
 
 bool DrBoar::Start()
@@ -99,6 +100,7 @@ void DrBoar::Die()
 			m_deathCount++;
 			m_player->GetExperiencePoint(10);
 			SetIsDead();
+			m_death = true;
 		}
 	}
 }

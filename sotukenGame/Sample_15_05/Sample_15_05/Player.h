@@ -26,6 +26,9 @@ public:
 	/// <param name="experiencePoint">倒した敵の経験値。</param>
 	void GetExperiencePoint(const float experiencePoint);
 	void AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime01_sword);
+	/// 攻撃終了関数。
+	/// </summary>
+	void AttackEnd();
 	/// <summary>
 	/// 攻撃。
 	/// </summary>
@@ -112,7 +115,7 @@ public:
 	/// <returns></returns>
 	const bool GetAttackFlag() const
 	{
-		return m_attackFlag;
+		return m_attackAnimationFlag;
 	}
 	/// <summary>
 	/// 攻撃番号を返す。
@@ -157,7 +160,7 @@ private:
 
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 
-	bool m_attackFlag = false;
+	bool m_attackAnimationFlag = false;
 	int attackTimer = 0;
 	int m_attackNum = 0; //攻撃番号。
 	int m_totalAttackAnimationTime = 0; //攻撃アニメーションの合計の時間。
@@ -178,7 +181,10 @@ private:
 
 	Vector3 m_dir = Vector3::Zero;
 
-	int ATTACK_ANIM_NUM_X = 1;//Xボタンの攻撃アニメーションの数。
-	int ATTACK_ANIM_NUM_Y = 1;//Yボタンの攻撃アニメーションの数。
+	//int ATTACK_ANIM_NUM_X = 1;//Xボタンの攻撃アニメーションの数。
+	//int ATTACK_ANIM_NUM_Y = 1;//Yボタンの攻撃アニメーションの数。
+	bool m_attackFlag = false; //攻撃しているフラグ。
+
+	bool m_doNothingFlag = false; //何もしていないフラグ。
 };
 
