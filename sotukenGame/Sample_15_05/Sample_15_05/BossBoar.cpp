@@ -9,6 +9,7 @@ BossBoar::BossBoar()
 BossBoar::~BossBoar()
 {
 	DeleteGO(m_skinModelRender);
+	DeleteGO(m_enemyAnim);
 }
 
 bool BossBoar::Start()

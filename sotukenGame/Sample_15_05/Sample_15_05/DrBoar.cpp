@@ -8,6 +8,7 @@ DrBoar::DrBoar()
 DrBoar::~DrBoar()
 {
 	DeleteGO(m_skinModelRender);
+	DeleteGO(m_enemyAnim);
 }
 
 bool DrBoar::Start()
