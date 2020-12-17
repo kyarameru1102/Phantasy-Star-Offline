@@ -40,9 +40,9 @@ PlayerAnimation::PlayerAnimation()
 	animClip[enStayInTheAir_sword].SetLoopFlag(true);
 	//âÒîÅB
 	animClip[enKaihi_blad].Load("Assets/animData/player/blad/kaihi_01.tka");
-	animClip[enKaihi_blad].SetLoopFlag(true);
+	//animClip[enKaihi_blad].SetLoopFlag(true);
 	animClip[enKaihi_sword].Load("Assets/animData/player/sword/kaihi_02.tka");
-	animClip[enKaihi_sword].SetLoopFlag(true);
+	//animClip[enKaihi_sword].SetLoopFlag(true);
 	//çUåÇ1
 	animClip[enAttack01_blad].Load("Assets/animData/player/blad/attack_blad_01.tka");
 	animClip[enAttack01_blad].SetLoopFlag(true);
@@ -114,6 +114,25 @@ void PlayerAnimation::SetAttackAnimationTime()
 	m_attackAnimationTime[enAttackTime07_sword] = 80;
 	m_attackAnimationTime[enAttackTime08_sword] = 110;
 	m_attackAnimationTime[enAttackTime09_sword] = 150;
+
+	m_switchAttackTime[enAttackTime01_blad] = 20;
+	m_switchAttackTime[enAttackTime02_blad] = 30;
+	m_switchAttackTime[enAttackTime03_blad] = 30;
+	m_switchAttackTime[enAttackTime04_blad] = 30;
+	m_switchAttackTime[enAttackTime05_blad] = 30;
+	m_switchAttackTime[enAttackTime06_blad] = 30;
+	m_switchAttackTime[enAttackTime07_blad] = 30;
+	m_switchAttackTime[enAttackTime08_blad] = 30;
+	m_switchAttackTime[enAttackTime09_blad] = 30;
+	m_switchAttackTime[enAttackTime01_sword] = 20;
+	m_switchAttackTime[enAttackTime02_sword] = 20;
+	m_switchAttackTime[enAttackTime03_sword] = 30;
+	m_switchAttackTime[enAttackTime04_sword] = 30;
+	m_switchAttackTime[enAttackTime05_sword] = 30;
+	m_switchAttackTime[enAttackTime06_sword] = 30;
+	m_switchAttackTime[enAttackTime07_sword] = 20;
+	m_switchAttackTime[enAttackTime08_sword] = 40;
+	m_switchAttackTime[enAttackTime09_sword] = 30;
 }
 bool PlayerAnimation::Start()
 {
