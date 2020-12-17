@@ -3,14 +3,15 @@
 #include "GameCamera.h"
 #include "BackGround.h"
 #include "Menu.h"
-#include"DrBoar.h"
+#include "DrBoar.h"
 
-#include "Stage1.h"
+
 /// <summary>
 /// ゲームシーン。
 /// </summary>
 
 class Stage1;
+class Stage2;
 class PlayerStatusUI;
 class Game : public IGameObject
 {
@@ -42,5 +43,6 @@ private:
 	Menu* m_menu = nullptr;				//メニューのインスタンス。
 
 	Stage1* m_stage1 = nullptr;
+	Stage2* m_stage2 = nullptr;
 };
 

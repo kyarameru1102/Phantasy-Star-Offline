@@ -74,6 +74,17 @@ void Weapon::Update()
 				});
 				return true;
 			});
+			QueryGOs<EnBase>("drBoar2", [&](EnBase* drBoar)->bool {
+				//敵のキャラコンを取得。
+				CharacterController& charaCon = *drBoar->GetCharaCon();
+				g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
+					if (m_ghostObj.IsSelf(collisionObject) == true) {
+						//当たっていたら、ダメージを与える。
+						drBoar->ReceiveDamage(m_ataackPow);
+					}
+					});
+				return true;
+				});
 			m_nextAttackNum++;
 		}
 	}

@@ -1,35 +1,33 @@
 #include "stdafx.h"
-#include "Stage1.h"
+#include "Stage2.h"
 #include "DrBoar.h"
 #include "BackGround.h"
 
-Stage1::Stage1()
+Stage2::Stage2()
 {
 }
 
-Stage1::~Stage1()
+Stage2::~Stage2()
 {
 	DeleteGO(m_backGround);
-	QueryGOs<DrBoar>("drBoar", [](DrBoar* drBoar)->bool
+	QueryGOs<DrBoar>("drBoar2", [](DrBoar* drBoar)->bool
 	{
 		DeleteGO(drBoar);
 		return true;
 	});
 }
 
-bool Stage1::Start()
+bool Stage2::Start()
 {
 	m_backGround = NewGO<BackGround>(0);
-	m_drBoar[0] = NewGO<DrBoar>(0, "drBoar");
+	m_drBoar[0] = NewGO<DrBoar>(0, "drBoar2");
 	m_drBoar[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
-	m_drBoar[1] = NewGO<DrBoar>(0, "drBoar");
+	m_drBoar[1] = NewGO<DrBoar>(0, "drBoar2");
 	m_drBoar[1]->SetPosition({ 300.0f, 0.0f, 100.0f });
-	m_drBoar[2] = NewGO<DrBoar>(0, "drBoar");
-	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -100.0f });
 	return true;
 }
 
-void Stage1::Update()
+void Stage2::Update()
 {
 	if (m_downEnemy == ENEMY_NUM)
 	{
@@ -48,4 +46,3 @@ void Stage1::Update()
 		}
 	}
 }
-

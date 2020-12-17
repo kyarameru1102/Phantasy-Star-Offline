@@ -224,6 +224,8 @@
     <ClCompile Include="BossBoar.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Stage2.cpp" />
+    <ClCompile Include="IStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -476,6 +478,8 @@
     <ClInclude Include="BossBoar.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Stage2.h" />
+    <ClInclude Include="IStage.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">

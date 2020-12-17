@@ -2,14 +2,14 @@
 #include "IStage.h"
 
 /// <summary>
-/// ステージ1クラス
+/// ステージ2。
 /// </summary>
 class DrBoar;
-class Stage1 : public IStage
+class Stage2 : public IStage
 {
 public:
-	Stage1();
-	~Stage1();
+	Stage2();
+	~Stage2();
 
 	/// <summary>
 	/// 更新関数が呼ばれる前に呼ばれる開始関数。
@@ -23,7 +23,7 @@ public:
 	void Update()override;
 private:
 	enum {
-		ENEMY_NUM = 3		//エネミーの数。
+		ENEMY_NUM = 2		//エネミーの数。
 	};
 	DrBoar* m_drBoar[ENEMY_NUM] = { nullptr };		//ドラゴンボア(敵)のインスタンス。
 };
