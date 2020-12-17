@@ -100,6 +100,7 @@ void DrBoar::Die()
 			m_deathCount++;
 			m_player->GetExperiencePoint(10);
 			SetIsDead();
+			m_death = true;
 		}
 	}
 }

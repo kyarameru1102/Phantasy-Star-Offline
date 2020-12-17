@@ -61,6 +61,10 @@ public:
 	{
 		m_position = pos;
 	}
+	bool GetDeath()const
+	{
+		return m_death;
+	}
 protected:
 	SkinModelRender*	m_skinModelRender = nullptr;			//スキンモデル
 	Vector3				m_position = Vector3::Zero;				//座標
@@ -71,5 +75,6 @@ protected:
 	int					m_hp = 50;								//HP
 	Player*				m_player = nullptr;						//プレイヤー。
 	Vector3				m_toPlayer = Vector3::Zero;				//プレイヤーまでのベクトル。
+	bool				m_death = false;
 };
 
