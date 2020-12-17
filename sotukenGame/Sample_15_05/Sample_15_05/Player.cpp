@@ -6,8 +6,8 @@ const float FLAME_NUM = 30.0f;  //フレーム数。
 const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変動値。
                                                            //Y方向のスピードの最大値をフレーム数で割って、
                                                            //1フレームあたりの変動値を求める。
-//const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
-//const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
+const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
+const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
                                 //入る数はアニメーションの数-１の数値を入れる。
 Player::Player()
 {
@@ -39,14 +39,14 @@ void Player::GetExperiencePoint(const float experiencePoint)
 		//次に必要なレベルを1.1倍に増やす。
 		m_nextExperiencePoint *= 1.1f;
 		if (m_playerLevel > 1) {
-			ATTACK_ANIM_NUM_X = 4;
-			ATTACK_ANIM_NUM_Y = 3;
+			/*ATTACK_ANIM_NUM_X = 4;
+			ATTACK_ANIM_NUM_Y = 3;*/
 		}
 	}
 }
 void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime01_sword)
 {
-	m_attackFlag = true;
+	m_attackAnimationFlag = true;
 	if (attackTimer <= 0) {
 		//攻撃タイムが0以下。
 		m_attackAnimationTimeNum = attackTime01_blad;
@@ -60,7 +60,9 @@ void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime
 		//連撃タイムにタイムを入れる。
 		m_continuousAttackTime = m_totalAttackAnimationTime;
 		//連撃タイムから50引く。
-		m_continuousAttackTime = 30;
+		m_continuousAttackTime = m_playerAnim->GetSwitchAttackTime()[m_attackAnimationTimeNum];
+
+		m_attackFlag = true;
 	}
 	if (attackTimer >= m_continuousAttackTime && m_attackNum < m_attackAnimNum) {
 		//連撃タイム以降
@@ -68,16 +70,39 @@ void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime
 		m_attackAnimationTimeNum++;
 		//攻撃アニメーションの合計時間に次の攻撃アニメーションの時間を加算する。
 		m_totalAttackAnimationTime = attackTimer + m_playerAnim->GetAttackAnimationTime()[m_attackAnimationTimeNum];
-		m_continuousAttackTime = attackTimer + 30;
+		m_continuousAttackTime = attackTimer + m_playerAnim->GetSwitchAttackTime()[m_attackAnimationTimeNum];;
 		//フラグを立てて、この時は攻撃中でも方向を変えれるようにする。
 		m_attackAngleFlag = true;
+
+		m_attackFlag = true;
 	}
+}
+void Player::AttackEnd()
+{
+	if (m_attackAnimationTimeNum == enAttackTime09_blad ||
+		m_attackAnimationTimeNum == enAttackTime09_sword) {
+		//武器チェンジの攻撃アニメーションだった。
+		//武器の状態を変更する。
+		if (m_weaponState == enBladState) {
+			m_weaponState = enSwordState;
+		}
+		else if (m_weaponState == enSwordState) {
+			m_weaponState = enBladState;
+		}
+	}
+	m_attackAnimationFlag = false;
+	attackTimer = 0;
+	m_attackNum = 0;
+	m_totalAttackAnimationTime = 0;
+	m_animState = enStay_blad;
 }
 void Player::Attack()
 {
-	if (m_attackFlag != false) {
+	if (m_attackAnimationFlag != false) {
 		if (attackTimer >= m_continuousAttackTime) {
 			m_moveSpeed = Vector3::Zero;
+
+			m_attackFlag = false;
 		}
 		else {
 			m_moveSpeed = m_dir * 5.0f;
@@ -95,36 +120,28 @@ void Player::Attack()
 		m_animState += m_attackNum * 2;
 		if (attackTimer > m_totalAttackAnimationTime) {
 			//攻撃アニメーション終了。
-			if (m_attackAnimationTimeNum == enAttackTime09_blad ||
-				m_attackAnimationTimeNum == enAttackTime09_sword) {
-				//武器チェンジの攻撃アニメーションだった。
-				//武器の状態を変更する。
-				if (m_weaponState == enBladState) {
-					m_weaponState = enSwordState;
-				}
-				else if (m_weaponState == enSwordState) {
-					m_weaponState = enBladState;
-				}
-			}
-			m_attackFlag = false;
-			attackTimer = 0;
-			m_attackNum = 0;
-			m_totalAttackAnimationTime = 0;
-			m_animState = enStay_blad;
+			AttackEnd();
 		}
 	}
 }
+
 void Player::YDirMove()
 {
 	if (m_charaCon.IsOnGround() != false) {
 		//地面の上にいる。
-		if (g_pad[0]->IsTrigger(enButtonA)) {
+		if (g_pad[0]->IsTrigger(enButtonA) && m_doNothingFlag != true) {
 			//Aボタンを押した。
+			//攻撃アニメーションをしていたら、止める。
+			if (m_attackAnimationFlag != false) {
+				m_attackAnimationFlag = false;
+				AttackEnd();
+			}
 			//ジャンプフラグを立てる。
 			m_jumpFlag = true;
 			//Yスピードを最大値にする。
 			m_speedY = MAX_SPEED_Y;
 			jumpStartTimer = 0;
+			m_doNothingFlag = true;
 		}
 		else {
 			//フラグを下す。
@@ -137,14 +154,15 @@ void Player::YDirMove()
 		//ジャンプした時、アニメーションを流す。
 		jumpStartTimer++;
 		if (jumpStartTimer <= 40) {
-				m_animState = enJumpStart_blad;
+			m_animState = enJumpStart_blad;
 		}
 	}
 	if (m_charaCon.IsOnGround() != true) {
 		//ジャンプしているまたは、落下している。
 		m_speedY -= FLUCTUATION_VALUE_Y;
+		m_doNothingFlag = true;
 		if (jumpStartTimer >= 40) {
-				m_animState = enStayInTheAir_blad;
+			m_animState = enStayInTheAir_blad;
 		}
 	}
 
@@ -223,7 +241,7 @@ bool Player::Start()
 		enAnimationClipNum,
 		"Assets/shader/model.fx",
 		SkinModelRender::YUp
-		);
+	);
 	m_position.y += 100.0f;
 	m_playerSkinModel->SetPosition(m_position);
 	//キャラコン初期化。
@@ -233,7 +251,7 @@ bool Player::Start()
 	m_weapon[1]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l"));
 	//プレイヤーのUIのインスタンスを作成。
 	m_playerStatusUI = NewGO<PlayerStatusUI>(0, "playerStatusUI");
-	
+
 	//GameCameraのインスタンスを検索。
 	m_gameCam = FindGO<GameCamera>("gameCamera");
 	return true;
@@ -246,55 +264,88 @@ void Player::Update()
 	//向きと移動スピードを設定。
 	SetSpeed();
 
+	if (m_changeAnimFlag != true &&//武器変更していない
+		m_charaCon.IsOnGround() != false &&//地面の上にいる
+		m_kaihiFlag != true &&//回避していない。
+		m_attackFlag != true//攻撃中でない。
+		) {
+		m_doNothingFlag = false;
+	}
 	//Y方向の移動。
 	YDirMove();
 
-	if (g_pad[0]->IsTrigger(enButtonRB2)) {
-		m_kaihiFlag = true;
-		m_animState = enKaihi_blad;
-	}
-	if (m_kaihiFlag != false) {
-		m_kaihiTimer++;
-		m_animState = enKaihi_blad;
-		if (m_kaihiTimer >= 80) {
-			m_kaihiTimer = 0;
-			m_kaihiFlag = false;
-		}
-	}
-	//武器変更。
-	if (g_pad[0]->IsTrigger(enButtonLB1) && m_attackFlag != true && m_kaihiFlag != true) {
+	//武器変更のフラグ。
+	if (g_pad[0]->IsTrigger(enButtonLB1) && m_doNothingFlag != true) {
 		//武器変更のフラグを立てる。
 		m_changeAnimFlag = true;
+		m_doNothingFlag = true;
+		//攻撃アニメーションをしていたら、止める。
+		if (m_attackAnimationFlag != false) {
+			m_attackAnimationFlag = false;
+			AttackEnd();
+		}
 	}
-	else if (m_changeAnimFlag != true && m_kaihiFlag != true) {
-	    	if (g_pad[0]->IsTrigger(enButtonX)) {
-			    AttackFlag(enAttackTime01_blad, ATTACK_ANIM_NUM_X, enAttackTime01_sword);
-		    }
-		    else if (g_pad[0]->IsTrigger(enButtonY)) {
-			    AttackFlag(enAttackTime06_blad, ATTACK_ANIM_NUM_Y, enAttackTime06_sword);
-		    }
+
+	if (m_changeAnimFlag != true && m_kaihiFlag != true && m_charaCon.IsOnGround() != false) {
+		if (g_pad[0]->IsTrigger(enButtonX)) {
+			m_doNothingFlag = true;
+			AttackFlag(enAttackTime01_blad, ATTACK_ANIM_NUM_X, enAttackTime01_sword);
+		}
+		else if (g_pad[0]->IsTrigger(enButtonY)) {
+			m_doNothingFlag = true;
+			AttackFlag(enAttackTime06_blad, ATTACK_ANIM_NUM_Y, enAttackTime06_sword);
+		}
 	}
 	//プレイヤーを回転させる。
 	if (
 		fabsf(m_moveSpeed.z) > 0.0f ||
 		fabsf(m_moveSpeed.x) > 0.0f) {
 
-		if (m_attackFlag != true || m_attackAngleFlag != false) {
-			if (m_kaihiFlag != true) {
-				m_dir = m_moveSpeed;
-				m_dir.Normalize();
-				m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-				m_attackAngleFlag = false;
-			}
+		if (m_attackFlag != true && m_kaihiFlag != true) {
+			m_dir = m_moveSpeed;
+			m_dir.Normalize();
+			m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+			m_attackAngleFlag = false;
 		}
 		m_rotation.SetRotation(Vector3::AxisY, m_angle);
 	}
 	m_playerSkinModel->SetRotation(m_rotation);
 
+	//回避のフラグ
+	if (g_pad[0]->IsTrigger(enButtonB) && m_doNothingFlag != true) {
+		//Bボタンを押した。
+		m_kaihiFlag = true;
+		m_animState = enKaihi_blad;
+		m_doNothingFlag = true;
+		//攻撃アニメーションをしていたら、止める。
+		if (m_attackAnimationFlag != false) {
+			m_attackAnimationFlag = false;
+			AttackEnd();
+		}
+	}
+
+	//回避。
+	if (m_kaihiFlag != false) {
+		//タイマーを加算。
+		m_kaihiTimer++;
+		m_animState = enKaihi_blad;
+		//回避中は進行方向に進む。
+		m_moveSpeed = m_dir * 10.0f;
+		if (m_kaihiTimer >= 50) {
+			//タイマーが50以上になったら止まる。
+			m_moveSpeed = Vector3::Zero;
+		}
+		if (m_kaihiTimer >= 60) {
+			//タイマーが60以上になったら回避終了。
+			m_kaihiTimer = 0;
+			m_kaihiFlag = false;
+		}
+	}
+	//武器変更。
 	WeaponChange();
 	//攻撃。
 	Attack();
-	
+
 	if (m_weaponState == enSwordState) {
 		//ソード状態なら1足してソード状態のアニメーションを流す。
 		m_animState++;
@@ -305,8 +356,9 @@ void Player::Update()
 	m_playerSkinModel->PlayAnimation(m_animState, complementaryTime);
 
 	//とりあえずプレイヤーのY座標が-500以下になったら戻るようにする。
-	if (m_charaCon.GetPosition().y <= -500.0f) {
+	if (m_charaCon.GetPosition().y <= -500.0f || m_playerHP <= 0.0f) {
 		m_charaCon.SetPosition({ 0.0f, 500.0f, 0.0f });
+		m_playerHP = 100.0f;
 	}
 
 	//座標を設定。
