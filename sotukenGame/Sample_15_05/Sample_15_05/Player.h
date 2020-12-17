@@ -181,8 +181,8 @@ private:
 
 	Vector3 m_dir = Vector3::Zero;
 
-	//int ATTACK_ANIM_NUM_X = 1;//Xボタンの攻撃アニメーションの数。
-	//int ATTACK_ANIM_NUM_Y = 1;//Yボタンの攻撃アニメーションの数。
+	int ATTACK_ANIM_NUM_X = 1;//Xボタンの攻撃アニメーションの数。
+	int ATTACK_ANIM_NUM_Y = 1;//Yボタンの攻撃アニメーションの数。
 	bool m_attackFlag = false; //攻撃しているフラグ。
 
 	bool m_doNothingFlag = false; //何もしていないフラグ。
