@@ -4,6 +4,7 @@
 #include "EnemyAnimation.h"
 #include "EnBase.h"
 #include "Physics/GhostObject.h"
+#include "Physics/CapsuleCollider.h"
 
 class BossBoar : public EnBase
 {
@@ -71,5 +72,7 @@ private:
 	bool				m_ATKoff = false;				//一回の攻撃でダメージを一回だけ入れるためのフラグ。
 	int					m_count = 0;					//攻撃が入るまでのカウント。
 	GhostObject			m_ghostObj;						//ゴースト。
+	CharacterController m_charaConFace;						//キャラコン2つめ。
+	Vector3 dir, ghostPos, facePos;
 };
 
