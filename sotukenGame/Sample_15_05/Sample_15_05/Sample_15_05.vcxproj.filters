@@ -220,12 +220,21 @@
     <ClCompile Include="EnBase.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="BossBoar.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Stage2.cpp" />
-    <ClCompile Include="IStage.cpp" />
+    <ClCompile Include="IStage.cpp">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage2.cpp">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage3.cpp">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -474,12 +483,21 @@
     <ClInclude Include="EnBase.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Stage1.h" />
     <ClInclude Include="BossBoar.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Stage2.h" />
-    <ClInclude Include="IStage.h" />
+    <ClInclude Include="IStage.h">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1.h">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage2.h">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage3.h">
+      <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
@@ -562,6 +580,9 @@
     </Filter>
     <Filter Include="ソースファイル\Game\Charactor\Enemy">
       <UniqueIdentifier>{76806261-67c7-4a92-86f4-1e258fc89bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Game\Scean\Game\Stage">
+      <UniqueIdentifier>{e00c0546-cd26-4704-a15d-dc271f63ebf1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "Stage1.h"
 #include "Stage2.h"
+#include "Stage3.h"
 
 Game::Game()
 {
@@ -55,6 +56,13 @@ void Game::Update()
 			DeleteGO(m_stage1);
 			m_stage1 = nullptr;
 			m_stage2 = NewGO<Stage2>(0, "stage");
+		}
+	}
+	if (m_stage2 != nullptr) {
+		if (m_stage2->GetsceanChangeOK()) {
+			DeleteGO(m_stage2);
+			m_stage2 = nullptr;
+			m_stage3 = NewGO<Stage3>(0, "stage");
 		}
 	}
 }

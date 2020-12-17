@@ -12,6 +12,7 @@
 
 class Stage1;
 class Stage2;
+class Stage3;
 class PlayerStatusUI;
 class Game : public IGameObject
 {
@@ -44,5 +45,6 @@ private:
 
 	Stage1* m_stage1 = nullptr;
 	Stage2* m_stage2 = nullptr;
+	Stage3* m_stage3 = nullptr;
 };
 
