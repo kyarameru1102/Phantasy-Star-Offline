@@ -6,9 +6,9 @@ const float FLAME_NUM = 30.0f;  //フレーム数。
 const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変動値。
                                                            //Y方向のスピードの最大値をフレーム数で割って、
                                                            //1フレームあたりの変動値を求める。
-const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
-const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
-                                //入る数はアニメーションの数-１の数値を入れる。
+//const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
+//const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
+//                                //入る数はアニメーションの数-１の数値を入れる。
 Player::Player()
 {
 }
@@ -39,8 +39,8 @@ void Player::GetExperiencePoint(const float experiencePoint)
 		//次に必要なレベルを1.1倍に増やす。
 		m_nextExperiencePoint *= 1.1f;
 		if (m_playerLevel > 1) {
-			/*ATTACK_ANIM_NUM_X = 4;
-			ATTACK_ANIM_NUM_Y = 3;*/
+			ATTACK_ANIM_NUM_X = 4;
+			ATTACK_ANIM_NUM_Y = 3;
 		}
 	}
 }
