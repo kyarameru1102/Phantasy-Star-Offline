@@ -220,6 +220,10 @@
     <ClCompile Include="EnBase.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Stage1.cpp" />
+    <ClCompile Include="BossBoar.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -466,6 +470,10 @@
       <Filter>Engine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="EnBase.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1.h" />
+    <ClInclude Include="BossBoar.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

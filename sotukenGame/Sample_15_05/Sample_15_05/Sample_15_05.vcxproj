@@ -202,6 +202,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BossBoar.cpp" />
     <ClCompile Include="BossEnBase.cpp" />
     <ClCompile Include="DrBoar.cpp" />
     <ClCompile Include="EnArmyGenerator.cpp" />
@@ -232,6 +233,7 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="SkinModelRender.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
+    <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -288,6 +290,7 @@
     <ClInclude Include="..\..\MiniEngine\util\Stopwatch.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BossBoar.h" />
     <ClInclude Include="BossEnBase.h" />
     <ClInclude Include="DrBoar.h" />
     <ClInclude Include="EnArmyGenerator.h" />
@@ -320,6 +323,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="SkinModelRender.h" />
     <ClInclude Include="SpriteRender.h" />
+    <ClInclude Include="Stage1.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Title.h" />

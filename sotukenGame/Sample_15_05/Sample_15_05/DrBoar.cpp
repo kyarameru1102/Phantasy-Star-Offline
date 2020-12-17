@@ -8,6 +8,7 @@ DrBoar::DrBoar()
 DrBoar::~DrBoar()
 {
 	DeleteGO(m_skinModelRender);
+	DeleteGO(m_enemyAnim);
 }
 
 bool DrBoar::Start()
@@ -20,25 +21,25 @@ bool DrBoar::Start()
 	if (m_appearcolor == 1) {
 		m_skinModelRender = NewGO<SkinModelRender>(0);
 		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Blue/DrBoarBl.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
-		m_position = { 300.0f, 0.0f, -100.0f };
+		//m_position = { 300.0f, 0.0f, -100.0f };
 	}
 	else if (m_appearcolor == 2)
 	{
 		m_skinModelRender = NewGO<SkinModelRender>(0);
 		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Gold/DrBoarGo.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
-		m_position = { 300.0f, 0.0f, 100.0f };
+		//m_position = { 300.0f, 0.0f, 100.0f };
 	}
 	else if (m_appearcolor == 3)
 	{
 		m_skinModelRender = NewGO<SkinModelRender>(0);
 		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Green/DrBoarGr.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
-		m_position = { -300.0f, 0.0f, -100.0f };
+		//m_position = { -300.0f, 0.0f, -100.0f };
 	}
 	else if (m_appearcolor == 4)
 	{
 		m_skinModelRender = NewGO<SkinModelRender>(0);
 		m_skinModelRender->Init("Assets/modelData/enemy/DragonBoar/Red/DrBoarRe.tkm", m_enemyAnim->GetAnimationClip(), enAnimationClip_num);
-		m_position = { -300.0f, 0.0f, 100.0f };
+		//m_position = { -300.0f, 0.0f, 100.0f };
 	}
 	
 	m_rotation.SetRotationDegY(90.0f);
@@ -95,6 +96,11 @@ void DrBoar::Die()
 	{
 		m_status = Die_state;
 		m_charaCon.RemoveRigidBoby();
+		if (!m_skinModelRender->GetisAnimationPlaing()) {
+			m_deathCount++;
+			m_player->GetExperiencePoint(10);
+			SetIsDead();
+		}
 	}
 }
 
