@@ -63,6 +63,52 @@ public:
 	/// </summary>
 	/// <param name="renderContext">レンダリングコンテキスト/param>
 	void Draw(RenderContext& renderContext);
+
+	/// <summary>
+	/// 乗算カラーを設定
+	/// </summary>
+	/// <param name="mulColor">乗算カラー</param>
+	void SetMulColor(const Vector4& mulColor)
+	{
+		m_mulColor = mulColor;
+	}
+	/// <summary>
+	/// 乗算カラーを取得
+	/// </summary>
+	/// <returns>乗算カラー</returns>
+	Vector4 GetMulColor() const
+	{
+		return m_mulColor;
+	}
+	/// <summary>
+	/// a値の設定
+	/// </summary>
+	void SetAlpha(const float& alpha)
+	{
+		m_alpha = alpha;
+	}
+	/// <summary>
+	/// a値を取得
+	/// </summary>
+	float GetAlpha() const
+	{
+		return m_alpha;
+	}
+	/// <summary>
+	/// α値を変位させる
+	/// </summary>
+	/// <param name="delta">乗算αを変位させる量</param>
+	void DeltaAlpha(const float& delta)
+	{
+		m_alpha += delta;
+		//数値の境界チェック。
+		if (m_alpha > 1.0f) {
+			m_alpha = 1.0f;
+		}
+		else if (m_alpha < 0.0f) {
+			m_alpha = 0.0f;
+		}
+	}
 private:
 	/// <summary>
 	/// テクスチャを初期化。
@@ -93,6 +139,7 @@ private:
 	/// </summary>
 	/// <param name="initData"></param>
 	void InitConstantBuffer(const SpriteInitData& initData);
+
 private:
 	IndexBuffer m_indexBuffer;			//インデックスバッファ。
 	VertexBuffer m_vertexBuffer;		//頂点バッファ。
@@ -103,6 +150,8 @@ private:
 	Vector2 m_size;						//サイズ。
 	Quaternion m_rotation ;			//回転。
 	Matrix m_world;					//ワールド行列。
+	Vector4					m_mulColor = { 1.0f, 1.0f, 1.0f, 1.0f };	//乗算カラー。
+	float						m_alpha = 1.0f;							//スプライトのα値。
 
 	struct LocalConstantBuffer {
 		Matrix mvp;

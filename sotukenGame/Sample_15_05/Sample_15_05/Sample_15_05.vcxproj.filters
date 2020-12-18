@@ -235,6 +235,9 @@
     <ClCompile Include="Stage3.cpp">
       <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>Engine\Graphics\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -497,6 +500,9 @@
     </ClInclude>
     <ClInclude Include="Stage3.h">
       <Filter>ソースファイル\Game\Scean\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>Engine\Graphics\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

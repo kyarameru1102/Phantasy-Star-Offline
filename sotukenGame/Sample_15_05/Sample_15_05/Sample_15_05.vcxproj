@@ -210,6 +210,7 @@
     <ClCompile Include="EnBehaviorTest.cpp" />
     <ClCompile Include="EnemyAnimation.cpp" />
     <ClCompile Include="EnTest.cpp" />
+    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="IStage.cpp" />
     <ClCompile Include="Physics\GhostObject.cpp" />
@@ -301,6 +302,7 @@
     <ClInclude Include="EnBehaviorTest.h" />
     <ClInclude Include="EnemyAnimation.h" />
     <ClInclude Include="EnTest.h" />
+    <ClInclude Include="Fade.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="IStage.h" />
     <ClInclude Include="Physics\GhostObject.h" />

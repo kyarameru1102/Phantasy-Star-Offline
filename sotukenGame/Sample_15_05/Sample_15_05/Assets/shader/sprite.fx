@@ -55,6 +55,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 	//lig += ligColor * t;
 	
 	float4 finalColor = albedo;
-	finalColor.xyz *= lig;
+	finalColor = finalColor * mulColor;
+	//finalColor.xyz *= lig;
 	return finalColor;
 }

@@ -60,7 +60,7 @@ void Fade::DoNothing()
 	if (m_fadeState == Fade_In) {
 		m_fadeState = Fade_In;				//フェードイン。
 	}
-	else if (m_fadeState == Fade_Out) {
+	if (m_fadeState == Fade_Out) {
 		m_fadeState = Fade_Out;				//フェードアウト。
 	}
 }
