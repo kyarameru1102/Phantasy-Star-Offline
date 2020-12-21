@@ -37,7 +37,7 @@ public:
 	{
 		m_fadeSprite = sprite;
 		m_fadeState = m_State;
-		m_mulColorAddValue = 1.0f / m_time;
+		m_mulColorAddValue = 1.0f / (m_time * 100);
 	}
 
 private:

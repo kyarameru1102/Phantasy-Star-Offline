@@ -42,7 +42,7 @@ bool DrBoar::Start()
 		//m_position = { -300.0f, 0.0f, 100.0f };
 	}
 	
-	m_rotation.SetRotationDegY(90.0f);
+	//.SetRotationDegY(90.0f);
 	//ƒLƒƒƒ‰ƒRƒ“‰Šú‰»B
 	m_charaCon.Init(145.0f, 200.0f, m_position);
 	Vector3 ghostPos = m_position;

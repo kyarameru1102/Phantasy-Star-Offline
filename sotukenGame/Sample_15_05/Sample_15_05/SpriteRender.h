@@ -23,6 +23,14 @@ public:
 		m_position = position;
 	}
 	/// <summary>
+	/// 座標を取得する関数。
+	/// </summary>
+	/// <returns></returns>
+	const Vector3& GetPosition() const
+	{
+		return m_position;
+	}
+	/// <summary>
 	/// 向いている方向を設定する関数。
 	/// </summary>
 	/// <param name="rotation">Quaternion rotation</param>
@@ -46,6 +54,46 @@ public:
 	{
 		m_pivot = pivot;
 	}
+	/// <summary>
+	/// 乗算カラーを設定。
+	/// </summary>
+	/// <param name="mulColor">乗算カラー</param>
+	void SetMulColor(const Vector4& mulColor)
+	{
+		m_sprite.SetMulColor(mulColor);
+	}
+	/// <summary>
+	/// 乗算カラーを取得
+	/// </summary>
+	/// <returns>乗算カラー</returns>
+	Vector4 GetMulColor()
+	{
+		return m_sprite.GetMulColor();
+	}
+	/// <summary>
+/// a値の設定
+/// </summary>
+	void SetAlpha(const float& alpha)
+	{
+		m_sprite.SetAlpha(alpha);
+	}
+	/// <summary>
+	/// a値を取得
+	/// </summary>
+	float GetAlpha() const
+	{
+		return m_sprite.GetAlpha();
+	}
+
+	/// <summary>
+	/// α値を変位させる
+	/// </summary>
+	/// <param name="delta">乗算αを変位させる量</param>
+	void DeltaAlpha(const float& delta)
+	{
+		m_sprite.DeltaAlpha(delta);
+	}
+
 private:
 	/// <summary>
 	/// 開始関数。

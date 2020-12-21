@@ -21,11 +21,11 @@ bool Stage1::Start()
 {
 	m_backGround = NewGO<BackGround>(0);
 	m_drBoar[0] = NewGO<DrBoar>(0, "drBoar");
-	m_drBoar[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
+	m_drBoar[0]->SetPosition({ 400.0f, 0.0f, -200.0f });
 	m_drBoar[1] = NewGO<DrBoar>(0, "drBoar");
-	m_drBoar[1]->SetPosition({ 300.0f, 0.0f, 100.0f });
+	m_drBoar[1]->SetPosition({ 300.0f, 0.0f, 200.0f });
 	m_drBoar[2] = NewGO<DrBoar>(0, "drBoar");
-	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -100.0f });
+	m_drBoar[2]->SetPosition({ -300.0f, 0.0f, -200.0f });
 	return true;
 }
 

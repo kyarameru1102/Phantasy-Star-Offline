@@ -23,7 +23,7 @@ bool Stage2::Start()
 	m_drBoar[0] = NewGO<DrBoar>(0, "drBoar2");
 	m_drBoar[0]->SetPosition({ 300.0f, 0.0f, -100.0f });
 	m_drBoar[1] = NewGO<DrBoar>(0, "drBoar2");
-	m_drBoar[1]->SetPosition({ 300.0f, 0.0f, 100.0f });
+	m_drBoar[1]->SetPosition({ -300.0f, 0.0f, 100.0f });
 	return true;
 }
 
