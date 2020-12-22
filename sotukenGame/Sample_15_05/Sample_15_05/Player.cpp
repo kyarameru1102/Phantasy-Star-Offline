@@ -26,6 +26,9 @@ Player::~Player()
 	if (m_playerStatusUI != nullptr) {
 		DeleteGO(m_playerStatusUI);
 	}
+	if (m_playerAnim != nullptr) {
+		DeleteGO(m_playerAnim);
+	}
 }
 void Player::GetExperiencePoint(const float experiencePoint)
 {

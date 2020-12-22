@@ -69,7 +69,7 @@ void Weapon::Update()
 				g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject & collisionObject) {
 					if (m_ghostObj.IsSelf(collisionObject) == true) {
 						//当たっていたら、ダメージを与える。
-						drBoar->ReceiveDamage(m_ataackPow);
+						drBoar->ReceiveDamage(m_player->GetmAtaackPow());
 					}
 				});
 				return true;
@@ -80,7 +80,7 @@ void Weapon::Update()
 				g_physics.ContactTestCharaCon(charaCon, [&](const btCollisionObject& collisionObject) {
 					if (m_ghostObj.IsSelf(collisionObject) == true) {
 						//当たっていたら、ダメージを与える。
-						drBoar->ReceiveDamage(m_ataackPow);
+						drBoar->ReceiveDamage(m_player->GetmAtaackPow());
 					}
 					});
 				return true;

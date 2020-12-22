@@ -46,14 +46,7 @@ public:
 	{
 		m_boneNum = boneNo;
 	}
-	/// <summary>
-	/// 攻撃力を上げる。
-	/// </summary>
-	/// <param name="ataackPow"></param>
-	void UpAtaackPow(const int ataackPow)
-	{
-		m_ataackPow += ataackPow;
-	}
+	
 private:
 	Player* m_player = nullptr; //プレイヤーのインスタンス。
 	EnBase* m_drBoar = nullptr; //敵のインスタンス。
@@ -64,5 +57,4 @@ private:
 	Vector3 m_scale = Vector3::Zero; //スケール。
 	int m_nextAttackNum = 0;
 	GhostObject m_ghostObj;
-	int m_ataackPow = 10; //攻撃力。
 };

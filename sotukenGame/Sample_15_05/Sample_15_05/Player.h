@@ -71,6 +71,14 @@ public:
 		return m_position;
 	}
 	/// <summary>
+	/// プレイヤーのレベルを返す。
+	/// </summary>
+	/// <returns></returns>
+	const int GetPlayerLevel() const
+	{
+		return m_playerLevel;
+	}
+	/// <summary>
 	/// HPを減らす。
 	/// </summary>
 	void ReceiveDamage(int damage)
@@ -92,6 +100,14 @@ public:
 	const float GetHP() const
 	{
 		return m_playerHP;
+	}
+	/// <summary>
+	/// 攻撃力を返す。
+	/// </summary>
+	/// <returns></returns>
+	const int GetmAtaackPow() const
+	{
+		return m_ataackPow;
 	}
 	/// <summary>
 	/// プレイヤーのスキンモデルレンダーのインスタンスを返す。
@@ -157,6 +173,7 @@ private:
 	float m_complementaryFlame = 10.0f;//アニメーション補完時間。フレーム数。
 	int jumpStartTimer = 40;
 	float m_playerHP = 100.0f;      //HP。
+	int m_ataackPow = 10; //攻撃力。
 
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 
