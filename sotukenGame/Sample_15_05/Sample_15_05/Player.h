@@ -1,6 +1,8 @@
 #pragma once
+#define _USE_MATH_DEFINES
 class GameCamera;
 class Weapon;
+#include <math.h>
 #include "Physics/Character/CharacterController.h"
 #include "GameCamera.h"
 #include "Weapon.h"

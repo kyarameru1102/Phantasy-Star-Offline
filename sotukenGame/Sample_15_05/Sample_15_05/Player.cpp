@@ -305,12 +305,67 @@ void Player::Update()
 		fabsf(m_moveSpeed.x) > 0.0f) {
 
 		if (m_attackFlag != true && m_kaihiFlag != true) {
+			//パッドの方向と今プレイヤーの方向の角度を求める。
+			/*m_nowDir.Normalize();
+			m_padDir.Normalize();
+			m_angle = AngleOf2Vector(m_nowDir, m_padDir);
+			m_angle++;
+
+			m_rotation.SetRotationDeg(Vector3::AxisY, m_angle);
+			m_rotation.Apply(m_nowDir);*/
 			m_dir = m_moveSpeed;
 			m_dir.Normalize();
-			m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+			float sita = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+			sita = sita * 180.0 / M_PI;
+			if (sita <= 0.0f) {
+				sita += 360.0f;
+			}
+
+
+			Vector3 nowDir = { 0.0f, 0.0f, 1.0f };
+			nowDir.Normalize();
+			m_rotation.Apply(nowDir);
+			m_angle = atan2f(nowDir.x, nowDir.z);
+			float s = m_angle;
+			s = s * 180.0 / M_PI;
+			if (s <= 0.0f) {
+				s += 360.0f;
+			}
+			m_angle = s;
+
+			float kakudo = s - sita;
+			if (kakudo >= 180.0f || kakudo <= -180.0f) {
+
+			}
+			if (kakudo <= 10.0f && kakudo >= -10.0f) {
+				m_angle = sita;
+			}
+			else if (s <= sita) {
+				if (kakudo <= -180.0f) {
+					m_angle -= 10.0f;
+					if (m_angle <= 10.0f) {
+						m_angle += 360.0f;
+					}
+				}
+				else {
+					m_angle += 10.0f;
+				}
+			}
+			else if (s >= sita) {
+				if (kakudo >= 180.0f) {
+					m_angle += 10.0f;
+					if (m_angle <= 350.0f) {
+						m_angle -= 360.0f;
+					}
+				}
+				else {
+					m_angle -= 10.0f;
+				}
+
+			}
 			m_attackAngleFlag = false;
 		}
-		m_rotation.SetRotation(Vector3::AxisY, m_angle);
+		m_rotation.SetRotationDeg(Vector3::AxisY, m_angle);
 	}
 	m_playerSkinModel->SetRotation(m_rotation);
 
