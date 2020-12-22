@@ -233,6 +233,9 @@
     <ClCompile Include="PlayerStatusUI.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Shadow\CascadeShadowMap.cpp" />
+    <ClCompile Include="Shadow\IShadowMap.cpp" />
+    <ClCompile Include="Shadow\ShadowMap.cpp" />
     <ClCompile Include="SkinModelRender.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
     <ClCompile Include="Stage1.cpp" />
@@ -327,6 +330,9 @@
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="Shadow\CascadeShadowMap.h" />
+    <ClInclude Include="Shadow\IShadowMap.h" />
+    <ClInclude Include="Shadow\ShadowMap.h" />
     <ClInclude Include="SkinModelRender.h" />
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="Stage1.h" />
@@ -337,6 +343,7 @@
     <ClInclude Include="Title.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="RenderMode.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MiniEngine\DirectXTK\DirectXTK_Desktop_2019_Win10.vcxproj">

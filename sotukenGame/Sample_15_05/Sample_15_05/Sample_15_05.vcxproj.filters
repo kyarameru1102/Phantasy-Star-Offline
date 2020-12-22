@@ -238,6 +238,15 @@
     <ClCompile Include="Fade.cpp">
       <Filter>Engine\Graphics\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="Shadow\CascadeShadowMap.cpp">
+      <Filter>Engine\Graphics\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="Shadow\IShadowMap.cpp">
+      <Filter>Engine\Graphics\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="Shadow\ShadowMap.cpp">
+      <Filter>Engine\Graphics\Shadow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -504,6 +513,18 @@
     <ClInclude Include="Fade.h">
       <Filter>Engine\Graphics\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="RenderMode.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Shadow\CascadeShadowMap.h">
+      <Filter>Engine\Graphics\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Shadow\IShadowMap.h">
+      <Filter>Engine\Graphics\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Shadow\ShadowMap.h">
+      <Filter>Engine\Graphics\Shadow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
@@ -589,6 +610,9 @@
     </Filter>
     <Filter Include="ソースファイル\Game\Scean\Game\Stage">
       <UniqueIdentifier>{e00c0546-cd26-4704-a15d-dc271f63ebf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Shadow">
+      <UniqueIdentifier>{065ede68-2f31-4c89-9885-0c162e00be97}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

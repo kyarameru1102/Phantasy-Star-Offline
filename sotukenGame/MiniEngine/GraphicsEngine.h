@@ -15,6 +15,8 @@
 #include "NullTextureMaps.h"
 #include "Sprite.h"
 #include "PostEffect.h"
+#include "shadow/ShadowMap.h"
+#include "shadow/CascadeShadowMap.h"
 
 
 /// <summary>
@@ -108,7 +110,22 @@ public:
 	{
 		return m_commandQueue;
 	}
-
+	/// <summary>
+	/// シャドウマップを取得
+	/// </summary>
+	/// <returns></returns>
+	ShadowMap* GetShadowMap()
+	{
+		return m_shadowMap;
+	}
+	/// <summary>
+	/// カスケードシャドウマップを取得
+	/// </summary>
+	/// <returns></returns>
+	CascadeShadowMap* GetCascadeShadowMap()
+	{
+		return m_cascadeShadowMap;
+	}
 	/// <summary>
 	/// CBR_SRVのディスクリプタのサイズを取得。
 	/// </summary>
@@ -334,6 +351,8 @@ private:
 	SDirectionLight m_dirLight;			//ライト。
 
 	PostEffect m_postEffect;			//ポストエフェクト
+	ShadowMap* m_shadowMap = nullptr;
+	CascadeShadowMap* m_cascadeShadowMap = nullptr;
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

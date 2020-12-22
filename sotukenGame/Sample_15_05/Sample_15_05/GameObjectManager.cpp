@@ -15,6 +15,7 @@ void GameObjectManager::Init(int gameObjectPrioMax)
 
 void GameObjectManager::Update()
 {
+
 	for (auto& deleteList : m_deleteObjectListArray) {
 		for (IGameObject* go : deleteList) {
 			if (go->GetIsDead() == true)
@@ -51,6 +52,7 @@ void GameObjectManager::Update()
 
 void GameObjectManager::Render()
 {
+	g_graphicsEngine->RendertoShadow();
 	g_graphicsEngine->BeginDeferredRender();
 	//–‘O•`‰æB
 	PreRender();
