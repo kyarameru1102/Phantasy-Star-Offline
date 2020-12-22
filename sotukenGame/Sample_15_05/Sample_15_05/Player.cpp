@@ -453,6 +453,7 @@ void Player::Update()
 		m_charaCon.SetPosition({ 0.0f, 500.0f, 0.0f });
 		m_playerHP = 100.0f;
 		m_beforeHp = m_playerHP;
+		m_gameCam->ResetToPlayerVec();
 		m_deathFlag = false;
 	}
 
