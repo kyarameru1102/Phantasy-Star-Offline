@@ -8,9 +8,9 @@ namespace raytracing {
 
 	void World::RegistGeometry(Model& model)
 	{
-		model.QueryMeshAndDescriptorHeap([&](const SMesh& mesh, const DescriptorHeap& ds) {
+		//model.QueryMeshAndDescriptorHeap([&](const SMesh& mesh, const DescriptorHeap& ds) {
 
-			for (int i = 0; i < mesh.m_materials.size(); i++) {
+			/*for (int i = 0; i < mesh.m_materials.size(); i++) {
 				const auto& vertexBufferView = mesh.m_vertexBuffer.GetView();
 				const auto& indexBufferView = mesh.m_indexBufferArray[i]->GetView();
 				D3D12_RAYTRACING_GEOMETRY_DESC desc;
@@ -33,7 +33,7 @@ namespace raytracing {
 
 				m_instances.emplace_back(std::move(instance));
 			}
-		});
+		});*/
 	}
 
 	void World::CommitRegistGeometry(RenderContext& rc)

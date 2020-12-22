@@ -156,16 +156,32 @@ void Material::InitShaders(
 	m_vsSkinModel.LoadVS(fxFilePath, vsEntry.c_str());
 	m_psModel.LoadPS(fxFilePath, psEntryPointFunc);
 }
-void Material::BeginRender(RenderContext& rc, int hasSkin)
+void Material::BeginRender(RenderContext& rc, int hasSkin, EnRenderMode renderMode)
 {
 	rc.SetRootSignature(m_rootSignature);
-	
-	if (hasSkin) {
-		rc.SetPipelineState(m_skinModelPipelineState);
-	//	rc.SetPipelineState(m_transSkinModelPipelineState);
+
+	if (renderMode == enRenderMode_CreateCascadeShadowMap) {
+		if (hasSkin) {
+			rc.SetPipelineState(m_skinModelCascadeShadowMapPipelineState);
+		}
+		else {
+			rc.SetPipelineState(m_nonSkinModelCascadeShadowMapPipelineState);
+		}
+	}
+	else if (renderMode == enRenderMode_CreateShadowMap) {
+		if (hasSkin) {
+			rc.SetPipelineState(m_skinModelShadowMapPipelineState);
+		}
+		else {
+			rc.SetPipelineState(m_nonSkinModelShadowMapPipelineState);
+		}
 	}
 	else {
-		rc.SetPipelineState(m_nonSkinModelPipelineState);
-	//	rc.SetPipelineState(m_transNonSkinModelPipelineState);
+		if (hasSkin) {
+			rc.SetPipelineState(m_skinModelPipelineState);
+		}
+		else {
+			rc.SetPipelineState(m_nonSkinModelPipelineState);
+		}
 	}
 }

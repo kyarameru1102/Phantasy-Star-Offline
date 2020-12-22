@@ -6,6 +6,7 @@
 
 #include "tkFile/TkmFile.h"
 #include "StructuredBuffer.h"
+#include "RenderMode.h"
 
 class RenderContext;
 class Skeleton;
@@ -56,7 +57,7 @@ public:
 	/// <param name="mView">ビュー行列</param>
 	/// <param name="mProj">プロジェクション行列</param>
 	/// <param name="light">ライト</param>
-	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj);
+	void Draw(RenderContext& rc, const Matrix& mWorld, const Matrix& mView, const Matrix& mProj, EnRenderMode renderMode, int shadowMapNumber);
 	/// <summary>
 	/// スケルトンを関連付ける。
 	/// </summary>
@@ -72,12 +73,12 @@ public:
 			queryFunc(*mesh);
 		}
 	}
-	void QueryMeshAndDescriptorHeap(std::function<void(const SMesh& mesh, const DescriptorHeap& ds)> queryFunc)
+	/*void QueryMeshAndDescriptorHeap(std::function<void(const SMesh& mesh, const DescriptorHeap& ds)> queryFunc)
 	{
 		for( int i = 0; i < m_meshs.size(); i++ ){
 			queryFunc(*m_meshs[i], m_descriptorHeap[i]);
 		}
-	}
+	}*/
 	Skeleton* GetSkeleton()
 	{
 		return m_skeleton;
@@ -115,13 +116,22 @@ private:
 		Matrix mWorld;		//ワールド行列。
 		Matrix mView;		//ビュー行列。
 		Matrix mProj;		//プロジェクション行列。
+		Matrix mLightView;		//ライトビュー行列
+		Matrix mLightProj;		//ライトプロジェクション行列
+		Matrix mLightViewProj[CascadeShadowMap::SHADOWMAP_NUM];	//ライトビュープロジェクション行列
+		Vector4 mFarList[CascadeShadowMap::SHADOWMAP_NUM];
+		int isShadowReciever;	//シャドウレシーバーのフラグ
+		int shadowMapNumber = 0;	//何番目のシャドウマップにレンダリングするか
 	};
-	ConstantBuffer m_commonConstantBuffer;					//メッシュ共通の定数バッファ。
+	ConstantBuffer m_commonConstantBuffer[CascadeShadowMap::SHADOWMAP_NUM + 1];					//メッシュ共通の定数バッファ。
 	ConstantBuffer m_expandConstantBuffer;					//ユーザー拡張用の定数バッファ
 	IShaderResource* m_expandShaderResourceView = nullptr;	//ユーザー拡張シェーダーリソースビュー。
 	StructuredBuffer m_boneMatricesStructureBuffer;			//ボーン行列の構造化バッファ。
 	std::vector< SMesh* > m_meshs;							//メッシュ。
-	std::vector< DescriptorHeap > m_descriptorHeap;		//ディスクリプタヒープ。
+	typedef std::vector<DescriptorHeap> DescriptorHeapList;		//ディスクリプタヒープ。
+	DescriptorHeapList m_descriptorHeapList[CascadeShadowMap::SHADOWMAP_NUM + 1];					//通常描画とカスケードシャドウ用にディスクリプタヒープを用意する
 	Skeleton* m_skeleton = nullptr;								//スケルトン。
 	void* m_expandData = nullptr;								//ユーザー拡張データ。
+	bool m_isInitDescriptorHeap = false;	//ディスクリプタヒープを初期化したか？
+	bool m_isShadowReciever = true;		//シャドウレシーバーのフラグ
 };

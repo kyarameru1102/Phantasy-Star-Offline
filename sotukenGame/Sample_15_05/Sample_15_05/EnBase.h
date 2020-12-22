@@ -65,6 +65,11 @@ public:
 	{
 		return m_death;
 	}
+	Vector3 GetDirection()const
+	{
+		return m_dir;
+	}
+
 protected:
 	SkinModelRender*	m_skinModelRender = nullptr;			//スキンモデル
 	Vector3				m_position = Vector3::Zero;				//座標
@@ -76,5 +81,7 @@ protected:
 	Player*				m_player = nullptr;						//プレイヤー。
 	Vector3				m_toPlayer = Vector3::Zero;				//プレイヤーまでのベクトル。
 	bool				m_death = false;
+	Vector3				m_dir, m_ghostPos;
 };
+
 
