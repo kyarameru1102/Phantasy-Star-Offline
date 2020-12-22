@@ -1,11 +1,11 @@
 #pragma once
+#define _USE_MATH_DEFINES
 class GameCamera;
 class Weapon;
+class PlayerStatusUI;
+#include <math.h>
 #include "Physics/Character/CharacterController.h"
-#include "GameCamera.h"
-#include "Weapon.h"
 #include "PlayerAnimation.h"
-#include "PlayerStatusUI.h"
 /// <summary>
 /// プレイヤークラス。
 /// </summary>
@@ -46,6 +46,10 @@ public:
 	/// </summary>
 	void SetSpeed();
 	/// <summary>
+	/// 回転。
+	/// </summary>
+	void Rotation();
+	/// <summary>
 	/// スタート関数。
 	/// </summary>
 	/// <returns></returns>
@@ -71,6 +75,14 @@ public:
 		return m_position;
 	}
 	/// <summary>
+	/// プレイヤーのレベルを返す。
+	/// </summary>
+	/// <returns></returns>
+	const int GetPlayerLevel() const
+	{
+		return m_playerLevel;
+	}
+	/// <summary>
 	/// HPを減らす。
 	/// </summary>
 	void ReceiveDamage(int damage)
@@ -92,6 +104,14 @@ public:
 	const float GetHP() const
 	{
 		return m_playerHP;
+	}
+	/// <summary>
+	/// 攻撃力を返す。
+	/// </summary>
+	/// <returns></returns>
+	const int GetmAtaackPow() const
+	{
+		return m_ataackPow;
 	}
 	/// <summary>
 	/// プレイヤーのスキンモデルレンダーのインスタンスを返す。
@@ -157,6 +177,8 @@ private:
 	float m_complementaryFlame = 10.0f;//アニメーション補完時間。フレーム数。
 	int jumpStartTimer = 40;
 	float m_playerHP = 100.0f;      //HP。
+	float m_beforeHp = 0.0f;
+	int m_ataackPow = 10; //攻撃力。
 
 	Weapon* m_weapon[2] = { nullptr, nullptr };
 
@@ -184,7 +206,7 @@ private:
 	int ATTACK_ANIM_NUM_X = 1;//Xボタンの攻撃アニメーションの数。
 	int ATTACK_ANIM_NUM_Y = 1;//Yボタンの攻撃アニメーションの数。
 	bool m_attackFlag = false; //攻撃しているフラグ。
-
 	bool m_doNothingFlag = false; //何もしていないフラグ。
+	bool m_deathFlag = false;
 };
 
