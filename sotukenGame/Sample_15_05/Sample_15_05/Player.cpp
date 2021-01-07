@@ -1,14 +1,16 @@
 #include "stdafx.h"
 #include "Player.h"
-
+#include "GameCamera.h"
+#include "Weapon.h"
+#include "PlayerStatusUI.h"
 const float MAX_SPEED_Y = 40.0f; //Y方向のスピードの最大値。
 const float FLAME_NUM = 30.0f;  //フレーム数。
 const float FLUCTUATION_VALUE_Y = MAX_SPEED_Y / FLAME_NUM; //Y方向のスピードの変動値。
                                                            //Y方向のスピードの最大値をフレーム数で割って、
                                                            //1フレームあたりの変動値を求める。
-//const int ATTACK_ANIM_NUM_X = 4;//Xボタンの攻撃アニメーションの数。
-//const int ATTACK_ANIM_NUM_Y = 3;//Yボタンの攻撃アニメーションの数。
-//                                //入る数はアニメーションの数-１の数値を入れる。
+const float MAX_ANGLE = 360.0f;//最大の角度。
+const float HALF_ANGLE = 180.0f;//半分の角度。
+const float ROTATION_AMOUNT = 10.0f;//回転量。
 Player::Player()
 {
 }
@@ -75,9 +77,9 @@ void Player::AttackFlag(int attackTime01_blad, int attackAnimNum, int attackTime
 		m_totalAttackAnimationTime = attackTimer + m_playerAnim->GetAttackAnimationTime()[m_attackAnimationTimeNum];
 		m_continuousAttackTime = attackTimer + m_playerAnim->GetSwitchAttackTime()[m_attackAnimationTimeNum];;
 		//フラグを立てて、この時は攻撃中でも方向を変えれるようにする。
-		m_attackAngleFlag = true;
+		m_attackAngleFlag = false;
 
-		m_attackFlag = true;
+		//m_attackFlag = true;
 	}
 }
 void Player::AttackEnd()
@@ -98,10 +100,12 @@ void Player::AttackEnd()
 	m_attackNum = 0;
 	m_totalAttackAnimationTime = 0;
 	m_animState = enStay_blad;
+	m_attackAngleFlag = false;
 }
 void Player::Attack()
 {
 	if (m_attackAnimationFlag != false) {
+		m_attackAngleFlag = true;
 		if (attackTimer >= m_continuousAttackTime) {
 			m_moveSpeed = Vector3::Zero;
 
@@ -109,6 +113,7 @@ void Player::Attack()
 		}
 		else {
 			m_moveSpeed = m_dir * 5.0f;
+			m_attackFlag = true;
 		}
 		//攻撃タイマーを加算。
 		attackTimer++;
@@ -229,6 +234,81 @@ void Player::SetSpeed()
 		}
 	}
 }
+void Player::Rotation()
+{
+	if (
+		fabsf(m_moveSpeed.z) > 0.0f ||
+		fabsf(m_moveSpeed.x) > 0.0f) {
+		if (
+			m_attackFlag != true &&
+			m_kaihiFlag != true &&
+			m_attackAngleFlag != true &&
+			m_changeAnimFlag != true &&
+			m_playerHP >= m_beforeHp &&
+			m_playerHP > 0.0f
+			) {
+			//スティックの向いている方向の角度を求める。
+			m_dir = m_moveSpeed;
+			m_dir.Normalize();
+			float sita = atan2f(m_moveSpeed.x, m_moveSpeed.z);
+			sita = sita * HALF_ANGLE / M_PI;
+			if (sita <= 0.0f) {
+				sita += MAX_ANGLE;
+			}
+
+			//今向いている方向の角度を求める。
+			Vector3 nowDir = Vector3::AxisZ;
+			nowDir.Normalize();
+			m_rotation.Apply(nowDir);
+			m_angle = atan2f(nowDir.x, nowDir.z);
+			m_angle = m_angle * HALF_ANGLE / M_PI;
+			if (m_angle <= 0.0f) {
+				m_angle += MAX_ANGLE;
+			}
+
+			//今向いている方向の角度からスティックの向いている方向の角度を引いて、
+			//差を求める。
+			float angleDifference = m_angle - sita;
+			//上で求めた角度の誤差が回転量以内または、攻撃アニメーション中なら
+			if (
+				angleDifference <= ROTATION_AMOUNT && angleDifference >= -ROTATION_AMOUNT ||
+				m_attackAnimationFlag != false
+				) {
+				//今向いている方向の角度にスティックの向いている方向の角度を代入する。
+				m_angle = sita;
+			}
+			else if (m_angle <= sita) {
+				//今向いている方向の角度がスティックの向いている方向の角度より、
+				//小さい。
+				if (angleDifference <= -HALF_ANGLE) {
+					//角度の差が-180以下。
+					//角度をマイナスする。
+					m_angle -= ROTATION_AMOUNT;
+				}
+				else {
+					//角度をプラスする。
+					m_angle += ROTATION_AMOUNT;
+				}
+			}
+			else if (m_angle >= sita) {
+				//今向いている方向の角度がスティックの向いている方向の角度より、
+				//大きい。
+				if (angleDifference >= HALF_ANGLE) {
+					//角度の差が180以上。
+					//角度をプラスする。
+					m_angle += ROTATION_AMOUNT;
+				}
+				else {
+					//角度をマイナスする。
+					m_angle -= ROTATION_AMOUNT;
+				}
+
+			}
+		}
+		m_rotation.SetRotationDeg(Vector3::AxisY, m_angle);
+	}
+	m_playerSkinModel->SetRotation(m_rotation);
+}
 bool Player::Start()
 {
 	//武器のインスタンス作成。
@@ -254,9 +334,10 @@ bool Player::Start()
 	m_weapon[1]->SetBoneNum(m_playerSkinModel->GetModel().GetSkeleton().FindBoneID(L"ik_hand_l"));
 	//プレイヤーのUIのインスタンスを作成。
 	m_playerStatusUI = NewGO<PlayerStatusUI>(0, "playerStatusUI");
-
 	//GameCameraのインスタンスを検索。
 	m_gameCam = FindGO<GameCamera>("gameCamera");
+
+	m_beforeHp = m_playerHP;
 	return true;
 }
 void Player::Update()
@@ -270,7 +351,9 @@ void Player::Update()
 	if (m_changeAnimFlag != true &&//武器変更していない
 		m_charaCon.IsOnGround() != false &&//地面の上にいる
 		m_kaihiFlag != true &&//回避していない。
-		m_attackFlag != true//攻撃中でない。
+		m_attackFlag != true &&//攻撃中でない。
+		m_playerHP >= m_beforeHp &&
+		m_playerHP > 0.0f
 		) {
 		m_doNothingFlag = false;
 	}
@@ -300,20 +383,8 @@ void Player::Update()
 		}
 	}
 	//プレイヤーを回転させる。
-	if (
-		fabsf(m_moveSpeed.z) > 0.0f ||
-		fabsf(m_moveSpeed.x) > 0.0f) {
-
-		if (m_attackFlag != true && m_kaihiFlag != true) {
-			m_dir = m_moveSpeed;
-			m_dir.Normalize();
-			m_angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-			m_attackAngleFlag = false;
-		}
-		m_rotation.SetRotation(Vector3::AxisY, m_angle);
-	}
-	m_playerSkinModel->SetRotation(m_rotation);
-
+	Rotation();
+	
 	//回避のフラグ
 	if (g_pad[0]->IsTrigger(enButtonB) && m_doNothingFlag != true) {
 		//Bボタンを押した。
@@ -349,6 +420,25 @@ void Player::Update()
 	//攻撃。
 	Attack();
 
+	if (m_playerHP < m_beforeHp) {
+		m_animState = enHit_blad;
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+		if (!m_playerSkinModel->GetisAnimationPlaing()) {
+			m_beforeHp = m_playerHP;
+		}
+	}
+
+	if (m_playerHP <= 0.0f) {
+		m_animState = enDeath_blad;
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+		if (!m_playerSkinModel->GetisAnimationPlaing()) {
+			m_deathFlag = true;
+		}
+	}
+
+
 	if (m_weaponState == enSwordState) {
 		//ソード状態なら1足してソード状態のアニメーションを流す。
 		m_animState++;
@@ -359,9 +449,12 @@ void Player::Update()
 	m_playerSkinModel->PlayAnimation(m_animState, complementaryTime);
 
 	//とりあえずプレイヤーのY座標が-500以下になったら戻るようにする。
-	if (m_charaCon.GetPosition().y <= -500.0f || m_playerHP <= 0.0f) {
+	if (m_charaCon.GetPosition().y <= -500.0f || m_deathFlag != false) {
 		m_charaCon.SetPosition({ 0.0f, 500.0f, 0.0f });
 		m_playerHP = 100.0f;
+		m_beforeHp = m_playerHP;
+		m_gameCam->ResetToPlayerVec();
+		m_deathFlag = false;
 	}
 
 	//座標を設定。

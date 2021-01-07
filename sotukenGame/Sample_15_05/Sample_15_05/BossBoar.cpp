@@ -92,7 +92,7 @@ void BossBoar::Update()
 		break;
 	}
 
-	m_ghostObj.SetPosition(ghostPos);
+	m_ghostObj.SetPosition(m_ghostPos);
 	m_ghostObj.SetRotation(m_rotation);
 	m_skinModelRender->SetScale({ 150.0, 150.0, 150.0 });
 	m_skinModelRender->SetRotation(m_rotation);
@@ -111,11 +111,11 @@ void BossBoar::Move()
 	m_movespeed = playerLen * 1.2f;
 	m_movespeed.y = m_speedY;
 	if (m_movespeed.Length() >= 0.0f) {
-		dir = m_movespeed;
-		dir.Normalize();
-		dir *= 500.0f;
+		m_dir = m_movespeed;
+		m_dir.Normalize();
+		m_dir *= 500.0f;
 	}
-	ghostPos = m_position + dir;
+	m_ghostPos = m_position + m_dir;
 	//facePos = m_position + dir;
 	//m_charaConFace.Execute(1.0f,m_movespeed);
 	m_position = m_charaCon.Execute(1.0f, m_movespeed);

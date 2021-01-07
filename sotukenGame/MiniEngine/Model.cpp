@@ -45,13 +45,15 @@ void Model::UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 
 	m_skeleton.Update(m_world);
 }
-void Model::Draw(RenderContext& rc)
+void Model::Draw(RenderContext& rc, EnRenderMode renderMode, int shadowMapNumber)
 {
 	m_meshParts.Draw(
-		rc, 
-		m_world, 
-		g_camera3D->GetViewMatrix(), 
-		g_camera3D->GetProjectionMatrix()
+		rc,
+		m_world,
+		g_camera3D->GetViewMatrix(),
+		g_camera3D->GetProjectionMatrix(),
+		renderMode,
+		shadowMapNumber
 	);
 }
 

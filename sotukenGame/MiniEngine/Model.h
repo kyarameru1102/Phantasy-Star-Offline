@@ -50,7 +50,7 @@ public:
 	/// 描画
 	/// </summary>
 	/// <param name="renderContext">レンダリングコンテキスト</param>
-	void Draw(RenderContext& renderContext);
+	void Draw(RenderContext& renderContext, EnRenderMode renderMode = enRenderMode_Normal, int shadowMapNumber = 0);
 	/// <summary>
 	/// ワールド行列を取得。
 	/// </summary>
@@ -75,10 +75,10 @@ public:
 	{
 		m_meshParts.QueryMeshs(queryFunc);
 	}
-	void QueryMeshAndDescriptorHeap(std::function<void(const SMesh& mesh, const DescriptorHeap& ds)> queryFunc)
+	/*void QueryMeshAndDescriptorHeap(std::function<void(const SMesh& mesh, const DescriptorHeap& ds)> queryFunc)
 	{
 		m_meshParts.QueryMeshAndDescriptorHeap(queryFunc);
-	}
+	}*/
 	Skeleton& GetSkeleton()
 	{
 		return m_skeleton;/**m_meshParts.GetSkeleton();*/

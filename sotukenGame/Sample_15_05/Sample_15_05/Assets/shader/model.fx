@@ -22,12 +22,29 @@ struct SLight{
 	DirLight dirLight;
 };
 
+static const int NUM_CASCADES = 3;
+
+
+
 //モデル用の定数バッファ
 cbuffer ModelCb : register(b0){
 	float4x4 mWorld;
 	float4x4 mView;
 	float4x4 mProj;
+	float4x4 mLightView;
+	float4x4 mLightProj;
+	float4x4 mLightViewProj[NUM_CASCADES];
+	float4 mFarList[NUM_CASCADES];
+	int isShadowReciever;
+	int shadowMapNumber = 0;
 };
+
+/// <summary>
+/// シャドウマップ用の定数バッファ。
+/// </summary>
+cbuffer ShadowMapCb : register(b2) {
+	float4x4 lightViewProjMatrix;	//ライトビュープロジェクション行列。
+}
 
 cbuffer PointLightCb : register(b1){
 	SLight light;
@@ -62,7 +79,7 @@ Texture2D<float4> g_texture : register(t0);
 //法線。
 Texture2D<float4> g_normal : register(t1);
 //ボーン行列
-StructuredBuffer<float4x4> boneMatrix : register(t2);
+StructuredBuffer<float4x4> boneMatrix : register(t3);
 
 //サンプラステート。
 sampler g_sampler : register(s0);

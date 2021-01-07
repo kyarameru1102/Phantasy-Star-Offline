@@ -1,11 +1,11 @@
 #pragma once
+#define _USE_MATH_DEFINES
 class GameCamera;
 class Weapon;
+class PlayerStatusUI;
+#include <math.h>
 #include "Physics/Character/CharacterController.h"
-#include "GameCamera.h"
-#include "Weapon.h"
 #include "PlayerAnimation.h"
-#include "PlayerStatusUI.h"
 /// <summary>
 /// プレイヤークラス。
 /// </summary>
@@ -45,6 +45,10 @@ public:
 	/// 移動スピードを設定する。
 	/// </summary>
 	void SetSpeed();
+	/// <summary>
+	/// 回転。
+	/// </summary>
+	void Rotation();
 	/// <summary>
 	/// スタート関数。
 	/// </summary>
@@ -149,6 +153,14 @@ public:
 	{
 		return &m_charaCon;
 	}
+	/// <summary>
+	/// 死亡フラグを返す。
+	/// </summary>
+	/// <returns></returns>
+	const bool GetDeathFlag() const
+	{
+		return m_deathFlag;
+	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;
@@ -173,6 +185,7 @@ private:
 	float m_complementaryFlame = 10.0f;//アニメーション補完時間。フレーム数。
 	int jumpStartTimer = 40;
 	float m_playerHP = 100.0f;      //HP。
+	float m_beforeHp = 0.0f;
 	int m_ataackPow = 10; //攻撃力。
 
 	Weapon* m_weapon[2] = { nullptr, nullptr };
@@ -201,7 +214,7 @@ private:
 	int ATTACK_ANIM_NUM_X = 1;//Xボタンの攻撃アニメーションの数。
 	int ATTACK_ANIM_NUM_Y = 1;//Yボタンの攻撃アニメーションの数。
 	bool m_attackFlag = false; //攻撃しているフラグ。
-
 	bool m_doNothingFlag = false; //何もしていないフラグ。
+	bool m_deathFlag = false;
 };
 

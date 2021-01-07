@@ -14,6 +14,10 @@ const enum PlayerAnim {
 	enChange_sword,         //ソードからブレイドに変更。
 	enKaihi_blad,           //ブレイド状態で回避。
 	enKaihi_sword,          //ソード状態で回避。
+	enHit_blad,           //ブレイド状態で怯む。
+	enHit_sword,          //ソード状態で怯む。
+	enDeath_blad,         //ブレイド状態で死亡。
+	enDeath_sword,         //ソード状態で死亡。
 	enAttack01_blad,         //ブレイド状態の攻撃1
 	enAttack01_sword,        //ソード状態の攻撃1
 	enAttack02_blad,         //ブレイド状態の攻撃2
