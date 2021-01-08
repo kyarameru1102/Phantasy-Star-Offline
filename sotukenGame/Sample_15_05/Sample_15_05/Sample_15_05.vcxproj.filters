@@ -247,6 +247,9 @@
     <ClCompile Include="Shadow\ShadowMap.cpp">
       <Filter>Engine\Graphics\Shadow</Filter>
     </ClCompile>
+    <ClCompile Include="DrNightmare.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -524,6 +527,9 @@
     </ClInclude>
     <ClInclude Include="Shadow\ShadowMap.h">
       <Filter>Engine\Graphics\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="DrNightmare.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
