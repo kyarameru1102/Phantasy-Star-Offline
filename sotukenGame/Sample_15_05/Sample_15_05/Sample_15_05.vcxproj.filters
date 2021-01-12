@@ -250,6 +250,9 @@
     <ClCompile Include="DrNightmare.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStatus.cpp">
+      <Filter>ソースファイル\Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -530,6 +533,9 @@
     </ClInclude>
     <ClInclude Include="DrNightmare.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStatus.h">
+      <Filter>ソースファイル\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
