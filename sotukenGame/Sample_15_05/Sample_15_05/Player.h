@@ -153,6 +153,14 @@ public:
 	{
 		return &m_charaCon;
 	}
+	/// <summary>
+	/// €–Sƒtƒ‰ƒO‚ğ•Ô‚·B
+	/// </summary>
+	/// <returns></returns>
+	const bool GetDeathFlag() const
+	{
+		return m_deathFlag;
+	}
 private:
 	PlayerAnimation* m_playerAnim = nullptr;
 	SkinModelRender* m_playerSkinModel = nullptr;

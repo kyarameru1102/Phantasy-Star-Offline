@@ -35,6 +35,10 @@ public:
 	{
 		return m_target;
 	}
+	void ResetToPlayerVec()
+	{
+		m_toPlayerVec = { 0.0f, 200.0f, 400.0f };
+	}
 private:
 	Player* m_player = nullptr;
 	Vector3 m_position = Vector3::Zero;
