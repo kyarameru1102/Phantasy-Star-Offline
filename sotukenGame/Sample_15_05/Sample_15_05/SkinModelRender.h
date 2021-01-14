@@ -103,6 +103,11 @@ public:
 	{
 		return m_animation.IsPlaying();
 	}
+	//シャドウキャスターを設定
+	void SetShadowCaster(bool flag)
+	{
+		m_model.SetShadowCaster(flag);
+	}
 private:
 	/// <summary>
 	/// 開始関数。

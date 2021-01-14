@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SkinModelRender.h"
+#include "shadow/CascadeShadowMap.h"
 
 
 SkinModelRender::SkinModelRender() 
@@ -69,6 +70,12 @@ void SkinModelRender::Update()
 	}
 
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
+	SetShadowCaster(true);
+	if (m_model.GetShadowCaster()) {
+		g_graphicsEngine->GetShadowMap()->RegistShadowCaster(&m_model);
+		g_graphicsEngine->GetCascadeShadowMap()->RegistShadowCaster(&m_model);
+	}
 
 	m_renderOK = true;
 }

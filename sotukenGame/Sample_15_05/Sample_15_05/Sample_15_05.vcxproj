@@ -202,9 +202,11 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BoarAnimation.cpp" />
     <ClCompile Include="BossBoar.cpp" />
     <ClCompile Include="BossEnBase.cpp" />
     <ClCompile Include="DrBoar.cpp" />
+    <ClCompile Include="DrNightmare.cpp" />
     <ClCompile Include="EnArmyGenerator.cpp" />
     <ClCompile Include="EnBase.cpp" />
     <ClCompile Include="EnBehaviorTest.cpp" />
@@ -213,6 +215,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="IStage.cpp" />
+    <ClCompile Include="NightmareAnimation.cpp" />
     <ClCompile Include="Physics\GhostObject.cpp" />
     <ClCompile Include="GroupCoreGenerator.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -230,7 +233,11 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Physics\RigidBody.cpp" />
     <ClCompile Include="PlayerAnimation.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="PlayerAttackAnimation.cpp" />
+=======
+    <ClCompile Include="PlayerStatus.cpp" />
+>>>>>>> c89f0462c5d14205720d0cc0dee081656303a277
     <ClCompile Include="PlayerStatusUI.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -298,9 +305,11 @@
     <ClInclude Include="..\..\MiniEngine\util\Stopwatch.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BoarAnimation.h" />
     <ClInclude Include="BossBoar.h" />
     <ClInclude Include="BossEnBase.h" />
     <ClInclude Include="DrBoar.h" />
+    <ClInclude Include="DrNightmare.h" />
     <ClInclude Include="EnArmyGenerator.h" />
     <ClInclude Include="EnBase.h" />
     <ClInclude Include="EnBehaviorTest.h" />
@@ -309,6 +318,7 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="IStage.h" />
+    <ClInclude Include="NightmareAnimation.h" />
     <ClInclude Include="Physics\GhostObject.h" />
     <ClInclude Include="GroupCoreGenerator.h" />
     <ClInclude Include="Menu.h" />
@@ -327,7 +337,11 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Physics\RigidBody.h" />
     <ClInclude Include="PlayerAnimation.h" />
+<<<<<<< HEAD
     <ClInclude Include="PlayerAttackAnimation.h" />
+=======
+    <ClInclude Include="PlayerStatus.h" />
+>>>>>>> c89f0462c5d14205720d0cc0dee081656303a277
     <ClInclude Include="PlayerStatusUI.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Primitive.h" />

@@ -21,7 +21,7 @@ struct PSInput{
 
 Texture2D<float4> albedoTexture : register(t0);	//アルベド。
 Texture2D<float4> normalTexture : register(t1);	//法線。
-//Texture2D<float4> shadowTexture : register(t2); //シャドウ
+Texture2D<float4> shadowTexture : register(t2); //シャドウ
 
 sampler Sampler : register(s0);
 
@@ -36,7 +36,7 @@ float4 PSMain(PSInput In) : SV_Target0
 {
 	float4 albedo = albedoTexture.Sample(Sampler, In.uv);
 	float3 normal = normalTexture.Sample(Sampler, In.uv).xyz;
-	//float shadow = shadowTexture.Sample(Sampler, In.uv);
+	float shadow = shadowTexture.Sample(Sampler, In.uv);
 	normal = (normal * 2.0f)-1.0f;
 	//ライトを計算。
 	float3 lig = 0.0f;
@@ -50,6 +50,6 @@ float4 PSMain(PSInput In) : SV_Target0
 	//finalColor = float4(1.0f, 0.0f, 0.0f, 1.0f);
 	//finalColor.xyz = world;
 	finalColor.xyz *= lig;
-	//finalColor.xyz = float3(shadow, shadow, shadow);
+	finalColor.xyz *= shadow;
 	return finalColor;
 }

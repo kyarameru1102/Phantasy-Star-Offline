@@ -117,6 +117,12 @@ private:
 	Shader m_vsNonSkinModel;						//スキンなしモデル用の頂点シェーダー。
 	Shader m_vsSkinModel;							//スキンありモデル用の頂点シェーダー。
 	Shader m_psModel;								//モデル用のピクセルシェーダー。
+	Shader m_vsNonSkinShadowMap;				//シャドウマップ生成用のスキン無しモデルの頂点シェーダー
+	Shader m_vsSkinShadowMap;					//シャドウマップ生成用のスキンありモデルの頂点シェーダー
+	Shader m_vsNonSkinCascadeShadowMap;				//シャドウマップ生成用のスキン無しモデルの頂点シェーダー
+	Shader m_vsSkinCascadeShadowMap;					//シャドウマップ生成用のスキンありモデルの頂点シェーダー
+	Shader m_psShadowMap;						//シャドウマップ生成用のピクセルシェーダー
+
 };
 
 

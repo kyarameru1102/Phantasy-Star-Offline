@@ -185,7 +185,7 @@
 		std::vector<AnimationClip*>	m_animationClips;	//!<アニメーションクリップの配列。
 		Skeleton* m_skeleton = nullptr;	//!<アニメーションを適用するスケルトン。
 		AnimationPlayController	m_animationPlayController[ANIMATION_PLAY_CONTROLLER_NUM];	//!<アニメーションコントローラ。リングバッファ。
-		int m_numAnimationPlayController = 0;		//!<現在使用中のアニメーション再生コントローラの数。
+		int m_numAnimationPlayController = 1;		//!<現在使用中のアニメーション再生コントローラの数。
 		int m_startAnimationPlayController = 0;		//!<アニメーションコントローラの開始インデックス。
 		float m_interpolateTime = 0.0f;
 		float m_interpolateTimeEnd = 0.0f;
