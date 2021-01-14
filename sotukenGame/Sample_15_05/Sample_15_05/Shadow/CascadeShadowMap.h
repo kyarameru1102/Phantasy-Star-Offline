@@ -14,6 +14,11 @@ public:
 	/// ライトビュー行列を取得
 	/// </summary>
 	/// <returns></returns>
+	static inline CascadeShadowMap& GetCascadeShadowMap()
+	{
+		static CascadeShadowMap shadowmap;
+		return shadowmap;
+	};
 	Matrix GetLightViewMatrix()
 	{
 		return m_lightViewMatrix;
