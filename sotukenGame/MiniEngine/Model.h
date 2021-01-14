@@ -83,6 +83,22 @@ public:
 	{
 		return m_skeleton;/**m_meshParts.GetSkeleton();*/
 	}
+	/// <summary>
+	/// シャドウキャスターのフラグを設定
+	/// </summary>
+	/// <param name="isFlag"></param>
+	void SetShadowCaster(bool isFlag)
+	{
+		m_isShadowCaster = isFlag;
+	}
+	/// <summary>
+	/// シャドウキャスターかどうかを取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetShadowCaster()
+	{
+		return m_isShadowCaster;
+	}
 private:
 	void InitSkeleton(const char* filePath);
 private:
@@ -91,4 +107,5 @@ private:
 	TkmFile m_tkmFile;		//tkmファイル。
 	Skeleton m_skeleton;	//スケルトン。
 	MeshParts m_meshParts;	//メッシュパーツ。
+	bool m_isShadowCaster = true;
 };
