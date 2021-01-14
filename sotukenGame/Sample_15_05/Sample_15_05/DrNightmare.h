@@ -5,6 +5,7 @@
 #include "Physics/GhostObject.h"
 class DrNightmare : public EnBase
 {
+public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -39,7 +40,7 @@ class DrNightmare : public EnBase
 	/// 死。
 	/// </summary>
 	void Die();
-
+private:
 	//ナイトメアのステート
 	enum {
 		Idle_state,

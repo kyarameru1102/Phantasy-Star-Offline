@@ -259,6 +259,9 @@
     <ClCompile Include="NightmareAnimation.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="DrUsurper.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -547,6 +550,9 @@
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="NightmareAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DrUsurper.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
