@@ -215,6 +215,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="IStage.cpp" />
+    <ClCompile Include="NightmareAnimation.cpp" />
     <ClCompile Include="Physics\GhostObject.cpp" />
     <ClCompile Include="GroupCoreGenerator.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -313,6 +314,7 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="IStage.h" />
+    <ClInclude Include="NightmareAnimation.h" />
     <ClInclude Include="Physics\GhostObject.h" />
     <ClInclude Include="GroupCoreGenerator.h" />
     <ClInclude Include="Menu.h" />
