@@ -230,6 +230,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Physics\RigidBody.cpp" />
     <ClCompile Include="PlayerAnimation.cpp" />
+    <ClCompile Include="PlayerAttackAnimation.cpp" />
     <ClCompile Include="PlayerStatusUI.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -326,6 +327,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Physics\RigidBody.h" />
     <ClInclude Include="PlayerAnimation.h" />
+    <ClInclude Include="PlayerAttackAnimation.h" />
     <ClInclude Include="PlayerStatusUI.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Primitive.h" />

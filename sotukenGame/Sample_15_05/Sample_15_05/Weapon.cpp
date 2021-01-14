@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Weapon.h"
-
-
+#include "Player.h"
+#include "EnBase.h"
+#include "PlayerAttackAnimation.h"
 
 Weapon::Weapon()
 {
@@ -27,12 +28,13 @@ bool Weapon::Start()
 	m_skimModelRender->SetPosition(m_position);
 	m_skimModelRender->SetRotation(m_rotation);
 	m_player = FindGO<Player>("player");
+	m_playerAttackAnim = FindGO<PlayerAttackAnimation>("playerAttackAnimation");
+	m_nextAttackNum = m_playerAttackAnim->GetAttackNum();
 	//ゴースト作成。
-	m_nextAttackNum = m_player->GetAttackNum();
 	m_ghostObj.CreateBox(
 		m_position,
 		m_rotation,
-		{ 500.0f, 50.0f, 50.0f }
+		{ 500.0f, 100.0f, 100.0f }
 	);
 	return true;
 }
@@ -60,7 +62,7 @@ void Weapon::Update()
 
 	if (m_player->GetAttackFlag() != false) {
 		//プレイヤーが攻撃している。
-		if (m_nextAttackNum == m_player->GetAttackNum()) {
+		if (m_nextAttackNum == m_playerAttackAnim->GetAttackNum()) {
 			//攻撃フラグが立っている間、毎フレームダメージを与えないようにする。
 			//敵との当たり判定をとる前に、敵がいるかどうかを調べる。
 			QueryGOs<EnBase>("drBoar", [&](EnBase * drBoar)->bool {
@@ -89,6 +91,6 @@ void Weapon::Update()
 		}
 	}
 	else {
-		m_nextAttackNum = m_player->GetAttackNum();
+		m_nextAttackNum = m_playerAttackAnim->GetAttackNum();
 	}
 }

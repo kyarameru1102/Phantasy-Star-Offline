@@ -247,6 +247,9 @@
     <ClCompile Include="Shadow\ShadowMap.cpp">
       <Filter>Engine\Graphics\Shadow</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerAttackAnimation.cpp">
+      <Filter>ソースファイル\Game\Charactor\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -524,6 +527,9 @@
     </ClInclude>
     <ClInclude Include="Shadow\ShadowMap.h">
       <Filter>Engine\Graphics\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
