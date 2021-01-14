@@ -256,6 +256,9 @@
     <ClCompile Include="BoarAnimation.cpp">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="NightmareAnimation.cpp">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -541,6 +544,9 @@
       <Filter>ソースファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="BoarAnimation.h">
+      <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="NightmareAnimation.h">
       <Filter>ソースファイル\Game\Charactor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
