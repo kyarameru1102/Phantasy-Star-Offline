@@ -1,4 +1,6 @@
 #pragma once
+//特殊攻撃のアニメーションは分割してるから、
+//enSpecialAttack_01からenSpecialAttack_03で1つの攻撃。
 const enum PlayerAnim {
 	enStay_blad,            //ブレイド状態。
 	enStay_sword,            //ソード状態。
@@ -36,28 +38,13 @@ const enum PlayerAnim {
 	enAttack08_sword,         //ソード状態の攻撃8
 	enAttack09_blad,         //ブレイド状態の攻撃9
 	enAttack09_sword,         //ソード状態の攻撃9
+	enSpecialAttack_01_blad,
+	enSpecialAttack_01_sword,
+	enSpecialAttack_02_blad,
+	enSpecialAttack_02_sword,
+	enSpecialAttack_03_blad,
+	enSpecialAttack_03_sword,
 	enAnimationClipNum, //アニメーションクリップの数。
-};
-const enum AttackAnimTime {
-	enAttackTime01_blad,
-	enAttackTime02_blad,
-	enAttackTime03_blad,
-	enAttackTime04_blad,
-	enAttackTime05_blad,
-	enAttackTime06_blad,
-	enAttackTime07_blad,
-	enAttackTime08_blad,
-	enAttackTime09_blad,
-	enAttackTime01_sword,
-	enAttackTime02_sword,
-	enAttackTime03_sword,
-	enAttackTime04_sword,
-	enAttackTime05_sword,
-	enAttackTime06_sword,
-	enAttackTime07_sword,
-	enAttackTime08_sword,
-	enAttackTime09_sword,
-	enAttackTimeNum
 };
 class PlayerAnimation : public IGameObject
 {
@@ -71,10 +58,6 @@ public:
 	/// </summary>
 	~PlayerAnimation();
 	/// <summary>
-	/// 攻撃アニメーションの時間を設定。
-	/// </summary>
-	void SetAttackAnimationTime();
-	/// <summary>
 	/// スタート関数。
 	/// </summary>
 	/// <returns></returns>
@@ -83,6 +66,9 @@ public:
 	/// 更新関数。
 	/// </summary>
 	void Update() override;
+
+	void InitAnimation();
+	
 	/// <summary>
 	/// アニメーションクリップを返す。
 	/// </summary>
@@ -95,20 +81,6 @@ public:
 	/// 攻撃アニメーションの時間を設定する配列を返す。
 	/// </summary>
 	/// <returns></returns>
-	int* GetAttackAnimationTime()
-	{
-		return m_attackAnimationTime;
-	}
-	/// <summary>
-	/// 攻撃の切り替えの時間を設定する配列を返す。
-	/// </summary>
-	/// <returns></returns>
-	int* GetSwitchAttackTime()
-	{
-		return m_switchAttackTime;
-	}
 private:
-	int m_attackAnimationTime[enAttackTimeNum];//攻撃アニメーションの時間を設定する配列。
-	int m_switchAttackTime[enAttackTimeNum];//攻撃の切り替えの時間を設定する配列。
 	AnimationClip animClip[enAnimationClipNum];//アニメーションクリップ。
 };

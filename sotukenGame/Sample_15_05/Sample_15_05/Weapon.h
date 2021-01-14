@@ -1,6 +1,7 @@
 #pragma once
-#include "Player.h"
-#include "EnBase.h"
+class Player;
+class EnBase;
+class PlayerAttackAnimation;
 #include "Physics/GhostObject.h"
 class Weapon : public IGameObject
 {
@@ -50,6 +51,7 @@ public:
 private:
 	Player* m_player = nullptr; //プレイヤーのインスタンス。
 	EnBase* m_drBoar = nullptr; //敵のインスタンス。
+	PlayerAttackAnimation* m_playerAttackAnim = nullptr; //プレイヤーの攻撃のインスタンス。
 	SkinModelRender* m_skimModelRender = nullptr; //スキンモデルレンダー。
 	Vector3 m_position = Vector3::Zero;//座標。
 	Quaternion m_rotation = Quaternion::Identity;//回転

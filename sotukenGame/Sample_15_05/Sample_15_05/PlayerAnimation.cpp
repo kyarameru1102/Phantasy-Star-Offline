@@ -5,9 +5,12 @@
 
 PlayerAnimation::PlayerAnimation()
 {
-	//アニメーションロード。
-	//プレイヤーのスキンモデルを初期化するより先にロードしたいから、
-	//コンストラクタでロードする。
+}
+PlayerAnimation::~PlayerAnimation()
+{
+}
+void PlayerAnimation::InitAnimation()
+{
 	//待機状態。
 	animClip[enStay_blad].Load("Assets/animData/player/blad/stay_01.tka");
 	animClip[enStay_blad].SetLoopFlag(true);
@@ -92,55 +95,15 @@ PlayerAnimation::PlayerAnimation()
 	animClip[enAttack09_blad].SetLoopFlag(true);
 	animClip[enAttack09_sword].Load("Assets/animData/player/sword/attack_sword_09.tka");
 	animClip[enAttack09_sword].SetLoopFlag(true);
-}
 
-
-PlayerAnimation::~PlayerAnimation()
-{
-}
-void PlayerAnimation::SetAttackAnimationTime()
-{
-	m_attackAnimationTime[enAttackTime01_blad] = 120;
-	m_attackAnimationTime[enAttackTime02_blad] = 100;
-	m_attackAnimationTime[enAttackTime03_blad] = 120;
-	m_attackAnimationTime[enAttackTime04_blad] = 100;
-	m_attackAnimationTime[enAttackTime05_blad] = 106;
-	m_attackAnimationTime[enAttackTime06_blad] = 100;
-	m_attackAnimationTime[enAttackTime07_blad] = 100;
-	m_attackAnimationTime[enAttackTime08_blad] = 130;
-	m_attackAnimationTime[enAttackTime09_blad] = 110;
-	m_attackAnimationTime[enAttackTime01_sword] = 80;
-	m_attackAnimationTime[enAttackTime02_sword] = 80;
-	m_attackAnimationTime[enAttackTime03_sword] = 90;
-	m_attackAnimationTime[enAttackTime04_sword] = 90;
-	m_attackAnimationTime[enAttackTime05_sword] = 90;
-	m_attackAnimationTime[enAttackTime06_sword] = 90;
-	m_attackAnimationTime[enAttackTime07_sword] = 80;
-	m_attackAnimationTime[enAttackTime08_sword] = 110;
-	m_attackAnimationTime[enAttackTime09_sword] = 150;
-
-	m_switchAttackTime[enAttackTime01_blad] = 20;
-	m_switchAttackTime[enAttackTime02_blad] = 30;
-	m_switchAttackTime[enAttackTime03_blad] = 30;
-	m_switchAttackTime[enAttackTime04_blad] = 30;
-	m_switchAttackTime[enAttackTime05_blad] = 30;
-	m_switchAttackTime[enAttackTime06_blad] = 30;
-	m_switchAttackTime[enAttackTime07_blad] = 30;
-	m_switchAttackTime[enAttackTime08_blad] = 30;
-	m_switchAttackTime[enAttackTime09_blad] = 30;
-	m_switchAttackTime[enAttackTime01_sword] = 20;
-	m_switchAttackTime[enAttackTime02_sword] = 20;
-	m_switchAttackTime[enAttackTime03_sword] = 30;
-	m_switchAttackTime[enAttackTime04_sword] = 30;
-	m_switchAttackTime[enAttackTime05_sword] = 30;
-	m_switchAttackTime[enAttackTime06_sword] = 30;
-	m_switchAttackTime[enAttackTime07_sword] = 20;
-	m_switchAttackTime[enAttackTime08_sword] = 40;
-	m_switchAttackTime[enAttackTime09_sword] = 30;
+	//特殊攻撃
+	animClip[enSpecialAttack_01_blad].Load("Assets/animData/player/blad/attack_blad_special_1.tka");
+	animClip[enSpecialAttack_02_blad].Load("Assets/animData/player/blad/attack_blad_special_2.tka");
+	animClip[enSpecialAttack_02_blad].SetLoopFlag(true);
+	animClip[enSpecialAttack_03_blad].Load("Assets/animData/player/blad/attack_blad_special_3.tka");
 }
 bool PlayerAnimation::Start()
 {
-	SetAttackAnimationTime();
 	return true;
 }
 
